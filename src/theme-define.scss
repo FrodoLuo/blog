@@ -1,0 +1,9 @@
+@import "~@angular/material/theming";
+
+$ink-app-primary: mat-palette($mat-teal);
+
+$ink-app-accent: mat-palette($mat-amber);
+
+$ink-app-warn: mat-palette($mat-red);
+
+$ink-app-theme: mat-light-theme($ink-app-primary, $ink-app-accent, $ink-app-warn);

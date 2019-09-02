@@ -1,0 +1,14 @@
+@import "~@angular/material/theming";
+@import "./theme-define.scss";
+
+@include mat-core();
+
+// $ink-app-primary: mat-palette($mat-light-green);
+
+// $ink-app-accent: mat-palette($mat-amber);
+
+// $ink-app-warn: mat-palette($mat-red);
+
+// $ink-app-theme: mat-light-theme($ink-app-primary, $ink-app-accent, $ink-app-warn);
+
+@include angular-material-theme($ink-app-theme);

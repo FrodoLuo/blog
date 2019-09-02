@@ -1,0 +1,20 @@
+@import "~@angular/material/theming";
+@import "~src/theme-define.scss";
+
+@mixin index-layout($theme) {
+  $primary: mat-color(map-get($theme, primary));
+  .toolbar {
+    background-color: transparent;
+    color: $primary;
+    transition: background ease 0.3s;
+    .mat-icon {
+      transition: color ease 0.3s;
+    }
+  }
+  .toolbar:hover {
+    background-color: $primary;
+    color: white;
+  }
+}
+
+@include index-layout($ink-app-theme);
