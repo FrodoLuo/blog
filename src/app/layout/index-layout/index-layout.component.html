@@ -1,6 +1,9 @@
 <mat-toolbar class="toolbar">
   <mat-icon>home</mat-icon>
 </mat-toolbar>
+<button (click)="scrollTop()" mat-fab class="top-button" color="primary" [class.visible]="showTopBtn()">
+  <mat-icon>vertical_align_top</mat-icon>
+</button>
 <app-motion-background></app-motion-background>
 <div class="page-content">
   <router-outlet></router-outlet>

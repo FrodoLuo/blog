@@ -11,5 +11,12 @@ export class IndexLayoutComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  showTopBtn() {
+    return window.document.documentElement.scrollTop >= window.innerHeight;
+  }
+  scrollTop() {
+    window.document.documentElement.scrollTo({
+      top: 0
+    });
+  }
 }
