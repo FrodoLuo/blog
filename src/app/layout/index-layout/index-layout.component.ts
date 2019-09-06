@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-index-layout',
@@ -7,17 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject(DOCUMENT) private document: Document
+  ) { }
+
+  private loaded = false;
 
   public ngOnInit() {
+    this.document.addEventListener('load', () => {
+      this.loaded = true;
+    })
   }
 
   public showTopBtn() {
-    return window.document.documentElement.scrollTop >= window.innerHeight;
+    if (!this.loaded) { return false; }
+    return this.document.documentElement.scrollTop >= window.innerHeight;
   }
 
   public scrollTop() {
-    window.document.documentElement.scrollTo({
+    this.document.documentElement.scrollTo({
       top: 0
     });
   }

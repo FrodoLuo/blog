@@ -10,6 +10,7 @@ import { MaterialModule } from './modules/material/material.module';
 import { IndexComponent } from './pages/index/index.component';
 import { MotionBackgroundComponent } from './components/motion-background/motion-background.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BlogComponent } from './pages/blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -17,10 +18,11 @@ import { HttpClientModule } from '@angular/common/http';
     IndexLayoutComponent,
     ContentLayoutComponent,
     IndexComponent,
-    MotionBackgroundComponent
+    MotionBackgroundComponent,
+    BlogComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,

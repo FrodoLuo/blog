@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticlesService } from '../../services/articles.service';
 
 @Component({
   selector: 'app-index',
@@ -6,9 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-
-  constructor() { }
-
+  
   public ngOnInit() {
   }
 

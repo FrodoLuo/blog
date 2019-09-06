@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ink-client": {
+    "ink-blog": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ink-client",
+            "outputPath": "dist/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ink-client:build"
+            "browserTarget": "ink-blog:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ink-client:build:production"
+              "browserTarget": "ink-blog:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ink-client:build"
+            "browserTarget": "ink-blog:build"
           }
         },
         "test": {
@@ -112,16 +112,39 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ink-client:serve"
+            "devServerTarget": "ink-blog:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ink-client:serve:production"
+              "devServerTarget": "ink-blog:serve:production"
+            }
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": {
+                "scripts": false,
+                "styles": true
+              }
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ink-client"
+  "defaultProject": "ink-blog"
 }
