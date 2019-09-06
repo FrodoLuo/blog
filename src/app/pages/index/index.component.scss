@@ -1,5 +1,49 @@
 .banner-wrap {
   height: 100vh;
   width: 100%;
-  background: rgba(white, 0.7);
+  background: rgba(155, 155, 155, 0.7);
+  
+  .banner-content {
+    pointer-events: none;
+    position: relative;
+    height: 100%;
+
+    $left-padding: 10%;
+    $bottom-padding: 15%;
+
+    .cover-title {
+      position: absolute;
+      left: $left-padding;
+      bottom: $bottom-padding;
+      color: white;
+
+      h1 {
+        font-family: 'ming';
+        font-weight: normal;
+        font-size: 24px;
+        text-shadow: 0 0 3px rgba(black, 0.2);
+
+        margin: 10px 0;
+      }
+    }
+
+    .holding-line-wrap {
+      content: ' ';
+      display: block;
+      position: absolute;
+      bottom: calc(15% - 10px);
+      left: $left-padding;
+
+      .holding-line {
+        width: 25vw;
+        height: 3px;
+        margin-bottom: 3px;
+        background-color: white;
+
+        &:first-child {
+          height: 1px;
+        }
+      }
+    }
+  }
 }
