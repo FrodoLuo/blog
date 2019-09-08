@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://content.frodoluo.ink/",
+    "target": "https://www.frodoluo.ink/api/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug",

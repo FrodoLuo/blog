@@ -11,6 +11,7 @@
     left: 0;
     top: 0;
     width: 100%;
+    font-family: "ming";
     .mat-icon {
       transition: color ease 0.3s;
     }
@@ -34,5 +35,3 @@
 }
 
 @include index-layout($ink-app-theme);
-
-

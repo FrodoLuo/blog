@@ -9,10 +9,10 @@ import { DOCUMENT } from '@angular/common';
 export class MotionBackgroundComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject(DOCUMENT)private document: Document
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
-  indexBackground = 'http://content.frodoluo.ink/uploads/239aac15d7db4d42b6641c9bdd894d3e.jpg';
+  indexBackground = 'https://www.frodoluo.ink/api/uploads/239aac15d7db4d42b6641c9bdd894d3e.jpg';
 
   fromTop = 0;
 

@@ -15,14 +15,9 @@ export class ArticlesService {
   public $articles = new BehaviorSubject<IArticle[]>([]);
 
   public async getArticles(start: number = 0, num: number = 0) {
-    this.http.get<{data: IArticle[]; }>(
-      'https://ivweb.io/api/v1/article?page=1&per_page=10'
+    this.http.get<IArticle[]>(
+      '/api/articles'
     )
-      .pipe(
-        map(res => {
-          return res.data;
-        })
-      )
       .subscribe(res => {
         this.$articles.next(res);
       });
