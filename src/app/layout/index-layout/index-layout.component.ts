@@ -12,22 +12,8 @@ export class IndexLayoutComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document
   ) { }
 
-  private loaded = false;
 
   public ngOnInit() {
-    this.document.addEventListener('load', () => {
-      this.loaded = true;
-    })
   }
 
-  public showTopBtn() {
-    if (!this.loaded) { return false; }
-    return this.document.documentElement.scrollTop >= window.innerHeight;
-  }
-
-  public scrollTop() {
-    this.document.documentElement.scrollTo({
-      top: 0
-    });
-  }
 }

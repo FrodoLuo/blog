@@ -1,1 +1,5 @@
 <router-outlet></router-outlet>
+
+<button (click)="scrollTop()" mat-fab class="top-button" color="primary" [class.visible]="showTopBtn()">
+  <mat-icon>vertical_align_top</mat-icon>
+</button>

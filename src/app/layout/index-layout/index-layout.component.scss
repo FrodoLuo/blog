@@ -20,18 +20,6 @@
     background-color: $primary;
     color: white;
   }
-  .top-button {
-    position: fixed;
-    right: 50px;
-    bottom: 150px;
-    pointer-events: none;
-    opacity: 0;
-    transition: all ease 0.3s;
-    &.visible {
-      opacity: 1;
-      pointer-events: all;
-    }
-  }
 }
 
 @include index-layout($ink-app-theme);

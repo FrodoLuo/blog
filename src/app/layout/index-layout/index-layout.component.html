@@ -1,10 +1,7 @@
 <mat-toolbar class="toolbar">
   <mat-icon>home</mat-icon>
-  <a mat-button [href]="'blog'">文章</a>
+  <a mat-button routerLink="blog">文章</a>
 </mat-toolbar>
-<button (click)="scrollTop()" mat-fab class="top-button" color="primary" [class.visible]="showTopBtn()">
-  <mat-icon>vertical_align_top</mat-icon>
-</button>
 <app-motion-background></app-motion-background>
 <div class="page-content">
   <router-outlet></router-outlet>
