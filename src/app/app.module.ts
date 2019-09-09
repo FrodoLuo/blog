@@ -11,6 +11,8 @@ import { IndexComponent } from './pages/index/index.component';
 import { MotionBackgroundComponent } from './components/motion-background/motion-background.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BlogComponent } from './pages/blog/blog.component';
+import { DelayedPanelComponent } from './components/delayed-panel/delayed-panel.component';
+import { OnScrollShowDirective } from './directives/on-scroll-show.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { BlogComponent } from './pages/blog/blog.component';
     ContentLayoutComponent,
     IndexComponent,
     MotionBackgroundComponent,
-    BlogComponent
+    BlogComponent,
+    DelayedPanelComponent,
+    OnScrollShowDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

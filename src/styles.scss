@@ -14,3 +14,22 @@ body {
 * {
   font-family: "Roboto";
 }
+
+.lazy-fading {
+  opacity: 0;
+  position: relative;
+  &.show {
+    animation: fading 1s forwards;
+  }
+}
+
+@keyframes fading {
+  0% {
+    top: 16px;
+    opacity: 0;
+  }
+  100% {
+    top: 0px;
+    opacity: 1;
+  }
+}
