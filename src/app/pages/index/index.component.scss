@@ -78,7 +78,42 @@
       }
     }
   }
-
+  .recent-articles {
+    .article-list {
+      margin-top: 80px;
+      .article-list-item {
+        font-size: 20px;
+        &:hover {
+          a {
+            top: -5px;
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+        a {
+          font-family: 'ming';
+          color: black;
+          text-decoration: none;
+          position: relative;
+          transition: all ease 1s;
+          top: 0;
+          &::after {
+            pointer-events: none;
+            transition: all ease 0.3s;
+            width: 0%;
+            display: block;
+            content: ' ';
+            background-color: black;
+            height: 1px;
+          }
+          &:hover, &:active, &:visited {
+            color: black;
+          }
+        }
+      }
+    }
+  }
   .timeline-container {
     margin-top: 50px;
     display: flex;
@@ -127,4 +162,5 @@
       }
     }
   }
+  
 }

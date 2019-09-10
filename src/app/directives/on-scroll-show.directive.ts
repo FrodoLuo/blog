@@ -4,18 +4,25 @@ import { DOCUMENT } from '@angular/common';
 @Directive({
   selector: '[appOnScrollShow]'
 })
-export class OnScrollShowDirective implements OnDestroy {
+export class OnScrollShowDirective implements OnDestroy, OnInit {
 
   constructor(
     el: ElementRef<HTMLElement>,
     @Inject(DOCUMENT) private document: Document
   ) {
     el.nativeElement.classList.add('lazy-fading');
+    this.element = el;
     this.handler = () => { this.handleScroll(el); };
     this.document.addEventListener('scroll', this.handler);
   }
 
+  private element: ElementRef<HTMLElement>;
+
   private handler = null;
+
+  public ngOnInit() {
+    this.handleScroll(this.element);
+  }
 
   public ngOnDestroy() {
     this.document.removeEventListener('scroll', this.handler);

@@ -4,6 +4,7 @@ import { IndexLayoutComponent } from './layout/index-layout/index-layout.compone
 import { IndexComponent } from './pages/index/index.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { BlogComponent } from './pages/blog/blog.component';
+import { ArticleComponent } from './pages/article/article.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: '',
         component: BlogComponent
+      },
+      {
+        path: ':id',
+        component: ArticleComponent
       }
     ]
   }

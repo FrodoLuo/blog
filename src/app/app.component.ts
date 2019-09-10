@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -11,11 +11,13 @@ export class AppComponent {
 
   constructor(
     @Inject(DOCUMENT) private document: Document
-  ) { }
-
-  public showTopBtn() {
-    return this.document.documentElement.scrollTop >= this.document.documentElement.clientHeight;
+  ) {
+    document.addEventListener('scroll', () => {
+      this.showTopBtn = this.document.documentElement.scrollTop >= this.document.documentElement.clientHeight;
+    });
   }
+
+  public showTopBtn = false;
 
   public scrollTop() {
     this.document.documentElement.scrollTo({

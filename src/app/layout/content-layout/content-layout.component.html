@@ -1,4 +1,7 @@
-<mat-toolbar>
-
+<mat-toolbar color="primary">
+  <a mat-button routerLink="/">首页</a>
+  <a mat-button routerLink="blog">文章</a>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<div class="page-content">
+  <router-outlet></router-outlet>
+</div>
