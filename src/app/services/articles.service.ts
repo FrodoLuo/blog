@@ -11,34 +11,21 @@ export class ArticlesService {
   constructor(
     private http: HttpClient,
   ) { }
-
-  public $articles = new BehaviorSubject<IArticle[]>([]);
-
-  public $currentArticle = new BehaviorSubject<IArticle>(null);
-
-  public async getArticles(start: number = 0, num: number = 0) {
-    this.http.get<IArticle[]>(
+  public getRecentArticles(start: number = 0, num: number = 0) {
+    return this.http.get<IArticle[]>(
       '/api/articles'
-    )
-      .subscribe(res => {
-        this.$articles.next(res);
-      });
+    );
   }
 
-  public async getArticleDetail(id: number | string) {
-    this.$currentArticle.next(null);
-    this.http.get<IArticleRes>(
+  public getArticleDetail(id: number | string) {
+    return this.http.get<IArticleRes>(
       `/api/articles/${id}`
     ).pipe(
       map(res => {
-        const r = { ...res };
-        (r as any).tags = (res.tags || '').split(',');
-        return r as any;
+        const r: IArticle = { ...res, splitedTags: res.tags.split(',') };
+        return r;
       })
-    )
-      .subscribe((res: IArticle) => {
-        this.$currentArticle.next(res);
-      });
+    );
   }
 }
 
@@ -64,5 +51,5 @@ export interface IArticle {
     username: string;
   };
   created_at: number;
-  tags: string[];
+  splitedTags: string[];
 }

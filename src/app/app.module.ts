@@ -15,6 +15,8 @@ import { DelayedPanelComponent } from './components/delayed-panel/delayed-panel.
 import { OnScrollShowDirective } from './directives/on-scroll-show.directive';
 import { ArticleComponent } from './pages/article/article.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { ArticlePageResolver } from './router-resolvers/article-page.resolver';
+import { ArticleListResolver } from './router-resolvers/article-list.resolver';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,10 @@ import { MarkdownModule } from 'ngx-markdown';
     HttpClientModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    ArticlePageResolver,
+    ArticleListResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

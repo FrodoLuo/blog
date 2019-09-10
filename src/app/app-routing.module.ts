@@ -5,6 +5,8 @@ import { IndexComponent } from './pages/index/index.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { BlogComponent } from './pages/blog/blog.component';
 import { ArticleComponent } from './pages/article/article.component';
+import { ArticlePageResolver } from './router-resolvers/article-page.resolver';
+import { ArticleListResolver } from './router-resolvers/article-list.resolver';
 
 
 const routes: Routes = [
@@ -14,7 +16,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: IndexComponent
+        component: IndexComponent,
+        resolve: {
+          articleList: ArticleListResolver
+        }
       }
     ]
   },
@@ -28,7 +33,10 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: ArticleComponent
+        component: ArticleComponent,
+        resolve: {
+          article: ArticlePageResolver
+        },
       }
     ]
   }

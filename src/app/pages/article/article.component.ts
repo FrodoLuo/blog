@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticlesService } from 'src/app/services/articles.service';
-import { Subscription } from "rxjs";
-import { IArticle } from "../../services/articles.service";
+import { Subscription } from 'rxjs';
+import { IArticle } from '../../services/articles.service';
 
 @Component({
   selector: 'app-article',
@@ -13,7 +13,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private articlesService: ArticlesService,
   ) { }
 
 
@@ -22,8 +21,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public article: IArticle = null;
 
   ngOnInit() {
-    this.articlesService.getArticleDetail(this.route.snapshot.paramMap.get('id'));
-    this.subscriptions = this.articlesService.$currentArticle.subscribe(v => this.article = v);
+    console.log(this.route.data);
+
   }
 
   ngOnDestroy() {
