@@ -18,12 +18,11 @@ export class BlogComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = null;
 
   ngOnInit() {
-    this.subscriptions = this.articleService.$articles.subscribe(list => this.articleList = list);
-    this.articleService.getArticles();
+
   }
 
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+
   }
 
 }

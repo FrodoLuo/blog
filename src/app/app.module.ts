@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { BlogComponent } from './pages/blog/blog.component';
 import { DelayedPanelComponent } from './components/delayed-panel/delayed-panel.component';
 import { OnScrollShowDirective } from './directives/on-scroll-show.directive';
+import { ArticleComponent } from './pages/article/article.component';
+import { MarkdownModule } from 'ngx-markdown';
+import { ArticlePageResolver } from './router-resolvers/article-page.resolver';
+import { ArticleListResolver } from './router-resolvers/article-list.resolver';
 
 @NgModule({
   declarations: [
@@ -23,16 +27,21 @@ import { OnScrollShowDirective } from './directives/on-scroll-show.directive';
     MotionBackgroundComponent,
     BlogComponent,
     DelayedPanelComponent,
-    OnScrollShowDirective
+    OnScrollShowDirective,
+    ArticleComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    MarkdownModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    ArticlePageResolver,
+    ArticleListResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

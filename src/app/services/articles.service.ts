@@ -11,20 +11,45 @@ export class ArticlesService {
   constructor(
     private http: HttpClient,
   ) { }
-
-  public $articles = new BehaviorSubject<IArticle[]>([]);
-
-  public async getArticles(start: number = 0, num: number = 0) {
-    this.http.get<IArticle[]>(
+  public getRecentArticles(start: number = 0, num: number = 0) {
+    return this.http.get<IArticle[]>(
       '/api/articles'
-    )
-      .subscribe(res => {
-        this.$articles.next(res);
-      });
+    );
+  }
+
+  public getArticleDetail(id: number | string) {
+    return this.http.get<IArticleRes>(
+      `/api/articles/${id}`
+    ).pipe(
+      map(res => {
+        const r: IArticle = { ...res, splitedTags: (res.tags || '').split(',') };
+        return r;
+      })
+    );
   }
 }
 
-export interface IArticle {
+export interface IArticleRes {
+  id: number;
   title: string;
   content: string;
+  brief: string;
+  author: {
+    id: number;
+    username: string;
+  };
+  created_at: number;
+  tags: string;
+}
+export interface IArticle {
+  id: number;
+  title: string;
+  content: string;
+  brief: string;
+  author: {
+    id: number;
+    username: string;
+  };
+  created_at: number;
+  splitedTags: string[];
 }
