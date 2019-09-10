@@ -15,6 +15,14 @@
   </div>
 </div>
 <div class="page-content">
+  <section class="recent-articles">
+    <h1 appOnScrollShow>近期文章</h1>
+    <div class="article-list" appOnScrollShow>
+      <div *ngFor="let article of articleList" class="article-list-item">
+        <a [routerLink]="'/blog/' + article.id">{{article.title}}</a>
+      </div>
+    </div>
+  </section>
   <section class="brief-intro">
     <h1 appOnScrollShow>我</h1>
     <div class="timeline-container">
@@ -24,7 +32,8 @@
       <div class="timeline-item" appOnScrollShow>
         2015
         <div class="circle">
-          <img style="position: relative; top: 5px;" src="https://www.frodoluo.ink/api/uploads/66ee68bd24764c2291a926b30af97308.jpeg" />
+          <img style="position: relative; top: 5px;"
+            src="https://www.frodoluo.ink/api/uploads/66ee68bd24764c2291a926b30af97308.jpeg" />
         </div>
       </div>
       <div class="timeline-item" appOnScrollShow>
@@ -44,14 +53,6 @@
         <div>.</div>
         <div>.</div>
         <div>.</div>
-      </div>
-    </div>
-  </section>
-  <section class="recent-articles">
-    <h1 appOnScrollShow>近期文章</h1>
-    <div class="article-list" appOnScrollShow>
-      <div *ngFor="let article of articleList" class="article-list-item">
-        <a [routerLink]="'/blog/' + article.id">{{article.title}}</a>
       </div>
     </div>
   </section>

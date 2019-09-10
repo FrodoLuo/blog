@@ -30,7 +30,7 @@ export class OnScrollShowDirective implements OnDestroy, OnInit {
 
   public handleScroll(ele: ElementRef<HTMLElement>) {
     const offset = ele.nativeElement.offsetTop - this.document.documentElement.scrollTop;
-    if (offset <= this.document.documentElement.clientHeight * 0.7) {
+    if (offset <= this.document.documentElement.clientHeight * 0.85) {
       ele.nativeElement.classList.add('show');
     }
   }

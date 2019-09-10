@@ -21,7 +21,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public article: IArticle = null;
 
   ngOnInit() {
-    console.log(this.route.data);
+    this.subscriptions = this.route.data.subscribe(data => this.article = data.article);
 
   }
 

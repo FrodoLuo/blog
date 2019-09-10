@@ -22,7 +22,7 @@ export class ArticlesService {
       `/api/articles/${id}`
     ).pipe(
       map(res => {
-        const r: IArticle = { ...res, splitedTags: res.tags.split(',') };
+        const r: IArticle = { ...res, splitedTags: (res.tags || '').split(',') };
         return r;
       })
     );
