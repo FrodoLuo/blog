@@ -12,7 +12,7 @@ export class MotionBackgroundComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document
   ) { }
 
-  indexBackground = 'https://www.frodoluo.ink/api/uploads/239aac15d7db4d42b6641c9bdd894d3e.jpg';
+  indexBackground = 'https://www.frodoluo.ink/api/uploads/36420757cee24c5b91e61b15a7f6eabc.jpg';
 
   fromTop = 0;
 
