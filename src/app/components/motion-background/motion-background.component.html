@@ -1,7 +1,7 @@
 <div class="motion-background">
   <div class="motion-background-content-wrap" [ngStyle]="{'top.px': fromTop}">
     <div class="motion-background-content">
-      <img [src]="indexBackground" />
+      <img [src]="indexBackground | async" />
     </div>
   </div>
 </div>

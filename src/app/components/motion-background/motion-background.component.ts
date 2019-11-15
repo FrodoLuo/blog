@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-motion-background',
@@ -9,10 +10,11 @@ import { DOCUMENT } from '@angular/common';
 export class MotionBackgroundComponent implements OnInit, OnDestroy {
 
   constructor(
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private configService: ConfigService
   ) { }
 
-  indexBackground = 'https://www.frodoluo.ink/api/uploads/36420757cee24c5b91e61b15a7f6eabc.jpg';
+  indexBackground = this.configService.indexBackground$;
 
   fromTop = 0;
 
