@@ -10,12 +10,14 @@ export class UniversalInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let serverReq: HttpRequest<any> = req;
+    console.log('reach intercept', req.url);
     if (this.request) {
-      let newUrl = `${this.request.protocol}://www.frodoluo.ink`;
+      let newUrl = `${this.request.protocol}://119.23.200.164`;
       if (!req.url.startsWith('/')) {
         newUrl += '/';
       }
       newUrl += req.url;
+      console.log(newUrl);
       serverReq = req.clone({url: newUrl});
     }
     return next.handle(serverReq);
