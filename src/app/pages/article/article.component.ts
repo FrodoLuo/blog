@@ -23,7 +23,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions = this.route.data.subscribe(data => this.article = data.article);
-    if (this.document.documentElement.scrollTo) {
+    if (typeof this.document.documentElement.scrollTo === 'function') {
       this.document.documentElement.scrollTo(0, 0);
     }
   }
