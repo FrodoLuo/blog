@@ -21,6 +21,9 @@
       <div *ngFor="let article of articleList" class="article-list-item">
         <a [routerLink]="'/blog/' + article.id">{{article.title}}</a>
       </div>
+      <a class="article-list-more" routerLink="/blog">
+        More
+      </a>
     </div>
   </section>
   <section class="brief-intro">
@@ -35,7 +38,7 @@
           <img [src]="career.source" />
         </div>
       </div>
-      <div class="timeline-item" appOnScrollShow>
+      <div class="timeline-item last" appOnScrollShow>
         未完待续
         <div>.</div>
         <div>.</div>

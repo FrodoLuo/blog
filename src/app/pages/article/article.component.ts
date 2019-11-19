@@ -15,14 +15,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
   ) { }
 
-
   private subscriptions: Subscription;
 
   public article: IArticle = null;
 
   ngOnInit() {
     this.subscriptions = this.route.data.subscribe(data => this.article = data.article);
-
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

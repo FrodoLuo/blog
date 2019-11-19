@@ -1,4 +1,5 @@
 <div class="article" *ngIf="article">
   <h1 class="article-title">{{article.title}}</h1>
+  <div class="article-metadata">{{article.updated_at | date}}, {{article.author.username}}</div>
   <markdown [data]="article.content" class="article" [lineHighlight]="true"></markdown>
 </div>

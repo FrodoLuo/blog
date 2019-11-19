@@ -5,7 +5,7 @@
   $primary: mat-color(map-get($theme, primary));
   .toolbar {
     background-color: transparent;
-    color: $primary;
+    color: white;
     transition: background ease 0.3s;
     position: absolute;
     left: 0;
