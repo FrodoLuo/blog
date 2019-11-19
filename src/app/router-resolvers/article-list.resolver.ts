@@ -14,6 +14,7 @@ export class ArticleListResolver implements Resolve<IArticle[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): IArticle[] | import('rxjs').Observable<IArticle[]> | Promise<IArticle[]> {
+    console.log('retch list resolver')
     return this.articlesService.getRecentArticles();
   }
 
