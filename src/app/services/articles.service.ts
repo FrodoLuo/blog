@@ -11,10 +11,17 @@ export class ArticlesService {
   constructor(
     private http: HttpClient,
   ) { }
-  public getRecentArticles(start: number = 0, num: number = 0) {
+
+  private keyword = '';
+
+  public getRecentArticles(start: number = 0, num: number = 10) {
     return this.http.get<IArticle[]>(
-      '/api/articles'
+      '/api/articles?_sort=updated_at:DESC'
     );
+  }
+
+  public getArticles(start: number = 0, num: number = 10) {
+
   }
 
   public getArticleDetail(id: number | string) {
@@ -38,7 +45,8 @@ export interface IArticleRes {
     id: number;
     username: string;
   };
-  created_at: number;
+  created_at: string;
+  updated_at: string;
   tags: string;
 }
 export interface IArticle {
@@ -50,6 +58,7 @@ export interface IArticle {
     id: number;
     username: string;
   };
-  created_at: number;
+  created_at: string;
+  updated_at: string;
   splitedTags: string[];
 }

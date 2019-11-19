@@ -1,0 +1,46 @@
+@import "~@angular/material/theming";
+@import "~src/theme-define.scss";
+
+@mixin article($theme) {
+
+  $primary: mat-color(map-get($theme, primary));
+
+  .article {
+    letter-spacing: 0px;
+
+    p {
+      text-align: justify;
+      line-height: 24px;
+      word-break: break-all;
+    }
+
+    img {
+      width: 100%;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    blockquote {
+      margin: 0;
+      padding-block-start: 10px;
+      padding-block-end: 10px;
+      padding-inline-start: 40px;
+      padding-inline-end: 40px;
+      background-color: whitesmoke;
+      border-left: 5px $primary solid;
+      p {
+        margin: 0;
+      }
+    }
+    a {
+      color: $primary;
+      text-decoration: none;
+      transition: all ease 0.3s;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+}
+
+@include article($ink-app-theme);
