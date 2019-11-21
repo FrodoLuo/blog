@@ -1,9 +1,41 @@
-.page-content {
-  padding: 24px;
-  min-height: calc(100vh - 64px);
-  box-sizing: border-box;
-  max-width: 1024px;
-  margin: auto;
-  left: 0;
-  right: 0;
+@import "~@angular/material/theming";
+@import "~src/theme-define.scss";
+
+@mixin index-layout($theme) {
+  $primary: mat-color(map-get($theme, primary));
+  .page-content {
+    padding: 24px;
+    min-height: calc(100vh - 64px);
+    box-sizing: border-box;
+    max-width: 1024px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    
+  }
+  .footer {
+    background-color: $primary;
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .beian {
+      margin-bottom: 10px;
+      cursor: pointer;
+      a {
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all ease 0.3s;
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
 }
+
+@include index-layout($ink-app-theme);

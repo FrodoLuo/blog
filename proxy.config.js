@@ -1,7 +1,7 @@
 var HttpsProxyAgent = require('https-proxy-agent');
 var proxyConfig = [{
   context: '/api',
-  target: 'http://119.23.200.164',
+  target: 'http://www.frodoluo.ink/',
   // pathRewrite: {
   //   "^/api": ""
   // },

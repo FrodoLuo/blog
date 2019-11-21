@@ -20,6 +20,29 @@
     background-color: $primary;
     color: white;
   }
+  .footer {
+    background-color: $primary;
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .beian {
+      margin-bottom: 10px;
+      cursor: pointer;
+      a {
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all ease 0.3s;
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
 }
 
 @include index-layout($ink-app-theme);
