@@ -21,11 +21,21 @@ export class ArticleComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription;
 
   public article: IArticle = null;
+  public indexes: Array<{title: string; tab: number}> = [];
 
   ngOnInit() {
     this.subscriptions = this.route.data.subscribe(data => {
       this.article = data.article;
       this.titleService.setTitle(this.article.title);
+      const indexesTitles = this.article.content.match(/^#{1,2}\s.*$/mg) || [];
+      this.indexes = indexesTitles.map(i => {
+        const tabStr = i.match(/#+/);
+        const titleStr = i.match(/#+\s(.*)/)[1] || null;
+        return {
+          title: titleStr,
+          tab: tabStr[0].length
+        }
+      })
     });
     if (typeof this.document.documentElement.scrollTo === 'function') {
       this.document.documentElement.scrollTo(0, 0);
