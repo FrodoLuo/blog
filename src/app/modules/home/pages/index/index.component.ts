@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ArticlesService, IArticle } from '../../services/articles.service';
+import { ArticlesService, IArticle } from '../../../../services/articles.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ConfigService } from "../../services/config.service";
+import { ConfigService } from "../../../../services/config.service";
 
 @Component({
   selector: 'app-index',

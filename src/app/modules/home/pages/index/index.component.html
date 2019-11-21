@@ -16,8 +16,8 @@
 </div>
 <div class="page-content">
   <section class="recent-articles">
-    <h1 appOnScrollShow>近期文章</h1>
-    <div class="article-list" appOnScrollShow>
+    <h1>近期文章</h1>
+    <div class="article-list">
       <div *ngFor="let article of articleList" class="article-list-item">
         <a [routerLink]="'/blog/' + article.id">{{article.title}}</a>
       </div>
@@ -27,18 +27,18 @@
     </div>
   </section>
   <section class="brief-intro">
-    <h1 appOnScrollShow>我</h1>
+    <h1>我</h1>
     <div class="timeline-container">
-      <div class="timeline-item" appOnScrollShow>
+      <div class="timeline-item">
         1996
       </div>
-      <div class="timeline-item" appOnScrollShow *ngFor="let career of (career$ | async)">
+      <div class="timeline-item" *ngFor="let career of (career$ | async)">
         {{career.year}}
         <div class="circle">
           <img [src]="career.source" />
         </div>
       </div>
-      <div class="timeline-item last" appOnScrollShow>
+      <div class="timeline-item last">
         未完待续
         <div>.</div>
         <div>.</div>

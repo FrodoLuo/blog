@@ -1,6 +1,6 @@
-import { Component, OnInit, HostListener, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ConfigService } from '../../services/config.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-motion-background',
