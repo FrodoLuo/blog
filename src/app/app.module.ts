@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { BlogModule } from './modules/blog/blog.module';
 import { HomeModule } from './modules/home/home.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { HomeModule } from './modules/home/home.module';
     MaterialModule,
 
     HomeModule,
-    BlogModule
+    BlogModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   bootstrap: [AppComponent]
 })
