@@ -4,7 +4,7 @@
 <div *ngFor="let item of (articleList | async)">
   <div class="title-item">
     <a [routerLink]="'/blog/' + item.id">
-      <span>{{item.title}}</span>
+      <span class="title">{{item.title}}</span>
       <span class="info">
         <span class="date">{{item.updated_at | date}}</span>
         <span class="user">{{item.author.username}}</span>
