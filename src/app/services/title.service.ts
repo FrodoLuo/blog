@@ -10,7 +10,7 @@ export class TitleService {
     @Inject(DOCUMENT) private document: Document
   ) { }
 
-  private static title = 'FrodoLuoの笔记';
+  private static title = 'FrodoLuo的笔记';
 
   public setTitle(t: string) {
     this.document.title = `${t} - ${TitleService.title}`;
