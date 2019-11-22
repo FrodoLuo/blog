@@ -11,6 +11,13 @@
       opacity: .5;
     }
   }
+  .title {
+    word-break: keep-all;
+    white-space: nowrap;
+    max-width: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
   .info {
     color: gray;
     font-size: 10px;
@@ -19,7 +26,9 @@
     }
     .user {
       width: 80px;
+      text-overflow: ellipsis;
       text-align: right;
+      white-space: nowrap;
     }
   }
 }
