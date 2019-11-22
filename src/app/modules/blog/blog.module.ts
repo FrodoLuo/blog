@@ -6,6 +6,7 @@ import { ArticleComponent } from './pages/article/article.component';
 import { BlogComponent } from './pages/blog/blog.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { ArticlePageResolver } from 'src/app/router-resolvers/article-page.resolver';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ArticlePageResolver } from 'src/app/router-resolvers/article-page.resol
   imports: [
     CommonModule,
     BlogRoutingModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    MaterialModule
   ],
   providers: [
     ArticlePageResolver
