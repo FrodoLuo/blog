@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material';
 import { ArticlesService, IArticle } from '../../../../services/articles.service';
-import { Subscription } from 'rxjs';
+import { fromEventPattern, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blog',
@@ -17,25 +18,18 @@ export class BlogComponent implements OnInit {
   public currentPage = 0;
 
   public articleList = this.articleService.articleList$;
-  public articleCount = this.articleService.articleLength$;
 
-  public changeKeyword = (() => {
-    let timer = null;
-    return (keyword: string) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        this.articleService.setSearch(keyword, this.currentPage);
-      }, 1000);
-    };
-  })();
+  public keyword = new Subject<string>();
 
-  public changePage(page: number) {
-    console.log(page);
-    this.articleService.setPage(page);
-  }
   public ngOnInit() {
-    this.articleService.setSearch('', this.currentPage);
+    this.articleService.setSearch('');
+    this.keyword.pipe(
+      debounceTime(500)
+    ).subscribe(str => this.articleService.setKeyword(str));
   }
 
+  public onShow() {
+    this.articleService.getMore();
+  }
 
 }

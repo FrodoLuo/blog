@@ -1,38 +1,53 @@
-import { Directive, HostListener, ElementRef, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Directive, ElementRef, OnInit, OnDestroy, Inject, Output, EventEmitter } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Subscription, fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Directive({
   selector: '[appOnScrollShow]'
 })
 export class OnScrollShowDirective implements OnDestroy, OnInit {
-
   constructor(
     el: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) document: Document
   ) {
-    el.nativeElement.classList.add('lazy-fading');
+    this.document = document;
     this.element = el;
-    this.handler = () => { this.handleScroll(el); };
-    this.document.addEventListener('scroll', this.handler);
   }
 
+  @Output()
+  public scrollShow = new EventEmitter();
+
+  private shown = false;
+
+  private document: Document;
   private element: ElementRef<HTMLElement>;
 
-  private handler = null;
+  private subscription: Subscription;
 
-  public ngOnInit() {
-    this.handleScroll(this.element);
+  private lastScrollTop = 0;
+
+  ngOnInit() {
+    this.subscription = fromEvent(this.document, 'scroll')
+      .pipe(
+        debounceTime(200)
+      )
+      .subscribe(() => {
+        const offset = this.element.nativeElement.offsetTop;
+        const scroll = this.document.documentElement.scrollTop;
+        const clientHeight = this.document.documentElement.clientHeight;
+        if ((offset <= scroll + clientHeight)) {
+          if (!this.shown) {
+            this.scrollShow.emit();
+          }
+          this.shown = true;
+        } else {
+          this.shown = false;
+        }
+        this.lastScrollTop = scroll;
+      });
   }
-
-  public ngOnDestroy() {
-    this.document.removeEventListener('scroll', this.handler);
+  ngOnDestroy() {
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
-
-  public handleScroll(ele: ElementRef<HTMLElement>) {
-    const offset = ele.nativeElement.offsetTop - this.document.documentElement.scrollTop;
-    if (offset <= this.document.documentElement.clientHeight * 0.85) {
-      ele.nativeElement.classList.add('show');
-    }
-  }
-
 }

@@ -1,16 +1,15 @@
 <mat-form-field>
-  <input #searchbox matInput placeholder="搜索" (input)="changeKeyword(searchbox.value)">
+  <input #searchbox matInput placeholder="搜索" (input)="keyword.next(searchbox.value)">
 </mat-form-field>
-<div *ngFor="let item of (articleList | async)">
-  <div class="title-item">
-    <a [routerLink]="'/blog/' + item.id">
-      <span class="title">{{item.title}}</span>
-      <span class="info">
+<div class="article-container">
+  <a [routerLink]="'/blog/' + item.id" *ngFor="let item of (articleList | async)">
+    <mat-card class="title-item">
+      <mat-card-title class="title">{{item.title}}</mat-card-title>
+      <mat-card-subtitle class="info">
         <span class="date">{{item.updated_at | date}}</span>
         <span class="user">{{item.author.username}}</span>
-      </span>
-    </a>
-  </div>
+      </mat-card-subtitle>
+    </mat-card>
+  </a>
 </div>
-<mat-paginator [pageSize]="10" [length]="articleCount | async" [pageIndex]="currentPage"
-  (page)="changePage($event.pageIndex)"></mat-paginator>
+<div appOnScrollShow (scrollShow)="onShow()"></div>
