@@ -15,6 +15,11 @@
     .mat-icon {
       transition: color ease 0.3s;
     }
+    .nav-content {
+      max-width: 768px;
+      width: 100%;
+      margin: auto;
+    }
   }
   .toolbar:hover {
     background-color: $primary;

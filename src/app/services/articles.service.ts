@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+const PAGE_SIZE = 10;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,10 +15,8 @@ export class ArticlesService {
   ) { }
 
   public articleList$ = new BehaviorSubject<IArticle[]>([]);
-  public articleLength$ = new BehaviorSubject<number>(0);
 
   public currentKeyword$ = new BehaviorSubject<string>('');
-  public currentPage$ = new BehaviorSubject<number>(1);
 
   public getRecentArticles() {
     return this.http.get<IArticle[]>(
@@ -24,17 +24,16 @@ export class ArticlesService {
     );
   }
 
-  public setSearch(keyword: string, page: number) {
+  public setSearch(keyword: string) {
     this.currentKeyword$.next(keyword);
-    this.currentPage$.next(page);
     this.getArticles();
-    this.getArticleLength();
   }
   public setKeyword(keyword: string) {
-    this.setSearch(keyword, this.currentPage$.getValue());
+    this.articleList$.next([]);
+    this.setSearch(keyword);
   }
-  public setPage(page: number) {
-    this.setSearch(this.currentKeyword$.getValue(), page);
+  public getMore() {
+    this.getArticles();
   }
   public getArticleDetail(id: number | string) {
     return this.http.get<IArticleRes>(
@@ -47,17 +46,13 @@ export class ArticlesService {
     );
   }
 
-  public getArticleLength() {
-    this.http.get<number>(
-      `/api/articles/count?title_contains=${this.currentKeyword$.getValue()}`
-    ).subscribe(res => this.articleLength$.next(res));
-  }
-
   private getArticles() {
     this.http.get<IArticle[]>(
       // tslint:disable-next-line: max-line-length
-      `/api/articles?_sort=updated_at:DESC&title_contains=${this.currentKeyword$.getValue()}&_start=${this.currentPage$.getValue() * 10}&_limit=10`
-    ).subscribe(res => this.articleList$.next(res));
+      `/api/articles?_sort=updated_at:DESC&title_contains=${this.currentKeyword$.getValue()}&_start=${this.articleList$.getValue().length}&_limit=${PAGE_SIZE}`
+    ).subscribe(res => {
+      this.articleList$.next(this.articleList$.getValue().concat(res));
+    });
   }
 }
 

@@ -7,6 +7,7 @@ import { BlogComponent } from './pages/blog/blog.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { ArticlePageResolver } from 'src/app/router-resolvers/article-page.resolver';
 import { MaterialModule } from '../material/material.module';
+import { CommonDeclarationModule } from '../common-declaration/common-declaration.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     BlogRoutingModule,
     MarkdownModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    CommonDeclarationModule
   ],
   providers: [
     ArticlePageResolver

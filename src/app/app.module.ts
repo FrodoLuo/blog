@@ -12,13 +12,12 @@ import { BlogModule } from './modules/blog/blog.module';
 import { HomeModule } from './modules/home/home.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { OnScrollShowDirective } from './directives/on-scroll-show.directive';
+import { CommonDeclarationModule } from './modules/common-declaration/common-declaration.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContentLayoutComponent,
-    OnScrollShowDirective
+    ContentLayoutComponent
   ],
   imports: [
     AppRoutingModule,
@@ -26,6 +25,7 @@ import { OnScrollShowDirective } from './directives/on-scroll-show.directive';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    CommonDeclarationModule,
 
     HomeModule,
     BlogModule,
