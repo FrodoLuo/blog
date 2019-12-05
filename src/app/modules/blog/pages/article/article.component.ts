@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IArticle } from '../../../../services/articles.service';
+import { IArticle, ArticlesService } from '../../../../services/articles.service';
 import { DOCUMENT } from '@angular/common';
 import { TitleService } from '../../../../services/title.service';
 
@@ -15,6 +15,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private titleService: TitleService,
+    private articlesService: ArticlesService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -34,8 +35,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
         return {
           title: titleStr,
           tab: tabStr[0].length
-        }
-      })
+        };
+      });
     });
     if (typeof this.document.documentElement.scrollTo === 'function') {
       this.document.documentElement.scrollTo(0, 0);
@@ -44,6 +45,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.titleService.removeSubTitle();
+    this.articlesService.cleanIndexes();
     this.subscriptions.unsubscribe();
   }
 

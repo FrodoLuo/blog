@@ -8,12 +8,16 @@ import { MarkdownModule } from 'ngx-markdown';
 import { ArticlePageResolver } from 'src/app/router-resolvers/article-page.resolver';
 import { MaterialModule } from '../material/material.module';
 import { CommonDeclarationModule } from '../common-declaration/common-declaration.module';
+import { RemoveMarkdownPipe } from '../../pipes/remove-markdown.pipe';
+import { CutBriefPipe } from '../../pipes/cut-brief.pipe';
 
 
 @NgModule({
   declarations: [
     ArticleComponent,
     BlogComponent,
+    RemoveMarkdownPipe,
+    CutBriefPipe
   ],
   imports: [
     CommonModule,

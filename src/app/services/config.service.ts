@@ -39,9 +39,15 @@ export class ConfigService {
 
   public career$ = new BehaviorSubject<CareerDescription[]>([]);
 
+  public friendLink$ = new BehaviorSubject<FriendLink[]>([]);
+
+  public promote$ = new BehaviorSubject<Promote>(null);
+
   public fetchConfig() {
     this.fetchBackground();
     this.fetchCareer();
+    this.fetchFLink();
+    this.fetchPromote();
   }
 
   public fetchBackground() {
@@ -65,6 +71,26 @@ export class ConfigService {
         this.career$.next(res);
       });
   }
+  public fetchFLink() {
+    this.http.get<Array<{ title: string; data: FriendLink[] }>>('/api/configs?title=flink')
+      .pipe(
+        map(res => res[0])
+      )
+      .subscribe(res => {
+        this.friendLink$.next(res.data);
+      });
+  }
+  public fetchPromote() {
+    this.http.get<Array<ConfigRes<Promote>>>('/api/configs?title=promote')
+      .pipe(
+        map(res => res[0] || null)
+      )
+      .subscribe(res => {
+        if (res === null) { this.promote$.next(null); } else {
+          this.promote$.next(res.data);
+        }
+      });
+  }
 }
 
 interface IMediaRes {
@@ -77,6 +103,10 @@ interface IMediaRes {
   source: IMedia;
 }
 
+interface ConfigRes<T> {
+  title: string;
+  data: T;
+}
 export interface IMedia {
   id: number;
   name: string;
@@ -87,4 +117,14 @@ export interface IMedia {
 export interface CareerDescription {
   source: string;
   year: string;
+}
+
+export interface FriendLink {
+  name: string;
+  href: string;
+}
+
+export interface Promote {
+  href: string;
+  source: string;
 }

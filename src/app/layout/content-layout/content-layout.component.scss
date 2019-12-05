@@ -10,6 +10,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     position: fixed;
+
+    a {
+      font-family: "ming";
+    }
   }
 
   .nav-content {
@@ -24,49 +28,110 @@
     margin: auto;
     position: relative;
     display: flex;
+
     .page-content {
       flex: 1;
       padding: 86px 16px 16px 16px;
-      min-height: calc(100vh - 64px - 54px);
       box-sizing: border-box;
       max-width: 768px;
-      margin-right: auto;
-      margin-left: 0;
-      left: 0;
-      right: 0;
+      width: 100%;
       background-color: white;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
       z-index: 100
     }
+
     .sider {
       width: 240px;
       margin-left: 16px;
       margin-top: 80px;
-      right: 0;
-      top: 80px;
+
+      .sticky-part {
+        width: 240px;
+      }
+
+      .index-container {
+        li {
+          list-style: none;
+          line-height: 28px;
+        }
+
+        .indent {
+          position: relative;
+        }
+
+        .indent-2 {
+          @extend .indent;
+          left: 0px;
+        }
+
+        .indent-3 {
+          @extend .indent;
+          left: 20px;
+        }
+
+        .indent-4 {
+          @extend .indent;
+          left: 40px;
+          color: black;
+        }
+      }
+
+      mat-card {
+        margin-bottom: 12px;
+      }
+
+      h3,
+      a {
+        font-family: "ming";
+      }
+
+      .flink-container {
+        line-height: 30px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      align-items: center;
+
+      .sider {
+        width: 100%;
+        margin: 16px 0;
+
+        .sticky-part,
+        .sticky-part {
+          width: 100%;
+        }
+
+        .footer {
+          padding: 0 16px;
+        }
+      }
+      .page-content {
+        padding-top: 42px;
+      }
     }
   }
 
   .footer {
     margin: 10px 0;
-    color: gray;
+    color: #aaaaaa;
+    font-size: 10px;
+    line-height: 30px;
 
     .copy {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .beian {
+    a {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: $primary;
       cursor: pointer;
+      text-decoration: none;
+      transition: all ease 0.3s;
 
-      a {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: gray;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all ease 0.3s;
-
-        &:hover {
-          opacity: 0.6;
-        }
+      &:hover {
+        opacity: 0.6;
       }
     }
   }
