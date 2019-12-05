@@ -9,7 +9,7 @@ export class StickyDirective implements OnInit, OnDestroy {
 
   constructor(
     el: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) document: Document
+    @Inject(DOCUMENT) document: Document,
   ) {
     this.element = el;
     this.document = document;
@@ -22,43 +22,57 @@ export class StickyDirective implements OnInit, OnDestroy {
 
   private element: ElementRef<HTMLElement>;
   private document: Document;
-
+  private savedTop: number | null = 0;
   private subscription: Subscription;
 
   private recover() {
     this.element.nativeElement.style.left = '';
+    this.element.nativeElement.style.top = '';
     this.element.nativeElement.style.position = '';
+    this.element.nativeElement.style.marginLeft = '';
+    this.element.nativeElement.style.marginTop = '';
     this.isFixed = false;
   }
 
   private stick() {
-    console.log({e: this.element.nativeElement});
-    // this.element.nativeElement.style.left = `${this.element.nativeElement.clientLeft}px`;
-    // this.element.nativeElement.style.top = '0';
-    // this.element.nativeElement.style.position = 'fixed';
+    this.savedTop = this.element.nativeElement.offsetTop;
+    this.element.nativeElement.style.left = `${this.searchOffset(this.element.nativeElement)}px`;
+    this.element.nativeElement.style.top = `${this.top}px`;
+    this.element.nativeElement.style.position = 'fixed';
+    this.element.nativeElement.style.marginLeft = '0';
+    this.element.nativeElement.style.marginTop = '0';
     this.isFixed = true;
   }
 
-  public ngOnInit() {
-    this.subscription = fromEvent(this.document, 'scroll').subscribe(
-      () => {
-        const offset = this.element.nativeElement.offsetTop;
-        const scroll = this.document.documentElement.scrollTop;
-        if ((offset <= scroll + this.top)) {
-          if (!this.isFixed) {
-            this.stick();
-          }
-        } else {
-          if (this.isFixed) {
-            this.recover();
-          }
-        }
+  private searchOffset(element: HTMLElement): number {
+    return element.offsetParent
+      ? element.offsetLeft + this.searchOffset(element.offsetParent as HTMLElement)
+      : element.offsetLeft;
+  }
+
+  public checkStatus() {
+    const offset = this.element.nativeElement.offsetTop;
+    const scroll = this.document.documentElement.scrollTop;
+    if (this.isFixed) {
+      if (scroll + this.top <= this.savedTop) {
+        this.recover();
       }
-    );
+    } else {
+      if (offset <= scroll + this.top) {
+        this.stick();
+      }
+    }
+
+  }
+
+  public ngOnInit() {
+    this.savedTop = this.element.nativeElement.offsetTop - this.top;
+    this.subscription = fromEvent(this.document, 'scroll').subscribe(this.checkStatus.bind(this))
+      .add(fromEvent(this.document, 'resize').subscribe(this.checkStatus.bind(this)));
   }
 
   public ngOnDestroy() {
-
+    this.subscription.unsubscribe();
   }
 
 

@@ -2,14 +2,23 @@
   <input #searchbox matInput placeholder="搜索" (input)="keyword.next(searchbox.value)">
 </mat-form-field>
 <div class="article-container">
-  <a [routerLink]="'/blog/' + item.id" *ngFor="let item of (articleList | async)">
-    <mat-card class="title-item">
-      <mat-card-title class="title">{{item.title}}</mat-card-title>
-      <mat-card-subtitle class="info">
+  <div *ngFor="let item of (articleList | async)">
+    <div class="title-item">
+      <a [routerLink]="'/blog/' + item.id" class="title">{{item.title}}</a>
+      <div class="info">
         <span class="date">{{item.updated_at | date}}</span>
         <span class="user">{{item.author.username}}</span>
-      </mat-card-subtitle>
-    </mat-card>
-  </a>
+      </div>
+      <div class="description-container">
+        <div class="cover" *ngIf="item.cover">
+          <img [src]="item.cover" />
+        </div>
+        <div class="brief">
+          {{item.content | cutBrief | removeMarkdown}}
+        </div>
+      </div>
+      <a [routerLink]="'/blog/' + item.id">More</a>
+    </div>
+  </div>
 </div>
 <div appOnScrollShow (scrollShow)="onShow()"></div>

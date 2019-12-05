@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 const PAGE_SIZE = 10;
 
@@ -17,6 +17,8 @@ export class ArticlesService {
   public articleList$ = new BehaviorSubject<IArticle[]>([]);
 
   public currentKeyword$ = new BehaviorSubject<string>('');
+
+  public indexes$ = new BehaviorSubject<Index[] | null>(null);
 
   public getRecentArticles() {
     return this.http.get<IArticle[]>(
@@ -42,8 +44,29 @@ export class ArticlesService {
       map(res => {
         const r: IArticle = { ...res, splitedTags: (res.tags || '').split(',') };
         return r;
+      }),
+      tap(data => {
+        this.setIndexes(data.content);
       })
     );
+  }
+
+  private setIndexes(content: string) {
+    const indexes = content.split(/\n/)
+      .filter(str => str.match(/^#+\s.*$/))
+      .filter(str => str.split(/\s/)[0].length < 5)
+      .map(str => {
+        const [c, ...h] = str.split(/\s/);
+        return {
+          title: h.join(' '),
+          indent: Number(c.length)
+        };
+      });
+    this.indexes$.next(indexes);
+  }
+
+  public cleanIndexes() {
+    this.indexes$.next(null);
   }
 
   private getArticles() {
@@ -81,4 +104,9 @@ export interface IArticle {
   created_at: string;
   updated_at: string;
   splitedTags: string[];
+}
+
+export interface Index {
+  title: string;
+  indent: number;
 }

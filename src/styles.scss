@@ -1,35 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./theme.scss";
 @import "./assets/styles/article.scss";
-html,
-body {
-  height: 100%;
+
+html {
+  background: #f6f5ff;
 }
+
 body {
   margin: 0;
   font-family: Roboto, serif;
-  background: #f5faff; 
 }
 
-* {
-  font-family: 'ming', serif;
-}
+@mixin common-entity($theme) {
+  $primary: mat-color(map-get($theme, primary));
 
-.lazy-fading {
-  opacity: 0;
-  position: relative;
-  &.show {
-    animation: fading 1s forwards;
+  .page {
+    background: transparent;
+  }
+  a {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    color: $primary;
+    text-decoration: none;
+    transition: all ease 0.3s;
+
+    &:hover {
+      opacity: 0.6;
+    }
   }
 }
 
-@keyframes fading {
-  0% {
-    top: 16px;
-    opacity: 0;
-  }
-  100% {
-    top: 0px;
-    opacity: 1;
-  }
-}
+@include common-entity($ink-app-theme);

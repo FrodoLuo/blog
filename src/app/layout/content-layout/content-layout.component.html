@@ -8,16 +8,43 @@
   <div class="page-content">
     <router-outlet></router-outlet>
   </div>
-  <div class="sider" [appSticky]="80">
-    <mat-card>
-      123
-    </mat-card>
-    <div class="footer">
-      <div class="beian">
-        <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备19145545号</a>
-      </div>
-      <div class="copy">
-        Copyright FrodoLuo
+  <div class="sider">
+    <div class="non-sticky-part" *ngIf="promote$ | async">
+      <mat-card>
+        <a mat-card-image [href]="(promote$ | async).href" target="_blank"><img [src]="(promote$ | async).source" /></a>
+        <mat-card-content>Promote</mat-card-content>
+      </mat-card>
+    </div>
+    <div [appSticky]="80" class="sticky-part">
+      <mat-card *ngIf="indexes$ | async">
+        <h3>目录</h3>
+        <div class="index-container">
+          <li *ngFor="let index of (indexes$ | async)" class="indent-{{index.indent}}">
+            <a (click)="jumpTo(index.title)">{{index.title}}</a>
+          </li>
+        </div>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <h3>友情链接</h3>
+          <div *ngFor="let flink of (friendLinks$ | async)" class="flink-container">
+            <a target="_blank" [href]="flink.href">{{flink.name}}</a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div class="footer">
+        <div class="copy">
+          Content from
+          <a href="mailto:frodoluo@outlook.com">FrodoLuo</a>
+          <br />
+          Based on
+          <a href="https://angular.io" target="_blank">Angular Universal</a>
+          and
+          <a href="https://strapi.io/" target="_blank">Strapi</a>
+        </div>
+        <div class="beian">
+          <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备19145545号</a>
+        </div>
       </div>
     </div>
   </div>

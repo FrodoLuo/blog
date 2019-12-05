@@ -3,6 +3,7 @@
 
 @mixin index-layout($theme) {
   $primary: mat-color(map-get($theme, primary));
+
   .toolbar {
     background-color: transparent;
     color: white;
@@ -11,40 +12,45 @@
     left: 0;
     top: 0;
     width: 100%;
-    font-family: "ming";
+    a {
+      font-family: "ming";
+    }
+
     .mat-icon {
       transition: color ease 0.3s;
     }
+
     .nav-content {
-      max-width: 768px;
+      max-width: 1024px;
       width: 100%;
       margin: auto;
     }
   }
+
   .toolbar:hover {
     background-color: $primary;
     color: white;
   }
+
   .footer {
-    background-color: $primary;
-    height: 108px;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #aaaaaa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    .beian {
-      margin-bottom: 10px;
+    font-size: 10px;
+    line-height: 30px;
+
+    a {
+      color: $primary;
       cursor: pointer;
-      a {
-        color: white;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all ease 0.3s;
-        &:hover {
-          opacity: 0.6;
-        }
+      text-decoration: none;
+      transition: all ease 0.3s;
+
+      &:hover {
+        opacity: 0.6;
       }
     }
   }
