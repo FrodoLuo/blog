@@ -16,13 +16,13 @@
       </mat-card>
     </div>
     <div [appSticky]="80" class="sticky-part">
-      <mat-card *ngIf="indexes$ | async">
+      <mat-card *ngIf="indexes$ | async" class="index-wrap">
         <h3>目录</h3>
-        <div class="index-container">
+        <ul class="index-container">
           <li *ngFor="let index of (indexes$ | async)" class="indent-{{index.indent}}">
             <a (click)="jumpTo(index.title)">{{index.title}}</a>
           </li>
-        </div>
+        </ul>
       </mat-card>
       <mat-card>
         <mat-card-content>

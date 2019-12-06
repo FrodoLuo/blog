@@ -9,7 +9,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
     .title-item {
       margin-bottom: 24px;
       font-family: "ming";
@@ -63,16 +62,21 @@
 
         .brief {
           height: 100%;
-          overflow: hidden;
+          overflow: auto;
           color: gray;
           margin: 12px 0;
           line-height: 32px;
+          word-break: break-all;
+          text-align: left;
           a {
             color: gray;
             text-decoration: none;
           }
         }
       }
+    }
+    .tag-container {
+      margin-top: 10px;
     }
   }
 

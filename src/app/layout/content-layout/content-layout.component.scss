@@ -31,17 +31,18 @@
 
     .page-content {
       flex: 1;
-      padding: 86px 16px 16px 16px;
+      padding: 80px 16px 16px 16px;
       box-sizing: border-box;
       max-width: 768px;
       width: 100%;
       background-color: white;
       box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-      z-index: 100
+      z-index: 100;
     }
 
     .sider {
       width: 240px;
+      max-width: 768px;
       margin-left: 16px;
       margin-top: 80px;
 
@@ -50,8 +51,11 @@
       }
 
       .index-container {
+        padding: 0 16px;
+
+        font-size: 13px;
         li {
-          list-style: none;
+          list-style: square;
           line-height: 28px;
         }
 
@@ -61,17 +65,17 @@
 
         .indent-2 {
           @extend .indent;
-          left: 0px;
+          padding-left: 0px;
         }
 
         .indent-3 {
           @extend .indent;
-          left: 20px;
+          padding-left: 20px;
         }
 
         .indent-4 {
           @extend .indent;
-          left: 40px;
+          padding-left: 40px;
           color: black;
         }
       }
@@ -102,13 +106,19 @@
         .sticky-part {
           width: 100%;
         }
-
+        .index-wrap {
+          display: none;
+        }
+        .non-sticky-part {
+          display: none;
+        }
         .footer {
           padding: 0 16px;
         }
       }
+
       .page-content {
-        padding-top: 42px;
+        padding-top: 64px;
       }
     }
   }
