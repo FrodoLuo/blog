@@ -53,7 +53,23 @@
       .index-container {
         padding: 0 16px;
 
+        max-height: 50vh;
+        overflow-y: auto;
+        overflow-x: hidden;
         font-size: 13px;
+        padding-bottom: 10px;
+        
+        &::-webkit-scrollbar {
+          position: absolute;
+          right: 0;
+          background-color: transparent;
+          width: 4px;
+        }
+        &::-webkit-scrollbar-thumb {
+          width: 4px;
+          background-color: gray;
+          border-radius: 2px;
+        }
         li {
           list-style: square;
           line-height: 28px;
