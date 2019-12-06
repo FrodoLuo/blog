@@ -41,10 +41,7 @@ export class ArticlesService {
     return this.http.get<IArticleRes>(
       `/api/articles/${id}`
     ).pipe(
-      map(res => {
-        const r: IArticle = { ...res, splitedTags: (res.tags || '').split(',') };
-        return r;
-      }),
+      map(this.transformArticleRes),
       tap(data => {
         this.setIndexes(data.content);
       })
@@ -69,13 +66,24 @@ export class ArticlesService {
     this.indexes$.next(null);
   }
 
+  private transformArticleRes(articleRes: IArticleRes): IArticle {
+    const a = {
+      ...articleRes,
+      splitedTags: (articleRes.tags || '').split(/[\s,]/).filter(str => str.length > 0)
+    };
+    return a;
+  }
   private getArticles() {
-    this.http.get<IArticle[]>(
+    this.http.get<IArticleRes[]>(
       // tslint:disable-next-line: max-line-length
       `/api/articles?_sort=updated_at:DESC&title_contains=${this.currentKeyword$.getValue()}&_start=${this.articleList$.getValue().length}&_limit=${PAGE_SIZE}`
-    ).subscribe(res => {
-      this.articleList$.next(this.articleList$.getValue().concat(res));
-    });
+    ).pipe(
+      map(articles => articles.map(this.transformArticleRes))
+    )
+      .subscribe(res => {
+        console.log(res);
+        this.articleList$.next(this.articleList$.getValue().concat(res));
+      });
   }
 }
 

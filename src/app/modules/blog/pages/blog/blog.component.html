@@ -18,7 +18,15 @@
         </div>
       </div>
       <a [routerLink]="'/blog/' + item.id">More</a>
+      <div class="tag-container" *ngIf="item.splitedTags.length > 0">
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of item.splitedTags" selected>{{tag}}</mat-chip>
+        </mat-chip-list>
+      </div>
     </div>
+  </div>
+  <div *ngIf="(articleList | async).length == 0" className="empty-hint">
+
   </div>
 </div>
 <div appOnScrollShow (scrollShow)="onShow()"></div>
