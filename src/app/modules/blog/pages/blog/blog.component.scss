@@ -2,7 +2,6 @@
 @import "~src/theme-define.scss";
 
 @mixin blog-page($theme) {
-
   $primary: mat-color(map-get($theme, primary));
 
   .article-container {
@@ -10,7 +9,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
     .title-item {
-      margin-bottom: 24px;
+      &:not(:last-child) {
+        margin: 12px 0;
+      }
       font-family: "ming";
       .title {
         font-family: "ming";
@@ -79,7 +80,6 @@
       margin-top: 10px;
     }
   }
-
 }
 
 @include blog-page($ink-app-theme);

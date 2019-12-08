@@ -21,8 +21,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription;
 
+  public commentRejected = false;
   public article: IArticle = null;
   public indexes: Array<{title: string; tab: number}> = [];
+  public publishing = false;
 
   ngOnInit() {
     this.subscriptions = this.route.data.subscribe(data => {
@@ -49,4 +51,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  leaveComment(content: string, nick: string) {
+    this.publishing = true;
+    this.articlesService.leaveComment(this.article.id, content, nick)
+      .subscribe(res => {
+        console.log(res);
+        this.publishing = false;
+      })
+
+  }
+  
 }

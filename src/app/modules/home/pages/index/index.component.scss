@@ -6,21 +6,25 @@
   .banner-content {
     pointer-events: none;
     position: relative;
-    height: 100%;
 
-    $left-padding: 10%;
-    $bottom-padding: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 15vh;
+    padding-left: 16px;
+    box-sizing: border-box;
+
+    height: 100%;
+    max-width: 1024px;
+    margin: auto;
 
     .cover-title {
-      position: absolute;
-      left: $left-padding;
-      bottom: $bottom-padding;
       color: white;
 
       h1 {
         font-family: 'ming';
         font-weight: normal;
-        font-size: 24px;
+        font-size: 18px;
         text-shadow: 0 0 3px rgba(black, 0.2);
 
         margin: 10px 0;
@@ -30,10 +34,6 @@
     .holding-line-wrap {
       content: ' ';
       display: block;
-      position: absolute;
-      bottom: calc(15% - 10px);
-      left: $left-padding;
-
       .holding-line {
         width: 25vw;
         height: 3px;
