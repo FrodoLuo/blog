@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IArticle, ArticlesService } from '../../../../services/articles.service';
@@ -20,6 +20,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ) { }
 
   private subscriptions: Subscription;
+  @ViewChild('comment', {
+    static: false
+  }) private commentField: ElementRef<HTMLTextAreaElement>
 
   public commentRejected = false;
   public article: IArticle = null;
@@ -52,11 +55,18 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   leaveComment(content: string, nick: string) {
+    if (content.length == 0) {
+      this.commentRejected = true;
+      return;
+    }
     this.publishing = true;
     this.articlesService.leaveComment(this.article.id, content, nick)
       .subscribe(res => {
         console.log(res);
+        this.commentRejected = false;
         this.publishing = false;
+        this.commentField.nativeElement.value = '';
+        console.log(this.commentField)
         this.articlesService.getArticleDetail(this.article.id)
           .subscribe(res => {
             this.article = res;

@@ -17,7 +17,9 @@
 <div class="comment-field-container">
   <mat-form-field appearance="outline" class="comment-field">
     <textarea matInput placeholder="Leave Some Comments" #comment></textarea>
-    <mat-hint *ngIf="commentRejected">At lease leave something. :)</mat-hint>
+    <mat-hint>
+      <mat-error *ngIf="commentRejected">At lease leave something. :)</mat-error>
+    </mat-hint>
   </mat-form-field>
   <mat-form-field class="nickname-field">
     <input matInput placeholder="Nick Name" #nickname />
