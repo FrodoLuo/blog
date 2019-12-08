@@ -78,6 +78,7 @@ export class ArticlesService {
         .split(/[\s,]/)
         .filter(str => str.length > 0)
     };
+    a.comments.sort((a, b) => b.id - a.id);
     return a;
   }
   private getArticles() {
@@ -97,6 +98,7 @@ export class ArticlesService {
 }
 
 export interface IComment {
+  id: number;
   content: string;
   nickname: string;
   created_at: number;

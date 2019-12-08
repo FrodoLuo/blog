@@ -33,7 +33,7 @@
         {{ comment.nickname }}
       </div>
       <div class="time">
-        {{ comment.created_at | date }}
+        {{ comment.created_at | date: 'medium' }}
       </div>
     </div>
     <div class="comment-content-wrap">
