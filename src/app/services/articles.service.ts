@@ -62,13 +62,13 @@ export class ArticlesService {
     this.indexes$.next(null);
   }
 
-  public leaveComment(articleId: number, content: string, nick: string = "无名氏") {
+  public leaveComment(articleId: number, content: string, nick: string) {
     return this.http.post<IComment>('/api/comments', {
-      nickname: nick,
+      nickname: nick || '无名氏',
       content: content,
       article: articleId,
       permitted: false
-    })
+    });
   }
 
   private transformArticleRes(articleRes: IArticleRes): IArticle {
