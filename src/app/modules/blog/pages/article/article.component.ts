@@ -57,6 +57,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         console.log(res);
         this.publishing = false;
+        this.articlesService.getArticleDetail(this.article.id)
+          .subscribe(res => {
+            this.article = res;
+          })
       })
 
   }
