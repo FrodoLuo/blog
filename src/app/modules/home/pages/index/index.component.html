@@ -16,7 +16,7 @@
 </div>
 <div class="page-content">
   <section class="recent-articles">
-    <h1>近期文章</h1>
+    <h1>Recents</h1>
     <div class="article-list">
       <div *ngFor="let article of articleList" class="article-list-item">
         <a [routerLink]="'/blog/' + article.id">{{article.title}}</a>
@@ -27,7 +27,7 @@
     </div>
   </section>
   <section class="brief-intro">
-    <h1>我</h1>
+    <h1>Me</h1>
     <div class="timeline-container">
       <div class="timeline-item">
         1996

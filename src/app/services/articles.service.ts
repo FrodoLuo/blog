@@ -1,22 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
+import { map, tap } from "rxjs/operators";
 
 const PAGE_SIZE = 10;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ArticlesService {
-
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) {}
 
   public articleList$ = new BehaviorSubject<IArticle[]>([]);
 
-  public currentKeyword$ = new BehaviorSubject<string>('');
+  public currentKeyword$ = new BehaviorSubject<string>("");
 
   public indexes$ = new BehaviorSubject<Index[] | null>(null);
 
@@ -38,9 +35,7 @@ export class ArticlesService {
     this.getArticles();
   }
   public getArticleDetail(id: number | string) {
-    return this.http.get<IArticleRes>(
-      `/api/articles/${id}`
-    ).pipe(
+    return this.http.get<IArticleRes>(`/api/articles/${id}`).pipe(
       map(this.transformArticleRes),
       tap(data => {
         this.setIndexes(data.content);
@@ -49,13 +44,14 @@ export class ArticlesService {
   }
 
   private setIndexes(content: string) {
-    const indexes = content.split(/\n/)
+    const indexes = content
+      .split(/\n/)
       .filter(str => str.match(/^#+\s.*$/))
       .filter(str => str.split(/\s/)[0].length < 5)
       .map(str => {
         const [c, ...h] = str.split(/\s/);
         return {
-          title: h.join(' '),
+          title: h.join(" "),
           indent: Number(c.length)
         };
       });
@@ -66,20 +62,33 @@ export class ArticlesService {
     this.indexes$.next(null);
   }
 
+  public leaveComment(articleId: number, content: string, nick: string = "无名氏") {
+    return this.http.post<IComment>('/api/comments', {
+      nickname: nick,
+      content: content,
+      article: articleId,
+      permitted: false
+    })
+  }
+
   private transformArticleRes(articleRes: IArticleRes): IArticle {
     const a = {
       ...articleRes,
-      splitedTags: (articleRes.tags || '').split(/[\s,]/).filter(str => str.length > 0)
+      splitedTags: (articleRes.tags || "")
+        .split(/[\s,]/)
+        .filter(str => str.length > 0)
     };
     return a;
   }
   private getArticles() {
-    this.http.get<IArticleRes[]>(
-      // tslint:disable-next-line: max-line-length
-      `/api/articles?_sort=updated_at:DESC&title_contains=${this.currentKeyword$.getValue()}&_start=${this.articleList$.getValue().length}&_limit=${PAGE_SIZE}`
-    ).pipe(
-      map(articles => articles.map(this.transformArticleRes))
-    )
+    this.http
+      .get<IArticleRes[]>(
+        // tslint:disable-next-line: max-line-length
+        `/api/articles?_sort=updated_at:DESC&title_contains=${this.currentKeyword$.getValue()}&_start=${
+          this.articleList$.getValue().length
+        }&_limit=${PAGE_SIZE}`
+      )
+      .pipe(map(articles => articles.map(this.transformArticleRes)))
       .subscribe(res => {
         console.log(res);
         this.articleList$.next(this.articleList$.getValue().concat(res));
@@ -87,6 +96,11 @@ export class ArticlesService {
   }
 }
 
+export interface IComment {
+  content: string;
+  nickname: string;
+  created_at: number;
+}
 export interface IArticleRes {
   id: number;
   title: string;
@@ -99,6 +113,7 @@ export interface IArticleRes {
   created_at: string;
   updated_at: string;
   tags: string;
+  comments: IComment[];
 }
 export interface IArticle {
   id: number;
@@ -112,6 +127,7 @@ export interface IArticle {
   created_at: string;
   updated_at: string;
   splitedTags: string[];
+  comments: IComment[];
 }
 
 export interface Index {

@@ -6,7 +6,7 @@ var proxyConfig = [{
   //   "^/api": ""
   // },
   changeOrigin: true,
-  secure: false
+  secure: true
 }];
  
 function setupForCorporateProxy(proxyConfig) {
@@ -21,4 +21,5 @@ function setupForCorporateProxy(proxyConfig) {
   return proxyConfig;
 }
  
-module.exports = setupForCorporateProxy(proxyConfig);
+// module.exports = setupForCorporateProxy(proxyConfig);
+module.exports = proxyConfig;
