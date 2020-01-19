@@ -1,18 +1,38 @@
 main {
   display: flex;
   position: relative;
+
   .side-static-container {
     position: fixed;
     left: 0;
     top: 0;
     height: 100%;
-    width:50vw;
+    width: 50vw;
+    transition: width 400ms 200ms ease;
+
+    img.background {
+      opacity: 1;
+      transition: all 800ms ease;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
     &.toggle {
       width: 30vw;
+
+      img.background {
+        opacity: 0;
+      }
     }
+
   }
+
   .main-container {
     margin-left: 50vw;
+    flex: 1;
+    transition: all 400ms 200ms ease;
     &.toggle {
       margin-left: 30vw;
     }

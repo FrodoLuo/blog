@@ -20,11 +20,11 @@ const routerAnimation = trigger('routerAnimation', [
     group([
       query(':leave', [
         style({ opacity: 1, display: 'block' }),
-        animate('400ms ease', style({ opacity: 0, display: 'none' }))
+        animate('200ms ease', style({ opacity: 0, display: 'none' }))
       ], { optional: true }),
       query(':enter', [
         style({ opacity: 0, display: 'block' }),
-        animate('400ms 400ms ease', style({ opacity: 1 }))
+        animate('400ms 600ms ease', style({ opacity: 1 }))
       ])
     ])
   ])
@@ -40,7 +40,7 @@ export class MainLayoutComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
-    router: Router,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document,
   ) {
     router.events.subscribe((e: RouterEvent) => {
@@ -56,7 +56,16 @@ export class MainLayoutComponent implements OnInit {
     });
   }
 
+  public backgroundSrc = this.configService.indexBackground$;
+
+  public toggle = this.router.url !== '/';
+
   ngOnInit() {
+    this.router.events.subscribe((e: RouterEvent) => {
+      if (e instanceof NavigationEnd) {
+        this.toggle = e.url !== '/';
+      }
+    })
   }
 
 }

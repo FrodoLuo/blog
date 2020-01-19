@@ -1,6 +1,9 @@
 <main>
-  <div class="side-static-container"></div>
-  <div [@routerAnimation]="outlet.isActivated && outlet.activatedRoute" class="main-container">
+  <div class="side-static-container" [class.toggle]="toggle">
+    <div class="content"></div>
+    <img class="background" [src]="backgroundSrc | async" />
+  </div>
+  <div [@routerAnimation]="outlet.isActivated && outlet.activatedRoute" [class.toggle]="toggle" class="main-container">
     <router-outlet #outlet="outlet"></router-outlet>
   </div>
 </main>
