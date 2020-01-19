@@ -1,0 +1,6 @@
+<main>
+  <div class="side-static-container"></div>
+  <div [@routerAnimation]="outlet.isActivated && outlet.activatedRoute" class="main-container">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</main>
