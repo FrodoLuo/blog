@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject } from "rxjs";
-import { map, tap } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 const PAGE_SIZE = 10;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ArticlesService {
   constructor(private http: HttpClient) {}
 
   public articleList$ = new BehaviorSubject<IArticle[]>([]);
 
-  public currentKeyword$ = new BehaviorSubject<string>("");
+  public currentKeyword$ = new BehaviorSubject<string>('');
 
   public indexes$ = new BehaviorSubject<Index[] | null>(null);
 
@@ -51,7 +51,7 @@ export class ArticlesService {
       .map(str => {
         const [c, ...h] = str.split(/\s/);
         return {
-          title: h.join(" "),
+          title: h.join(' '),
           indent: Number(c.length)
         };
       });
@@ -65,7 +65,7 @@ export class ArticlesService {
   public leaveComment(articleId: number, content: string, nick: string) {
     return this.http.post<IComment>('/api/comments', {
       nickname: nick || '无名氏',
-      content: content,
+      content,
       article: articleId,
       permitted: false
     });
@@ -74,7 +74,7 @@ export class ArticlesService {
   private transformArticleRes(articleRes: IArticleRes): IArticle {
     const a = {
       ...articleRes,
-      splitedTags: (articleRes.tags || "")
+      splitedTags: (articleRes.tags || '')
         .split(/[\s,]/)
         .filter(str => str.length > 0)
     };
@@ -116,6 +116,7 @@ export interface IArticleRes {
   updated_at: string;
   tags: string;
   comments: IComment[];
+  cover: string;
 }
 export interface IArticle {
   id: number;
@@ -130,6 +131,7 @@ export interface IArticle {
   updated_at: string;
   splitedTags: string[];
   comments: IComment[];
+  cover: string;
 }
 
 export interface Index {
