@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@an
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IArticle, ArticlesService } from '../../../../services/articles.service';
-import { DOCUMENT } from '@angular/common';
 import { TitleService } from '../../../../services/title.service';
 
 @Component({
@@ -16,7 +15,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private titleService: TitleService,
     private articlesService: ArticlesService,
-    @Inject(DOCUMENT) private document: Document
   ) { }
 
   private subscriptions: Subscription;
@@ -26,7 +24,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   public commentRejected = false;
   public article: IArticle = null;
-  public indexes: Array<{title: string; tab: number}> = [];
+  public indexes: Array<{ title: string; tab: number }> = [];
   public publishing = false;
 
   ngOnInit() {
@@ -43,9 +41,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
         };
       });
     });
-    if (typeof this.document.documentElement.scrollTo === 'function') {
-      this.document.documentElement.scrollTo(0, 0);
-    }
   }
 
   ngOnDestroy() {
@@ -74,5 +69,5 @@ export class ArticleComponent implements OnInit, OnDestroy {
       })
 
   }
-  
+
 }

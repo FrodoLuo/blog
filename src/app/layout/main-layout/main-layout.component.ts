@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { trigger, transition, group, style, animate, query } from '@angular/animations';
+import { ConfigService } from '../../services/config.service';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 const routerAnimation = trigger('routerAnimation', [
   transition('* <=> *', [
@@ -11,6 +14,7 @@ const routerAnimation = trigger('routerAnimation', [
         position: 'absolute',
         top: 0,
         left: 0,
+        width: '100%'
       })
     ]),
     group([
@@ -34,7 +38,23 @@ const routerAnimation = trigger('routerAnimation', [
 })
 export class MainLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private configService: ConfigService,
+    router: Router,
+    @Inject(DOCUMENT) private document: Document,
+  ) {
+    router.events.subscribe((e: RouterEvent) => {
+      if (e instanceof NavigationEnd) {
+        setTimeout(() => {
+          if (typeof this.document.documentElement.scrollTo === 'function') {
+            setTimeout(() => {
+              this.document.documentElement.scrollTo(0, 0);
+            }, 400);
+          }
+        });
+      }
+    });
+  }
 
   ngOnInit() {
   }
