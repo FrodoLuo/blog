@@ -20,26 +20,19 @@ export class ArticleComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription;
   @ViewChild('comment', {
     static: false
-  }) private commentField: ElementRef<HTMLTextAreaElement>
+  }) private commentField: ElementRef<HTMLTextAreaElement>;
 
   public commentRejected = false;
   public article: IArticle = null;
-  public indexes: Array<{ title: string; tab: number }> = [];
   public publishing = false;
+
+  public indexes$ = this.articlesService.indexes$;
 
   ngOnInit() {
     this.subscriptions = this.route.data.subscribe(data => {
       this.article = data.article;
       this.titleService.setTitle(this.article.title);
       const indexesTitles = this.article.content.match(/^#{1,2}\s.*$/mg) || [];
-      this.indexes = indexesTitles.map(i => {
-        const tabStr = i.match(/#+/);
-        const titleStr = i.match(/#+\s(.*)/)[1] || null;
-        return {
-          title: titleStr,
-          tab: tabStr[0].length
-        };
-      });
     });
   }
 
@@ -61,12 +54,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
         this.commentRejected = false;
         this.publishing = false;
         this.commentField.nativeElement.value = '';
-        console.log(this.commentField)
+        console.log(this.commentField);
         this.articlesService.getArticleDetail(this.article.id)
           .subscribe(res => {
             this.article = res;
-          })
-      })
+          });
+      });
 
   }
 

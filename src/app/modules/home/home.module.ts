@@ -7,6 +7,7 @@ import { ArticleListResolver } from 'src/app/router-resolvers/article-list.resol
 import { MotionBackgroundComponent } from './components/motion-background/motion-background.component';
 import { IndexLayoutComponent } from './components/index-layout/index-layout.component';
 import { MaterialModule } from '../material/material.module';
+import { MatTooltip } from '@angular/material';
 
 
 @NgModule({
