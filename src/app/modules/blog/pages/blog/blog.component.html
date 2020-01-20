@@ -1,33 +1,36 @@
-<mat-form-field>
-  <input #searchbox matInput placeholder="搜索" [value]="keyword | async" (input)="keyword.next(searchbox.value)">
-</mat-form-field>
-<div class="article-container">
-  <div *ngFor="let item of (articleList | async)">
-    <div class="title-item">
-      <a [routerLink]="'/blog/' + item.id" class="title">{{item.title}}</a>
-      <div class="info">
-        <span class="date">{{item.updated_at | date}}</span>
-        <span class="user">{{item.author.username}}</span>
-      </div>
-      <div class="description-container">
-        <div class="cover" *ngIf="item.cover">
-          <img [src]="item.cover" />
+<div class="main-content">
+  <mat-form-field>
+    <input #searchbox matInput placeholder="搜索" [value]="keyword | async" (input)="keyword.next(searchbox.value)">
+  </mat-form-field>
+  <div class="article-container">
+    <div *ngFor="let item of (articleList | async)">
+      <div class="title-item">
+        <a [routerLink]="'/blog/' + item.id" class="title">{{item.title}}</a>
+        <div class="info">
+          <span class="date">{{item.updated_at | date}}</span>
+          <span class="user">{{item.author.username}}</span>
         </div>
-        <div class="brief">
-          {{item.content | cutBrief | removeMarkdown}}
+        <div class="description-container">
+          <div class="cover" *ngIf="item.cover">
+            <img [src]="item.cover" />
+          </div>
+          <div class="brief">
+            {{item.content | cutBrief | removeMarkdown}}
+          </div>
+        </div>
+        <a [routerLink]="'/blog/' + item.id">More</a>
+        <div class="tag-container" *ngIf="item.splitedTags.length > 0">
+          <mat-chip-list>
+            <mat-chip *ngFor="let tag of item.splitedTags" (click)="keyword.next(tag)" selected>{{tag}}</mat-chip>
+          </mat-chip-list>
         </div>
       </div>
-      <a [routerLink]="'/blog/' + item.id">More</a>
-      <div class="tag-container" *ngIf="item.splitedTags.length > 0">
-        <mat-chip-list>
-          <mat-chip *ngFor="let tag of item.splitedTags" (click)="keyword.next(tag)" selected>{{tag}}</mat-chip>
-        </mat-chip-list>
-      </div>
+      <hr />
     </div>
-    <hr />
-  </div>
-  <div *ngIf="(articleList | async).length == 0" className="empty-hint">
+    <div *ngIf="(articleList | async).length == 0" className="empty-hint">
 
+    </div>
   </div>
+  <div appOnScrollShow (scrollShow)="onShow()"></div>
+
 </div>
-<div appOnScrollShow (scrollShow)="onShow()"></div>

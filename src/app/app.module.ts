@@ -13,11 +13,13 @@ import { HomeModule } from './modules/home/home.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CommonDeclarationModule } from './modules/common-declaration/common-declaration.module';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContentLayoutComponent
+    ContentLayoutComponent,
+    MainLayoutComponent
   ],
   imports: [
     AppRoutingModule,

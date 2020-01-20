@@ -1,44 +1,60 @@
 .article {
-  font-family: "ming";
+
   .article-title {
     margin-top: 0;
+    height: 64px;
+    line-height: 64px;
+    display: flex;
+    align-items: center;
   }
+
   padding-bottom: 64px;
   border-bottom: 1px lightgray dashed;
 }
+
 .article-metadata {
   color: gray;
   font-size: 12px;
 }
+
 .comment-field-container {
   margin-top: 48px;
   width: 100%;
   box-sizing: border-box;
+
   .nickname-field {
     padding: 0 .75rem;
     font-size: 14px;
   }
+
   .comment-field {
     width: 100%;
   }
+
   button {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
-  border-bottom: 1px lightgray dashed; 
+
+  border-bottom: 1px lightgray dashed;
   padding-bottom: 12px;
 }
+
 .comments-container {
   margin-top: 24px;
+
   .comment-item {
     margin: 12px 0;
     padding-bottom: 24px;
+
     .comment-info-wrap {
       margin-bottom: 12px;
+
       .nickname {
         font-size: 14px;
         font-weight: bold;
       }
+
       .time {
         color: lightgray;
         margin-top: 6px;
@@ -46,6 +62,7 @@
         font-size: 10px;
       }
     }
+
     .comment-content-wrap {
       padding: 0 12px;
       font-size: 13px;
@@ -53,3 +70,4 @@
     }
   }
 }
+

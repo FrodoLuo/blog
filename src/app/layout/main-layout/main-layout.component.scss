@@ -1,0 +1,338 @@
+@import "~@angular/material/theming";
+@import "~src/theme-define.scss";
+
+@mixin main-layout($theme) {
+  $primary: mat-color(map-get($theme, primary));
+  $accent: mat-color(map-get($theme, accent));
+
+  .main-layout {
+    display: flex;
+    position: relative;
+
+    .side-static-container {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 50vw;
+      transition: width 400ms 200ms ease;
+
+      img.background {
+        opacity: 1;
+        z-index: -1;
+        transition: all 800ms ease;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      .content {
+        background: rgba(255, 255, 255, 0.3);
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+
+        .small-screen-nav {
+          display: none;
+        }
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 128px;
+          padding: 0 32px;
+
+          background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
+          transition: all 0.4s ease;
+
+          .menu-container {
+            .small-screen {
+              display: none;
+            }
+
+            button {
+              color: white;
+              height: 64px;
+              width: 32px;
+
+              mat-icon {
+                font-size: 24px;
+              }
+            }
+          }
+        }
+
+        content {
+          flex: 1;
+
+          padding: 0 32px;
+
+          .background-info {
+            text-align: right;
+
+            .background-story {
+              align-self: flex-end;
+              color: white;
+              font-size: 24px;
+              height: 64px;
+              width: 32px;
+            }
+
+          }
+
+          .index-container {
+            padding: 0 16px;
+          
+            list-style: none;
+            text-align: right;
+            max-height: 50vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-size: 13px;
+            padding-bottom: 10px;
+          
+            @media screen and (max-width: 841px) {
+              display: none;
+            }
+          
+            &::-webkit-scrollbar {
+              position: absolute;
+              right: 0;
+              background-color: transparent;
+              width: 4px;
+            }
+          
+            &::-webkit-scrollbar-thumb {
+              width: 4px;
+              background-color: gray;
+              border-radius: 2px;
+            }
+          
+            .indent {
+              position: relative;
+              line-height: 1.5em;
+            }
+            
+            .indent-2 {
+              @extend .indent;
+              margin-top: 15px;
+              margin-bottom: 2px;
+              font-size: 18px;
+              padding-right: 0px;
+            }
+          
+            .indent-3 {
+              @extend .indent;
+              padding-right: 20px;
+            }
+          
+            .indent-4 {
+              @extend .indent;
+              padding-right: 40px;
+              color: black;
+            }
+          }
+        }
+
+        footer {
+          display: flex;
+          padding: 0 32px 32px 32px;
+          justify-content: flex-end;
+          align-items: center;
+
+          min-height: 128px;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+          transition: all 0.4s ease;
+
+          .beian-container {
+            flex: 1;
+            align-self: flex-end;
+            color: white;
+            transition: color 0.4s ease;
+            margin-bottom: 16px;
+
+            .copy {
+              margin-bottom: 20px;
+            }
+
+            a {
+              color: mat-color(map-get($theme, primary), 100);
+            }
+          }
+
+          .contact-container {
+            color: white;
+            display: flex;
+            flex-direction: column;
+
+            a {
+              height: 64px;
+              width: 64px;
+              line-height: 64px;
+
+              i {
+                font-size: 24px;
+              }
+            }
+          }
+        }
+      }
+
+      &.toggle {
+        width: 30vw;
+
+        .content {
+          background: transparent;
+
+          header {
+            background: linear-gradient(to bottom, transparent, transparent);
+
+            .menu-container {
+              button {
+                color: black;
+              }
+            }
+          }
+
+          content {}
+
+          footer {
+            background: linear-gradient(to bottom, transparent, transparent);
+
+            .contact-container {
+              color: black;
+            }
+
+            .beian-container {
+              color: black;
+
+              a {
+                color: mat-color(map-get($theme, primary), 600);
+              }
+            }
+          }
+        }
+
+        img.background {
+          opacity: 0;
+        }
+      }
+
+    }
+
+    .main-container {
+      margin-left: 50vw;
+      flex: 1;
+      transition: all 500ms 200ms ease;
+
+      &.toggle {
+        margin-left: 30vw;
+      }
+    }
+  }
+
+  @media screen and (max-width: 841px) {
+    .main-layout {
+      .side-static-container {
+        position: fixed;
+        z-index: 1000;
+        left: calc(-100% + 64px);
+        width: 100vw;
+        transition: all ease 0.4s;
+
+        .content {
+          position: relative;
+          transition: background 0.4s ease;
+
+          .small-screen-nav {
+            display: block;
+          }
+
+          header {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-end;
+
+            .avatar-container {
+              display: none;
+            }
+
+            .menu-container {
+              .small-screen {
+                display: inherit;
+              }
+
+              .big-screen {
+                display: none;
+              }
+            }
+          }
+
+          content {
+            .background-info {
+              position: absolute;
+              left: 0;
+              top: 0;
+              .background-story {
+                color: rgba(0, 0, 0, 0.87);
+              }
+            }
+            .index-container {
+              display: none;
+            }
+          }
+
+          header,
+          content,
+          footer {
+            padding: 0;
+
+            .beian-container {
+              padding: 5px;
+            }
+          }
+        }
+
+        &.toggle {
+          width: 100vw;
+
+          .content {
+            background: whitesmoke;
+          }
+        }
+
+        &.side-toggle {
+          left: 0;
+
+          .content {
+            background: rgba(255, 255, 255, 0.8) !important;
+          }
+
+          img.background {
+            opacity: 1;
+          }
+        }
+      }
+
+      .main-container {
+        box-sizing: border-box;
+        width: calc(100vw - 64px);
+        margin-left: 64px;
+        overflow: hidden;
+
+        &.toggle {
+          margin-left: 64px;
+        }
+      }
+    }
+  }
+}
+
+@include main-layout($ink-app-theme)
