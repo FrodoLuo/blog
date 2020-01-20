@@ -8,16 +8,10 @@ import { ArticleListResolver } from 'src/app/router-resolvers/article-list.resol
 const routes: Routes = [
   {
     path: '',
-    component: IndexLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: IndexComponent,
-        resolve: {
-          articleList: ArticleListResolver
-        }
-      }
-    ]
+    component: IndexComponent,
+    resolve: {
+      articleList: ArticleListResolver
+    }
   }
 ];
 
