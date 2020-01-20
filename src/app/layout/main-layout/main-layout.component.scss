@@ -117,23 +117,25 @@
           
             .indent {
               position: relative;
-              line-height: 2em;
+              line-height: 1.5em;
             }
             
             .indent-2 {
               @extend .indent;
+              margin-top: 15px;
+              margin-bottom: 2px;
               font-size: 18px;
-              padding-left: 0px;
+              padding-right: 0px;
             }
           
             .indent-3 {
               @extend .indent;
-              padding-left: 20px;
+              padding-right: 20px;
             }
           
             .indent-4 {
               @extend .indent;
-              padding-left: 40px;
+              padding-right: 40px;
               color: black;
             }
           }
