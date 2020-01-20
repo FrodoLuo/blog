@@ -47,7 +47,7 @@ export class ArticlesService {
     const indexes = content
       .split(/\n/)
       .filter(str => str.match(/^#+\s.*$/))
-      .filter(str => str.split(/\s/)[0].length < 5)
+      .filter(str => str.split(/\s/)[0].length < 4)
       .map(str => {
         const [c, ...h] = str.split(/\s/);
         return {

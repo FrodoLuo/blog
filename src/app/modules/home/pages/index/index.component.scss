@@ -1,47 +1,70 @@
 .banner-wrap {
   height: 100vh;
   width: 100%;
-  background: rgba(155, 155, 155, 0.7);
 
   .banner-content {
-    pointer-events: none;
     position: relative;
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: 15vh;
-    padding-left: 16px;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
 
+    background: white;
+
     height: 100%;
-    max-width: 1024px;
-    margin: auto;
 
     .cover-title {
-      color: white;
-
+      color: black;
+      border: 3px solid brown;
+      height: 248px;
+      width: 248px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 16px;
       h1 {
-        font-family: 'ming';
+        font-family: cursive;
         font-weight: normal;
-        font-size: 18px;
-        text-shadow: 0 0 3px rgba(black, 0.2);
-
-        margin: 10px 0;
+        font-size: 24px;
+        margin: 4px 0;
       }
     }
 
-    .holding-line-wrap {
+    .scroll-indicator {
       content: ' ';
-      display: block;
-      .holding-line {
-        width: 25vw;
-        height: 3px;
-        margin-bottom: 3px;
-        background-color: white;
-
-        &:first-child {
-          height: 1px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      bottom: 40px;
+      margin-top: 30px;
+      width: 80px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .mouse {
+        animation: humping 5s ease 1s infinite;
+        position: relative;
+        @keyframes humping {
+          0%{
+            top: 0;
+          }
+          45% {
+            top: 0;
+          }
+          50%{
+            top: -10px;
+          }
+          55% {
+            top: 0;
+          }
+          100% {
+            top: 0;
+          }
         }
       }
     }
@@ -72,7 +95,7 @@ a {
     box-sizing: border-box;
 
     h1 {
-      font-family: 'ming';
+      font-family: cursive;
       position: relative;
       text-align: center;
       width: 200px;
@@ -118,7 +141,7 @@ a {
           display: inline-block;
           position: relative;
 
-          font-family: 'ming';
+          font-family: cursive;
           color: black;
           text-decoration: none;
           
@@ -142,7 +165,7 @@ a {
     justify-content: flex-start;
 
     & * {
-      font-family: 'ming';
+      font-family: cursive;
     }
 
     .timeline-item {
