@@ -11,9 +11,6 @@
     z-index: 1000;
     position: fixed;
 
-    a {
-      font-family: "ming";
-    }
   }
 
   .nav-content {
@@ -98,11 +95,6 @@
 
       mat-card {
         margin-bottom: 12px;
-      }
-
-      h3,
-      a {
-        font-family: "ming";
       }
 
       .flink-container {

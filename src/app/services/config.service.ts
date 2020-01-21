@@ -35,7 +35,7 @@ export class ConfigService {
     this.fetchConfig();
   }
 
-  public indexBackground$ = new BehaviorSubject<string>('');
+  public indexBackground$ = new BehaviorSubject<BackgroundInfo>({ src: '', description: '' });
 
   public career$ = new BehaviorSubject<CareerDescription[]>([]);
 
@@ -57,7 +57,11 @@ export class ConfigService {
         map(sortRes)
       )
       .subscribe(res => {
-        this.indexBackground$.next(res[Math.floor(Math.random() * res.length)].source.url);
+        const randomedBackground = res[Math.floor(Math.random() * res.length)];
+        this.indexBackground$.next({
+          src: randomedBackground.source.url,
+          description: randomedBackground.description
+        });
       });
   }
   public fetchCareer() {
@@ -127,4 +131,9 @@ export interface FriendLink {
 export interface Promote {
   href: string;
   source: string;
+}
+
+export interface BackgroundInfo {
+  src: string;
+  description: string;
 }
