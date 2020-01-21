@@ -3,7 +3,7 @@
 @import "./assets/styles/article.scss";
 
 html {
-  background: #f6f5ff;
+  background: #f4f4f4;
 }
 
 body {
@@ -26,6 +26,15 @@ body {
 
     &:hover {
       opacity: 0.6;
+    }
+  }
+  .main-content {
+    max-width: 786px;
+    left: 0;
+    padding: 32px 4rem;
+    background: white;
+    @media screen and (max-width: 841px) {
+      padding: 32px 1rem;
     }
   }
 }

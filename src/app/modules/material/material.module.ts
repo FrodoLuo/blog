@@ -11,6 +11,7 @@ import {
   MatPaginatorModule,
   MatRippleModule,
   MatToolbarModule,
+  MatTooltipModule,
 } from '@angular/material';
 
 @NgModule({
@@ -26,6 +27,7 @@ import {
     MatPaginatorModule,
     MatRippleModule,
     MatToolbarModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule { }
