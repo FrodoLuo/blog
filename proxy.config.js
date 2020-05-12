@@ -1,7 +1,7 @@
 var HttpsProxyAgent = require('https-proxy-agent');
 var proxyConfig = [{
   context: '/api',
-  target: 'http://www.frodoluo.ink/',
+  target: 'https://www.frodoluo.ink/',
   // pathRewrite: {
   //   "^/api": ""
   // },
@@ -21,5 +21,5 @@ function setupForCorporateProxy(proxyConfig) {
   return proxyConfig;
 }
  
-// module.exports = setupForCorporateProxy(proxyConfig);
-module.exports = proxyConfig;
+module.exports = setupForCorporateProxy(proxyConfig);
+// module.exports = proxyConfig;
