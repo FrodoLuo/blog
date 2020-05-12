@@ -3,7 +3,14 @@ import { trigger, transition, group, style, animate, query } from '@angular/anim
 import { ConfigService } from '../../services/config.service';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { DOCUMENT, Location } from '@angular/common';
-import { ArticlesService } from "../../services/articles.service";
+import { ArticlesService } from '../../services/articles.service';
+import { EventService, EVENTS } from "../../services/event.service";
+
+type IMenuConfig = Array<{
+  path: string;
+  icon: string;
+  name: string;
+}>;
 
 const routerAnimation = trigger('routerAnimation', [
   transition('* <=> *', [
@@ -42,6 +49,7 @@ export class MainLayoutComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private articlesService: ArticlesService,
+    private eventService: EventService,
     private router: Router,
     @Inject(DOCUMENT) private document: Document,
   ) {
@@ -54,7 +62,30 @@ export class MainLayoutComponent implements OnInit {
         }
       }
     });
+
+    this.eventService.subscribe(EVENTS.SET_FULLSCREEN, (flag) => {
+      this.fullScreen = flag;
+    });
+
   }
+
+  public menuConfigs: IMenuConfig = [
+    {
+      path: '/',
+      name: 'Home',
+      icon: 'home'
+    },
+    {
+      path: '/blog',
+      name: 'Blog',
+      icon: 'collections_bookmark'
+    },
+    {
+      path: '/album',
+      name: 'Album',
+      icon: 'photo_album'
+    }
+  ];
 
   public background = this.configService.indexBackground$;
 
@@ -65,6 +96,8 @@ export class MainLayoutComponent implements OnInit {
   public hasHistory = false;
 
   public indexes$ = this.articlesService.indexes$;
+
+  public fullScreen = false;
 
   public goBack() {
     const pathes = this.router.url.split(/[\/\\]/);

@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IArticle, ArticlesService } from '../../../../services/articles.service';
+import { ArticlesService } from '../../../../services/articles.service';
 import { TitleService } from '../../../../services/title.service';
+import { IArticle } from 'src/app/services/articles.model';
 
 @Component({
   selector: 'app-article',

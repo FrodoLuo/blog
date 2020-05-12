@@ -1,4 +1,4 @@
-<div class="main-layout">
+<div class="main-layout" [class.full-screen]="fullScreen">
   <div class="side-static-container" [class.toggle]="toggle" [class.side-toggle]="sideOpen">
     <img class="background" [src]="(background | async).src" />
     <div class="content">
@@ -15,15 +15,9 @@
             <mat-icon size="large">menu</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before" (closed)="sideOpen= false">
-            <a mat-menu-item routerLink="/">
-              <mat-icon>home</mat-icon>Home
+            <a mat-menu-item [routerLink]="route.path" *ngFor="let route of menuConfigs">
+              <mat-icon>{{route.icon}}</mat-icon>{{route.name}}
             </a>
-            <a mat-menu-item routerLink="/blog">
-              <mat-icon>collections_bookmark</mat-icon>Blog
-            </a>
-            <!-- <a mat-menu-item>
-              <mat-icon>face</mat-icon>Me
-            </a> -->
           </mat-menu>
         </div>
       </header>

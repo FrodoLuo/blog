@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { IArticle, Index, IArticleRes, IComment } from './articles.model';
 
 const PAGE_SIZE = 10;
 
@@ -91,50 +92,8 @@ export class ArticlesService {
       )
       .pipe(map(articles => articles.map(this.transformArticleRes)))
       .subscribe(res => {
-        console.log(res);
         this.articleList$.next(this.articleList$.getValue().concat(res));
       });
   }
 }
 
-export interface IComment {
-  id: number;
-  content: string;
-  nickname: string;
-  created_at: number;
-}
-export interface IArticleRes {
-  id: number;
-  title: string;
-  content: string;
-  brief: string;
-  author: {
-    id: number;
-    username: string;
-  };
-  created_at: string;
-  updated_at: string;
-  tags: string;
-  comments: IComment[];
-  cover: string;
-}
-export interface IArticle {
-  id: number;
-  title: string;
-  content: string;
-  brief: string;
-  author: {
-    id: number;
-    username: string;
-  };
-  created_at: string;
-  updated_at: string;
-  splitedTags: string[];
-  comments: IComment[];
-  cover: string;
-}
-
-export interface Index {
-  title: string;
-  indent: number;
-}

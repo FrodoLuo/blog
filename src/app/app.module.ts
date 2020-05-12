@@ -14,6 +14,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CommonDeclarationModule } from './modules/common-declaration/common-declaration.module';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { AlbumModule } from "./modules/album/album.module";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
     MaterialModule,
     CommonDeclarationModule,
 
+    AlbumModule,
     HomeModule,
     BlogModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
