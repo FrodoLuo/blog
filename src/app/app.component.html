@@ -1,5 +1,12 @@
-<router-outlet></router-outlet>
-
-<button (click)="scrollTop()" mat-fab class="top-button" color="primary" [class.visible]="showTopBtn">
+<div [@globalRoutingAnimation]="globalOutlet.isActivated && globalOutlet.activatedRoute">
+  <router-outlet #globalOutlet="outlet"></router-outlet>
+</div>
+<button
+  (click)="scrollTop()"
+  mat-fab
+  class="top-button"
+  color="primary"
+  [class.visible]="showTopBtn"
+>
   <mat-icon>vertical_align_top</mat-icon>
 </button>

@@ -15,12 +15,14 @@ import { environment } from '../environments/environment';
 import { CommonDeclarationModule } from './modules/common-declaration/common-declaration.module';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { AlbumModule } from "./modules/album/album.module";
+import { AlbumLayoutComponent } from './layout/album-layout/album-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContentLayoutComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    AlbumLayoutComponent
   ],
   imports: [
     AppRoutingModule,
