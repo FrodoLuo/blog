@@ -2,9 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { trigger, transition, group, style, animate, query } from '@angular/animations';
 import { ConfigService } from '../../services/config.service';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
-import { DOCUMENT, Location } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { ArticlesService } from '../../services/articles.service';
-import { EventService, EVENTS } from "../../services/event.service";
 
 type IMenuConfig = Array<{
   path: string;
@@ -49,7 +48,6 @@ export class MainLayoutComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private articlesService: ArticlesService,
-    private eventService: EventService,
     private router: Router,
     @Inject(DOCUMENT) private document: Document,
   ) {
@@ -62,11 +60,6 @@ export class MainLayoutComponent implements OnInit {
         }
       }
     });
-
-    this.eventService.subscribe(EVENTS.SET_FULLSCREEN, (flag) => {
-      this.fullScreen = flag;
-    });
-
   }
 
   public menuConfigs: IMenuConfig = [
