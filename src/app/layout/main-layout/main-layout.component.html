@@ -39,12 +39,6 @@
           </button>
         </div>
         
-        <ul class="index-container">
-          <li *ngFor="let index of (indexes$ | async)" class="indent-{{index.indent}}">
-            <a (click)="jumpTo(index.title)">{{index.title}}</a>
-          </li>
-        </ul>
-
       </content>
       <footer>
         <div class="beian-container">

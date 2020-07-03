@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { IArticle, Index, IArticleRes, IComment } from './articles.model';
+import { IArticle, IArticleRes, IComment } from './articles.model';
 
 const PAGE_SIZE = 10;
 
@@ -10,13 +10,13 @@ const PAGE_SIZE = 10;
   providedIn: 'root'
 })
 export class ArticlesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public articleList$ = new BehaviorSubject<IArticle[]>([]);
 
   public currentKeyword$ = new BehaviorSubject<string>('');
 
-  public indexes$ = new BehaviorSubject<Index[] | null>(null);
+  private useTag = false;
 
   public getRecentArticles() {
     return this.http.get<IArticle[]>(
@@ -24,43 +24,21 @@ export class ArticlesService {
     );
   }
 
-  public setSearch(keyword: string) {
+  public setKeyword(keyword: string, useTag: boolean) {
+    this.useTag = useTag;
+    this.setSearch(keyword);
+  }
+
+  private setSearch(keyword: string) {
+    this.articleList$.next([]);
     this.currentKeyword$.next(keyword);
     this.getArticles();
   }
-  public setKeyword(keyword: string) {
-    this.articleList$.next([]);
-    this.setSearch(keyword);
-  }
-  public getMore() {
-    this.getArticles();
-  }
+
   public getArticleDetail(id: number | string) {
     return this.http.get<IArticleRes>(`/api/articles/${id}`).pipe(
       map(this.transformArticleRes),
-      tap(data => {
-        this.setIndexes(data.content);
-      })
     );
-  }
-
-  private setIndexes(content: string) {
-    const indexes = content
-      .split(/\n/)
-      .filter(str => str.match(/^#+\s.*$/))
-      .filter(str => str.split(/\s/)[0].length < 4)
-      .map(str => {
-        const [c, ...h] = str.split(/\s/);
-        return {
-          title: h.join(' '),
-          indent: Number(c.length)
-        };
-      });
-    this.indexes$.next(indexes);
-  }
-
-  public cleanIndexes() {
-    this.indexes$.next(null);
   }
 
   public leaveComment(articleId: number, content: string, nick: string) {
@@ -82,13 +60,22 @@ export class ArticlesService {
     a.comments.sort((a, b) => b.id - a.id);
     return a;
   }
-  private getArticles() {
+
+  private getArticles(page: number = 0) {
     this.http
       .get<IArticleRes[]>(
         // tslint:disable-next-line: max-line-length
-        `/api/articles?_sort=updated_at:DESC&title_contains=${this.currentKeyword$.getValue()}&_start=${
-          this.articleList$.getValue().length
-        }&_limit=${PAGE_SIZE}`
+        '/api/articles',
+        {
+          params: {
+            _sort: 'updated_at:DESC',
+            _start: `${page * PAGE_SIZE}`,
+            _limit: `${PAGE_SIZE}`,
+            ...this.useTag
+              ? { tags_contains: [this.currentKeyword$.getValue()] }
+              : { title_contains: [this.currentKeyword$.getValue()] },
+          }
+        }
       )
       .pipe(map(articles => articles.map(this.transformArticleRes)))
       .subscribe(res => {

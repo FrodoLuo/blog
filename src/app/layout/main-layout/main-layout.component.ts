@@ -88,8 +88,6 @@ export class MainLayoutComponent implements OnInit {
 
   public hasHistory = false;
 
-  public indexes$ = this.articlesService.indexes$;
-
   public fullScreen = false;
 
   public goBack() {
