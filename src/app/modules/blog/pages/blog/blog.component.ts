@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material';
 import { ArticlesService } from '../../../../services/articles.service';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -19,17 +19,26 @@ export class BlogComponent implements OnInit {
 
   public articleList = this.articleService.articleList$;
 
-  public keyword = new Subject<string>();
+  public keyword$ = new BehaviorSubject<{ value: string, isTag: boolean }>({value: '', isTag: false});
 
   public ngOnInit() {
-    this.articleService.setSearch('');
-    this.keyword.pipe(
+    this.keyword$.pipe(
       debounceTime(500)
-    ).subscribe(str => this.articleService.setKeyword(str));
+    ).subscribe(input => {
+      this.articleService.setKeyword(input.value, input.isTag);
+    });
   }
 
-  public onShow() {
-    this.articleService.getMore();
+  public setTag(tag: string) {
+    this.keyword$.next({
+      value: tag,
+      isTag: true
+    });
+  }
+
+  public setPage(page: number) {
+    this.currentPage = page;
+    this.articleService;
   }
 
 }

@@ -19,11 +19,10 @@ export class ContentLayoutComponent implements OnInit {
 
   public promote$ = this.configService.promote$;
 
-  public indexes$ = this.articlesService.indexes$;
-
-
   ngOnInit() {
+
   }
+
   public jumpTo(anchor: string) {
     const a = anchor.toLowerCase().replace(/\s/g, '-').replace(/[\(\),.#]/g, '');
     console.log(a);

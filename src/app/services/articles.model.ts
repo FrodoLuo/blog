@@ -34,8 +34,3 @@ export interface IArticle {
   comments: IComment[];
   cover: string;
 }
-
-export interface Index {
-  title: string;
-  indent: number;
-}

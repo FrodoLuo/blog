@@ -19,6 +19,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ) { }
 
   private subscriptions: Subscription;
+
   @ViewChild('comment', {
     static: false
   }) private commentField: ElementRef<HTMLTextAreaElement>;
@@ -27,19 +28,15 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public article: IArticle = null;
   public publishing = false;
 
-  public indexes$ = this.articlesService.indexes$;
-
   ngOnInit() {
     this.subscriptions = this.route.data.subscribe(data => {
       this.article = data.article;
       this.titleService.setTitle(this.article.title);
-      const indexesTitles = this.article.content.match(/^#{1,2}\s.*$/mg) || [];
     });
   }
 
   ngOnDestroy() {
     this.titleService.removeSubTitle();
-    this.articlesService.cleanIndexes();
     this.subscriptions.unsubscribe();
   }
 
