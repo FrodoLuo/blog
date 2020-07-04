@@ -2,7 +2,7 @@
 
   .article-title {
     margin-top: 0;
-    height: 64px;
+    min-height: 64px;
     line-height: 64px;
     display: flex;
     align-items: center;
@@ -15,6 +15,10 @@
 .article-metadata {
   color: gray;
   font-size: 12px;
+}
+
+.tags-container {
+  margin-top: 16px;
 }
 
 .comment-field-container {

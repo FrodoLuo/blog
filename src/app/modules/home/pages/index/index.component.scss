@@ -1,7 +1,7 @@
 .banner-wrap {
   height: 100vh;
   width: 100%;
-
+  margin-top: -64px;
   .banner-content {
     position: relative;
 
@@ -16,6 +16,7 @@
     height: 100%;
 
     .cover-title {
+      font-family: cursive;
       color: black;
       border: 3px solid brown;
       height: 248px;
@@ -26,7 +27,6 @@
       justify-content: flex-end;
       padding: 16px;
       h1 {
-        font-family: cursive;
         font-weight: normal;
         font-size: 24px;
         margin: 4px 0;
@@ -34,7 +34,7 @@
     }
 
     .scroll-indicator {
-      content: ' ';
+      content: " ";
       position: absolute;
       left: 0;
       right: 0;
@@ -50,13 +50,13 @@
         animation: humping 5s ease 1s infinite;
         position: relative;
         @keyframes humping {
-          0%{
+          0% {
             top: 0;
           }
           45% {
             top: 0;
           }
-          50%{
+          50% {
             top: -10px;
           }
           55% {
@@ -95,7 +95,6 @@ a {
     box-sizing: border-box;
 
     h1 {
-      font-family: cursive;
       position: relative;
       text-align: center;
       width: 200px;
@@ -103,13 +102,12 @@ a {
 
       &::after {
         position: absolute;
-        content: ' ';
+        content: " ";
         display: block;
         width: 100%;
         height: 1px;
         background-color: black;
         bottom: -8px;
-
       }
     }
   }
@@ -134,17 +132,18 @@ a {
         a {
           word-break: keep-all;
           text-overflow: ellipsis;
+          overflow: hidden;
+          max-width: 90vw;
           white-space: nowrap;
           text-align: center;
-          
+
           line-height: 36px;
           display: inline-block;
           position: relative;
 
-          font-family: cursive;
           color: black;
           text-decoration: none;
-          
+
           transition: all ease 1s;
 
           &:hover,
@@ -164,9 +163,6 @@ a {
     align-self: center;
     justify-content: flex-start;
 
-    & * {
-      font-family: cursive;
-    }
 
     .timeline-item {
       margin-bottom: 20px;
@@ -177,7 +173,7 @@ a {
           display: block;
           height: 75px;
           width: 1px;
-          content: ' ';
+          content: " ";
           background-color: black;
           left: 0;
           right: 0;
@@ -200,7 +196,6 @@ a {
           height: 100%;
           width: 100%;
           object-fit: contain;
-
         }
       }
 
@@ -209,5 +204,4 @@ a {
       }
     }
   }
-
 }

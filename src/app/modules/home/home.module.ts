@@ -5,15 +5,12 @@ import { HomeRoutingModule } from './home-routing.module';
 import { IndexComponent } from './pages/index/index.component';
 import { ArticleListResolver } from 'src/app/router-resolvers/article-list.resolver';
 import { MotionBackgroundComponent } from './components/motion-background/motion-background.component';
-import { IndexLayoutComponent } from './components/index-layout/index-layout.component';
 import { MaterialModule } from '../material/material.module';
-import { MatTooltip } from '@angular/material';
 
 
 @NgModule({
   declarations: [
     IndexComponent,
-    IndexLayoutComponent,
     MotionBackgroundComponent,
   ],
   imports: [

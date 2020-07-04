@@ -1,59 +1,78 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { trigger, transition, group, style, animate, query } from '@angular/animations';
-import { ConfigService } from '../../services/config.service';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
-import { ArticlesService } from '../../services/articles.service';
+import { Component, OnInit, Inject, HostListener } from "@angular/core";
+import {
+  trigger,
+  transition,
+  group,
+  style,
+  animate,
+  query,
+} from "@angular/animations";
+import { ConfigService } from "../../services/config.service";
+import { Router, RouterEvent, NavigationEnd } from "@angular/router";
+import { DOCUMENT } from "@angular/common";
+import { ArticlesService } from "../../services/articles.service";
+import { ScreenService } from 'src/app/services/screen.service';
 
-type IMenuConfig = Array<{
-  path: string;
-  icon: string;
-  name: string;
-}>;
-
-const routerAnimation = trigger('routerAnimation', [
-  transition('* <=> *', [
+const routerAnimation = trigger("routerAnimation", [
+  transition("* <=> *", [
     style({
-      position: 'relative'
+      position: "relative",
     }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%'
-      })
-    ]),
+    query(
+      ":enter, :leave",
+      [
+        style({
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+        }),
+      ],
+      {
+        optional: true,
+      }
+    ),
     group([
-      query(':leave', [
-        style({ opacity: 1, display: 'block' }),
-        animate('200ms ease', style({ opacity: 0, display: 'none' }))
-      ], { optional: true }),
-      query(':enter', [
-        style({ opacity: 0, display: 'block' }),
-        animate('400ms 600ms ease', style({ opacity: 1 }))
-      ])
-    ])
-  ])
+      query(
+        ":leave",
+        [
+          style({ opacity: 1, display: "block" }),
+          animate("200ms ease", style({ opacity: 0, display: "none" })),
+        ],
+        {
+          optional: true,
+        }
+      ),
+      query(
+        ":enter",
+        [
+          style({ opacity: 0, display: "block" }),
+          animate("400ms 600ms ease", style({ opacity: 1 })),
+        ],
+        {
+          optional: true,
+        }
+      ),
+    ]),
+  ]),
 ]);
 
 @Component({
-  selector: 'app-main-layout',
-  templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.scss'],
-  animations: [routerAnimation]
+  selector: "app-main-layout",
+  templateUrl: "./main-layout.component.html",
+  styleUrls: ["./main-layout.component.scss"],
+  animations: [routerAnimation],
 })
 export class MainLayoutComponent implements OnInit {
-
   constructor(
     private configService: ConfigService,
-    private articlesService: ArticlesService,
+    private screenService: ScreenService,
     private router: Router,
-    @Inject(DOCUMENT) private document: Document,
+    @Inject(DOCUMENT) private document: Document
   ) {
     router.events.subscribe((e: RouterEvent) => {
       if (e instanceof NavigationEnd) {
-        if (typeof this.document.documentElement.scrollTo === 'function') {
+        if (typeof this.document.documentElement.scrollTo === "function") {
           setTimeout(() => {
             this.document.documentElement.scrollTo(0, 0);
           }, 400);
@@ -62,58 +81,23 @@ export class MainLayoutComponent implements OnInit {
     });
   }
 
-  public menuConfigs: IMenuConfig = [
-    {
-      path: '/',
-      name: 'Home',
-      icon: 'home'
-    },
-    {
-      path: '/blog',
-      name: 'Blog',
-      icon: 'collections_bookmark'
-    },
-    {
-      path: '/album',
-      name: 'Album',
-      icon: 'photo_album'
-    }
-  ];
-
   public background = this.configService.indexBackground$;
 
-  public toggle = this.router.url !== '/';
+  public toggle = this.router.url !== "/";
 
   public sideOpen = false;
 
   public hasHistory = false;
 
-  public fullScreen = false;
-
-  public goBack() {
-    const pathes = this.router.url.split(/[\/\\]/);
-    pathes.splice(pathes.length - 1, 1);
-    this.router.navigateByUrl(pathes.join('/'));
-  }
+  public verticalScreen = this.screenService.isVerticalScreen$;
 
   ngOnInit() {
     this.router.events.subscribe((e: RouterEvent) => {
       if (e instanceof NavigationEnd) {
-        this.hasHistory = e.url !== '/';
-        this.toggle = e.url !== '/';
+        this.toggle = e.url !== "/";
       }
     });
-  }
-
-  public jumpTo(anchor: string) {
-    const a = anchor.toLowerCase().replace(/\s/g, '-').replace(/[\(\),.#]/g, '');
-    console.log(a);
-    const e = document.getElementById(a);
-    if (!e) {
-      return;
-    }
-    const de = document.documentElement;
-    de.scrollBy(0, e.offsetTop - de.scrollTop - 80);
+    this.screenService.onResize();
   }
 
 }

@@ -5,7 +5,7 @@
   $primary: mat-color(map-get($theme, primary));
   $accent: mat-color(map-get($theme, accent));
 
-  .main-layout {
+  .full-main-layout {
     display: flex;
     position: relative;
 
@@ -49,23 +49,17 @@
           height: 128px;
           padding: 0 32px;
 
-          background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
+          background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.3),
+            transparent
+          );
           transition: all 0.4s ease;
 
           .menu-container {
-            .small-screen {
-              display: none;
-            }
-
-            button {
-              color: white;
-              height: 64px;
-              width: 32px;
-
-              mat-icon {
-                font-size: 24px;
-              }
-            }
+            display: flex;
+            width: 100%;
+            flex-direction: row-reverse;
           }
         }
 
@@ -84,104 +78,17 @@
               height: 64px;
               width: 32px;
             }
-
-          }
-
-          .index-container {
-            padding: 0 16px;
-          
-            list-style: none;
-            text-align: right;
-            max-height: 50vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            font-size: 13px;
-            padding-bottom: 10px;
-          
-            @media screen and (max-width: 841px) {
-              display: none;
-            }
-          
-            &::-webkit-scrollbar {
-              position: absolute;
-              right: 0;
-              background-color: transparent;
-              width: 4px;
-            }
-          
-            &::-webkit-scrollbar-thumb {
-              width: 4px;
-              background-color: gray;
-              border-radius: 2px;
-            }
-          
-            .indent {
-              position: relative;
-              line-height: 1.5em;
-            }
-            
-            .indent-2 {
-              @extend .indent;
-              margin-top: 15px;
-              margin-bottom: 2px;
-              font-size: 18px;
-              padding-right: 0px;
-            }
-          
-            .indent-3 {
-              @extend .indent;
-              padding-right: 20px;
-            }
-          
-            .indent-4 {
-              @extend .indent;
-              padding-right: 40px;
-              color: black;
-            }
           }
         }
 
         footer {
-          display: flex;
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
           padding: 0 32px 32px 32px;
+          display: flex;
           justify-content: flex-end;
           align-items: center;
-
+      
           min-height: 128px;
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-          transition: all 0.4s ease;
-
-          .beian-container {
-            flex: 1;
-            align-self: flex-end;
-            color: white;
-            transition: color 0.4s ease;
-            margin-bottom: 16px;
-
-            .copy {
-              margin-bottom: 20px;
-            }
-
-            a {
-              color: mat-color(map-get($theme, primary), 100);
-            }
-          }
-
-          .contact-container {
-            color: white;
-            display: flex;
-            flex-direction: column;
-
-            a {
-              height: 64px;
-              width: 64px;
-              line-height: 64px;
-
-              i {
-                font-size: 24px;
-              }
-            }
-          }
         }
       }
 
@@ -193,15 +100,7 @@
 
           header {
             background: linear-gradient(to bottom, transparent, transparent);
-
-            .menu-container {
-              button {
-                color: black;
-              }
-            }
           }
-
-          content {}
 
           footer {
             background: linear-gradient(to bottom, transparent, transparent);
@@ -224,7 +123,6 @@
           opacity: 0;
         }
       }
-
     }
 
     .main-container {
@@ -236,113 +134,80 @@
         margin-left: 30vw;
       }
     }
+  }
 
-    &.full-screen {
-      .main-container {
-        width: 100%;
-        height: 100%;
+  .small-main-layout {
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 10000;
+      background: white;
+      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
+    }
+    main {
+      margin-top: 64px;
+      min-height: 100vh;
+    }
+    footer {
+
+      padding: 10px;
+      display: flex;
+      flex-direction: column-reverse;
+      .contact-container {
+        display: flex;
+        flex-direction: row;
+        color: black;
       }
-      .side-static-container {
-        position: fixed;
+
+      .beian-container {
+        color: black;
+        align-self: flex-start;
+        padding-left: 15px;
+
+        a {
+          color: mat-color(map-get($theme, primary), 600);
+        }
       }
     }
   }
+  footer {
 
-  @media screen and (max-width: 841px) {
-    .main-layout {
-      .side-static-container {
-        position: fixed;
-        z-index: 1000;
-        left: calc(-100% + 64px);
-        width: 100vw;
-        transition: all ease 0.4s;
+    transition: all 0.4s ease;
 
-        .content {
-          position: relative;
-          transition: background 0.4s ease;
+    .beian-container {
+      flex: 1;
+      align-self: flex-end;
+      color: white;
+      transition: color 0.4s ease;
+      margin-bottom: 16px;
 
-          .small-screen-nav {
-            display: block;
-          }
-
-          header {
-            display: flex;
-            flex-direction: column;
-            align-self: flex-end;
-
-            .avatar-container {
-              display: none;
-            }
-
-            .menu-container {
-              .small-screen {
-                display: inherit;
-              }
-
-              .big-screen {
-                display: none;
-              }
-            }
-          }
-
-          content {
-            .background-info {
-              position: absolute;
-              left: 0;
-              top: 0;
-              .background-story {
-                color: rgba(0, 0, 0, 0.87);
-              }
-            }
-            .index-container {
-              display: none;
-            }
-          }
-
-          header,
-          content,
-          footer {
-            padding: 0;
-
-            .beian-container {
-              padding: 5px;
-            }
-          }
-        }
-
-        &.toggle {
-          width: 100vw;
-
-          .content {
-            background: whitesmoke;
-          }
-        }
-
-        &.side-toggle {
-          left: 0;
-
-          .content {
-            background: rgba(255, 255, 255, 0.8) !important;
-          }
-
-          img.background {
-            opacity: 1;
-          }
-        }
+      .copy {
+        margin-bottom: 20px;
       }
 
-      .main-container {
-        box-sizing: border-box;
-        width: calc(100vw - 64px);
-        margin-left: 64px;
-        overflow: hidden;
+      a {
+        color: mat-color(map-get($theme, primary), 100);
+      }
+    }
 
-        &.toggle {
-          margin-left: 64px;
+    .contact-container {
+      color: white;
+      display: flex;
+      flex-direction: column;
+
+      a {
+        height: 64px;
+        width: 64px;
+        line-height: 64px;
+
+        i {
+          font-size: 24px;
         }
       }
     }
   }
 }
 
-@include main-layout($ink-app-theme)
+@include main-layout($ink-app-theme);

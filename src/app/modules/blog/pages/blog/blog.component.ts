@@ -19,6 +19,8 @@ export class BlogComponent implements OnInit {
 
   public articleList = this.articleService.articleList$;
 
+  public countOfArticles = this.articleService.countOfArticles;
+
   public keyword$ = new BehaviorSubject<{ value: string, isTag: boolean }>({value: '', isTag: false});
 
   public ngOnInit() {
@@ -36,9 +38,8 @@ export class BlogComponent implements OnInit {
     });
   }
 
-  public setPage(page: number) {
-    this.currentPage = page;
-    this.articleService;
+  public setPage(pageIndex: number) {
+    this.articleService.refreshPage(pageIndex);
   }
 
 }
