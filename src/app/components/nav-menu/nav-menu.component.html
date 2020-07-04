@@ -1,0 +1,10 @@
+<div class="menu-wrapper">
+  <button class="big-screen" mat-button [matMenuTriggerFor]="menu" [color]="color">
+    <mat-icon [style.color]="color" size="large">menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before" (closed)="sideOpen= false">
+    <a mat-menu-item [routerLink]="route.path" *ngFor="let route of menuConfigs">
+      <mat-icon>{{route.icon}}</mat-icon>{{route.name}}
+    </a>
+  </mat-menu>
+</div>

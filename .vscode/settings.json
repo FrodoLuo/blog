@@ -1,3 +1,6 @@
 {
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "liveServer.settings.port": 5502,
+  "liveServer.settings.multiRootWorkspaceName": "blog",
+  "liveServer.settings.root": "dist/browser"
 }

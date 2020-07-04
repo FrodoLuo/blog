@@ -1,0 +1,13 @@
+.menu-wrapper {
+  position: relative;
+
+  button {
+    color: white;
+    height: 64px;
+    width: 32px;
+
+    mat-icon {
+      font-size: 24px;
+    }
+  }
+}

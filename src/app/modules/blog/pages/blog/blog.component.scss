@@ -15,10 +15,6 @@
       font-family: "ming";
       .title {
         font-family: "ming";
-        word-break: keep-all;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
         font-size: 18px;
         font-weight: 900;
         color: $primary;
@@ -68,7 +64,7 @@
           margin: 12px 0;
           line-height: 32px;
           word-break: break-all;
-          text-align: left;
+          text-align: justify;
           a {
             color: gray;
             text-decoration: none;

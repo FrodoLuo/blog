@@ -1,4 +1,4 @@
-<div [@globalRoutingAnimation]="globalOutlet.isActivated && globalOutlet.activatedRoute">
+<div [@globalRoutingAnimation]="globalOutlet.isActivated && globalOutlet.activatedRoute" [class.small-screen]="isVertical | async">
   <router-outlet #globalOutlet="outlet"></router-outlet>
 </div>
 <button

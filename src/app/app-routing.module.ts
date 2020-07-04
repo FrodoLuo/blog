@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { ContentLayoutComponent } from "./layout/content-layout/content-layout.component";
 import { MainLayoutComponent } from "./layout/main-layout/main-layout.component";
 import { AlbumLayoutComponent } from './layout/album-layout/album-layout.component';
 

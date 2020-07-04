@@ -16,6 +16,8 @@ export class ArticlesService {
 
   public currentKeyword$ = new BehaviorSubject<string>('');
 
+  public countOfArticles = new BehaviorSubject<number>(0);
+
   private useTag = false;
 
   public getRecentArticles() {
@@ -50,6 +52,10 @@ export class ArticlesService {
     });
   }
 
+  public refreshPage(pageIndex: number) {
+    this.getArticles(pageIndex);
+  }
+
   private transformArticleRes(articleRes: IArticleRes): IArticle {
     const a = {
       ...articleRes,
@@ -62,6 +68,7 @@ export class ArticlesService {
   }
 
   private getArticles(page: number = 0) {
+    this.articleList$.next([]);
     this.http
       .get<IArticleRes[]>(
         // tslint:disable-next-line: max-line-length
@@ -79,8 +86,20 @@ export class ArticlesService {
       )
       .pipe(map(articles => articles.map(this.transformArticleRes)))
       .subscribe(res => {
-        this.articleList$.next(this.articleList$.getValue().concat(res));
+        this.articleList$.next(res);
       });
+    this.http
+      .get<number>(
+        '/api/articles/count',
+        {
+          params: {
+            ...this.useTag
+            ? { tags_contains: [this.currentKeyword$.getValue()] }
+            : { title_contains: [this.currentKeyword$.getValue()] },
+          }
+        }
+      )
+      .subscribe(res => this.countOfArticles.next(res));
   }
 }
 

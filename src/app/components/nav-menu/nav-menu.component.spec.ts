@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IndexLayoutComponent } from './index-layout.component';
+import { NavMenuComponent } from './nav-menu.component';
 
-describe('IndexLayoutComponent', () => {
-  let component: IndexLayoutComponent;
-  let fixture: ComponentFixture<IndexLayoutComponent>;
+describe('NavMenuComponent', () => {
+  let component: NavMenuComponent;
+  let fixture: ComponentFixture<NavMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IndexLayoutComponent ]
+      declarations: [ NavMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IndexLayoutComponent);
+    fixture = TestBed.createComponent(NavMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

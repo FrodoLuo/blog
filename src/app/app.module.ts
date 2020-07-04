@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { MaterialModule } from './modules/material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,13 +15,14 @@ import { CommonDeclarationModule } from './modules/common-declaration/common-dec
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { AlbumModule } from "./modules/album/album.module";
 import { AlbumLayoutComponent } from './layout/album-layout/album-layout.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContentLayoutComponent,
+    AlbumLayoutComponent,
     MainLayoutComponent,
-    AlbumLayoutComponent
+    NavMenuComponent
   ],
   imports: [
     AppRoutingModule,
@@ -35,6 +35,7 @@ import { AlbumLayoutComponent } from './layout/album-layout/album-layout.compone
     AlbumModule,
     HomeModule,
     BlogModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   bootstrap: [AppComponent]
