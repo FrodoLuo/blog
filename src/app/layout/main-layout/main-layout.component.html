@@ -1,83 +1,96 @@
-<div class="main-layout">
-  <div class="side-static-container" [class.toggle]="toggle" [class.side-toggle]="sideOpen">
-    <img class="background" [src]="(background | async).src" />
-    <div class="content">
-      <header>
-        <div class="avatar-container"></div>
-        <div class="menu-container">
-          <button mat-button *ngIf="hasHistory" (click)="goBack()">
-            <mat-icon>chevron_left</mat-icon>
-          </button>
-          <button class="big-screen" mat-button [matMenuTriggerFor]="menu" color="white" (click)="sideOpen = true">
-            <mat-icon size="large">menu</mat-icon>
-          </button>
-          <button class="small-screen" mat-button (click)="sideOpen = !sideOpen">
-            <mat-icon size="large">menu</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu" xPosition="before" (closed)="sideOpen= false">
-            <a mat-menu-item routerLink="/">
+<ng-container *ngTemplateOutlet="(verticalScreen | async) ? smallMain : fullMain"></ng-container>
+
+
+<ng-template #fullMain>
+  <div class="full-main-layout">
+    <div class="side-static-container" [class.toggle]="toggle">
+      <img class="background" [src]="(background | async).src" />
+      <div class="content">
+        <header>
+          <div class="menu-container">
+            <app-nav-menu [color]="toggle ? 'black' : 'white'" [expand]="true"></app-nav-menu>
+          </div>
+        </header>
+
+        <content>
+          <div class="small-screen-nav">
+            <a mat-menu-item routerLink="/" (click)="sideOpen = false">
               <mat-icon>home</mat-icon>Home
             </a>
-            <a mat-menu-item routerLink="/blog">
+            <a mat-menu-item routerLink="/blog" (click)="sideOpen = false">
               <mat-icon>collections_bookmark</mat-icon>Blog
             </a>
-            <!-- <a mat-menu-item>
-              <mat-icon>face</mat-icon>Me
-            </a> -->
-          </mat-menu>
-        </div>
-      </header>
-
-      <content>
-
-        <div class="small-screen-nav">
-          <a mat-menu-item routerLink="/" (click)="sideOpen = false">
-            <mat-icon>home</mat-icon>Home
-          </a>
-          <a mat-menu-item routerLink="/blog" (click)="sideOpen = false">
-            <mat-icon>collections_bookmark</mat-icon>Blog
-          </a>
-        </div>
-
-        <div [hidden]="toggle" class="background-info">
-          <button class="background-story" mat-button [matTooltip]="(background | async).description">
-            <mat-icon>info_outline</mat-icon>
-          </button>
-        </div>
-        
-        <ul class="index-container">
-          <li *ngFor="let index of (indexes$ | async)" class="indent-{{index.indent}}">
-            <a (click)="jumpTo(index.title)">{{index.title}}</a>
-          </li>
-        </ul>
-
-      </content>
-      <footer>
-        <div class="beian-container">
-          <div class="copy">
-            Content from
-            <a href="mailto:frodoluo@outlook.com">FrodoLuo</a>
-            | Based on
-            <a href="https://angular.io" target="_blank">Angular Universal</a>
-            and
-            <a href="https://strapi.io/" target="_blank">Strapi</a>
           </div>
-          <div class="beian">
-            <a href="http://www.beian.miit.gov.cn/" target="_blank">粤ICP备19145545号</a>
-          </div>
-        </div>
-        <div class="contact-container">
-          <a mat-button target="_blank" href="https://github.com/FrodoLuo"><i class="iconfont icon-github"></i></a>
-          <a mat-button target="_blank" href="https://twitter.com/luo_yuzhou"><i class="iconfont icon-twitter"></i></a>
-          <a mat-button href="mailto:frodoluo@outlook.com">
-            <mat-icon>mail</mat-icon>
-          </a>
-        </div>
-      </footer>
 
+          <div [hidden]="toggle" class="background-info">
+            <button
+              class="background-story"
+              mat-button
+              [matTooltip]="(background | async).description"
+            >
+              <mat-icon>info_outline</mat-icon>
+            </button>
+          </div>
+        </content>
+
+        <ng-container *ngTemplateOutlet="footer"></ng-container>
+      </div>
     </div>
+
+    <main
+      [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"
+      [class.toggle]="toggle"
+      class="main-container"
+    >
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
   </div>
-  <main [@routerAnimation]="outlet.isActivated && outlet.activatedRoute" [class.toggle]="toggle" class="main-container">
-    <router-outlet #outlet="outlet"></router-outlet>
-  </main>
-</div>
+</ng-template>
+
+<ng-template #smallMain>
+  <div class="small-main-layout">
+    <header>
+      <app-nav-menu></app-nav-menu>
+    </header>
+    <main
+      [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"
+      [class.toggle]="toggle"
+      class="main-container"
+    >
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+    <ng-container *ngTemplateOutlet="footer" [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #footer>
+  <footer>
+    <div class="beian-container">
+      <div class="copy">
+        Content from
+        <a href="mailto:frodoluo@outlook.com">FrodoLuo</a>
+        <br />
+        Based on
+        <a href="https://angular.io" target="_blank">Angular Universal</a>
+        and
+        <a href="https://strapi.io/" target="_blank">Strapi</a>
+      </div>
+      <div class="beian">
+        <a href="http://www.beian.miit.gov.cn/" target="_blank"
+          >粤ICP备19145545号</a
+        >
+      </div>
+    </div>
+    <div class="contact-container">
+      <a mat-button target="_blank" href="https://github.com/FrodoLuo"
+        ><i class="iconfont icon-github"></i
+      ></a>
+      <a mat-button target="_blank" href="https://twitter.com/luo_yuzhou"
+        ><i class="iconfont icon-twitter"></i
+      ></a>
+      <a mat-button href="mailto:frodoluo@outlook.com">
+        <mat-icon>mail</mat-icon>
+      </a>
+    </div>
+  </footer>
+</ng-template>

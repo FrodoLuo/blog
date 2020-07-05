@@ -18,15 +18,15 @@ export class MotionBackgroundComponent implements OnInit, OnDestroy {
 
   fromTop = 0;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.document.addEventListener('scroll', this.handleScroll);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.document.removeEventListener('scroll', this.handleScroll);
   }
 
-  public handleScroll = () => {
+  public handleScroll(): void {
     const ratio = this.document.documentElement.scrollTop;
     this.fromTop = ratio * -0.1;
   }

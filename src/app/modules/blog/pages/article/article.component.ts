@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { IArticle, ArticlesService } from '../../../../services/articles.service';
+import { ArticlesService } from '../../../../services/articles.service';
 import { TitleService } from '../../../../services/title.service';
+import { IArticle } from 'src/app/services/models/articles.model';
 
 @Component({
   selector: 'app-article',
@@ -18,6 +19,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ) { }
 
   private subscriptions: Subscription;
+
   @ViewChild('comment', {
     static: false
   }) private commentField: ElementRef<HTMLTextAreaElement>;
@@ -26,23 +28,19 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public article: IArticle = null;
   public publishing = false;
 
-  public indexes$ = this.articlesService.indexes$;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions = this.route.data.subscribe(data => {
       this.article = data.article;
       this.titleService.setTitle(this.article.title);
-      const indexesTitles = this.article.content.match(/^#{1,2}\s.*$/mg) || [];
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.titleService.removeSubTitle();
-    this.articlesService.cleanIndexes();
     this.subscriptions.unsubscribe();
   }
 
-  leaveComment(content: string, nick: string) {
+  leaveComment(content: string, nick: string): void {
     if (content.length == 0) {
       this.commentRejected = true;
       return;

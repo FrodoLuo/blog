@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+/**
+
+This file defines the global styles. All this class will implit all elements matches selector(No [data] property specified)
+
+*/
 @import "./theme.scss";
 @import "./assets/styles/article.scss";
 
@@ -8,7 +13,8 @@ html {
 
 body {
   margin: 0;
-  font-family: Roboto, serif;
+  font-family: -apple-system, Microsoft Yahei, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 @mixin common-entity($theme) {
@@ -18,7 +24,6 @@ body {
     background: transparent;
   }
   a {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
     color: $primary;
     text-decoration: none;
@@ -30,12 +35,15 @@ body {
   }
   .main-content {
     max-width: 786px;
-    left: 0;
+    display: flex;
+    flex-direction: column;
     padding: 32px 4rem;
     background: white;
-    @media screen and (max-width: 841px) {
-      padding: 32px 1rem;
-    }
+    box-sizing: border-box;
+  }
+
+  .small-screen .main-content {
+    padding: 1.5rem;
   }
 }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ArticlesService, IArticle } from '../../../../services/articles.service';
 import { Subscription } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ConfigService } from "../../../../services/config.service";
+import { ActivatedRoute } from '@angular/router';
+import { ConfigService } from '../../../../services/config.service';
+import { IArticle } from 'src/app/services/models/articles.model';
 
 @Component({
   selector: 'app-index',
@@ -22,10 +22,10 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = null;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.subscription = this.route.data.subscribe(data => this.articleList = data.articleList);
   }
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

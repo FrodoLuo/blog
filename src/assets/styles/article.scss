@@ -2,19 +2,23 @@
 @import "~src/theme-define.scss";
 
 @mixin article($theme) {
-
   $primary: mat-color(map-get($theme, primary));
   $accent: mat-color(map-get($theme, accent));
 
-  
-  .article {
-    h1,h2,h3,h4,h5 {
+  article {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
       color: mat-color(map-get($theme, primary), 900);
     }
     color: darken($primary, 60%);
     letter-spacing: 0px;
     line-height: 2em;
-    font-family: serif;
+    font-family: -apple-system, Microsoft Yahei, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
     p {
       text-align: justify;
       word-break: break-all;
@@ -53,7 +57,12 @@
       }
     }
   }
-
+  .small-screen article {
+    img {
+      width: calc(100% + 3rem);
+      margin: 0 -1.5rem;
+    }
+  }
 }
 
 @include article($ink-app-theme);

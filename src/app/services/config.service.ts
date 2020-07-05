@@ -1,10 +1,12 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { IMedia } from './models/media.model';
 
-const addApi = (res: IMediaRes[]) => {
+
+const addApi = (res: IMedia[]) => {
   return res.map(media => {
     const r = { ...media };
     r.source.url = '/api' + r.source.url;
@@ -12,12 +14,12 @@ const addApi = (res: IMediaRes[]) => {
   });
 };
 
-const sortRes = (res: IMediaRes[]) => {
+const sortRes = (res: IMedia[]) => {
   res.sort((a, b) => (a.orderReference - b.orderReference));
   return res;
 };
 
-const mapMediaToCareer = (res: IMediaRes[]) => {
+const mapMediaToCareer = (res: IMedia[]) => {
   return res.map(media => ({
     source: media.source.url,
     year: media.description
@@ -43,15 +45,15 @@ export class ConfigService {
 
   public promote$ = new BehaviorSubject<Promote>(null);
 
-  public fetchConfig() {
+  public fetchConfig(): void {
     this.fetchBackground();
     this.fetchCareer();
     this.fetchFLink();
     this.fetchPromote();
   }
 
-  public fetchBackground() {
-    this.http.get<IMediaRes[]>('/api/media?tag=banner')
+  public fetchBackground(): void {
+    this.http.get<IMedia[]>('/api/media?tag=banner')
       .pipe(
         map(addApi),
         map(sortRes)
@@ -64,8 +66,8 @@ export class ConfigService {
         });
       });
   }
-  public fetchCareer() {
-    this.http.get<IMediaRes[]>('/api/media?tag=rail')
+  public fetchCareer(): void {
+    this.http.get<IMedia[]>('/api/media?tag=rail')
       .pipe(
         map(addApi),
         map(sortRes),
@@ -75,7 +77,7 @@ export class ConfigService {
         this.career$.next(res);
       });
   }
-  public fetchFLink() {
+  public fetchFLink(): void {
     this.http.get<Array<{ title: string; data: FriendLink[] }>>('/api/configs?title=flink')
       .pipe(
         map(res => res[0])
@@ -84,7 +86,7 @@ export class ConfigService {
         this.friendLink$.next(res.data);
       });
   }
-  public fetchPromote() {
+  public fetchPromote(): void {
     this.http.get<Array<ConfigRes<Promote>>>('/api/configs?title=promote')
       .pipe(
         map(res => res[0] || null)
@@ -97,25 +99,9 @@ export class ConfigService {
   }
 }
 
-interface IMediaRes {
-  id: number;
-  description: string;
-  tag: 'cover' | 'standard' | 'rail';
-  orderReference: number;
-  created_at: string;
-  updated_at: string;
-  source: IMedia;
-}
-
 interface ConfigRes<T> {
   title: string;
   data: T;
-}
-export interface IMedia {
-  id: number;
-  name: string;
-  hash: string;
-  url: string;
 }
 
 export interface CareerDescription {

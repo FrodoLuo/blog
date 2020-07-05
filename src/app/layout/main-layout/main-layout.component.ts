@@ -1,49 +1,73 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { trigger, transition, group, style, animate, query } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  group,
+  style,
+  animate,
+  query,
+} from '@angular/animations';
 import { ConfigService } from '../../services/config.service';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
-import { DOCUMENT, Location } from '@angular/common';
-import { ArticlesService } from "../../services/articles.service";
+import { DOCUMENT } from '@angular/common';
+import { ScreenService } from 'src/app/services/screen.service';
 
 const routerAnimation = trigger('routerAnimation', [
   transition('* <=> *', [
     style({
-      position: 'relative'
+      position: 'relative',
     }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%'
-      })
-    ]),
+    query(
+      ':enter, :leave',
+      [
+        style({
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+        }),
+      ],
+      {
+        optional: true,
+      }
+    ),
     group([
-      query(':leave', [
-        style({ opacity: 1, display: 'block' }),
-        animate('200ms ease', style({ opacity: 0, display: 'none' }))
-      ], { optional: true }),
-      query(':enter', [
-        style({ opacity: 0, display: 'block' }),
-        animate('400ms 600ms ease', style({ opacity: 1 }))
-      ])
-    ])
-  ])
+      query(
+        ':leave',
+        [
+          style({ opacity: 1, display: 'block' }),
+          animate('200ms ease', style({ opacity: 0, display: 'none' })),
+        ],
+        {
+          optional: true,
+        }
+      ),
+      query(
+        ':enter',
+        [
+          style({ opacity: 0, display: 'block' }),
+          animate('400ms 600ms ease', style({ opacity: 1 })),
+        ],
+        {
+          optional: true,
+        }
+      ),
+    ]),
+  ]),
 ]);
 
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
-  animations: [routerAnimation]
+  animations: [routerAnimation],
 })
 export class MainLayoutComponent implements OnInit {
-
   constructor(
     private configService: ConfigService,
-    private articlesService: ArticlesService,
+    private screenService: ScreenService,
     private router: Router,
-    @Inject(DOCUMENT) private document: Document,
+    @Inject(DOCUMENT) private document: Document
   ) {
     router.events.subscribe((e: RouterEvent) => {
       if (e instanceof NavigationEnd) {
@@ -64,32 +88,15 @@ export class MainLayoutComponent implements OnInit {
 
   public hasHistory = false;
 
-  public indexes$ = this.articlesService.indexes$;
+  public verticalScreen = this.screenService.isVerticalScreen$;
 
-  public goBack() {
-    const pathes = this.router.url.split(/[\/\\]/);
-    pathes.splice(pathes.length - 1, 1);
-    this.router.navigateByUrl(pathes.join('/'));
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.events.subscribe((e: RouterEvent) => {
       if (e instanceof NavigationEnd) {
-        this.hasHistory = e.url !== '/';
         this.toggle = e.url !== '/';
       }
     });
-  }
-
-  public jumpTo(anchor: string) {
-    const a = anchor.toLowerCase().replace(/\s/g, '-').replace(/[\(\),.#]/g, '');
-    console.log(a);
-    const e = document.getElementById(a);
-    if (!e) {
-      return;
-    }
-    const de = document.documentElement;
-    de.scrollBy(0, e.offsetTop - de.scrollTop - 80);
+    this.screenService.onResize();
   }
 
 }
