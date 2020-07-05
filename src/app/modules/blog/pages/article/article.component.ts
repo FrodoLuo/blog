@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ArticlesService } from '../../../../services/articles.service';
 import { TitleService } from '../../../../services/title.service';
-import { IArticle } from 'src/app/services/articles.model';
+import { IArticle } from 'src/app/services/models/articles.model';
 
 @Component({
   selector: 'app-article',

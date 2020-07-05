@@ -3,33 +3,31 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.scss']
+  styleUrls: ['./nav-menu.component.scss'],
 })
-export class NavMenuComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class NavMenuComponent {
 
   @Input('color')
-  public color: string = 'black';
+  public color = 'black';
+
+  @Input('expand')
+  public expand = false;
 
   public menuConfigs: IMenuConfig = [
     {
-      path: "/",
-      name: "Home",
-      icon: "home",
+      path: '/',
+      name: 'Home',
+      icon: 'home',
     },
     {
-      path: "/blog",
-      name: "Blog",
-      icon: "collections_bookmark",
+      path: '/blog',
+      name: 'Blog',
+      icon: 'collections_bookmark',
     },
     {
-      path: "/album",
-      name: "Album",
-      icon: "photo_album",
+      path: '/album',
+      name: 'Album',
+      icon: 'photo_album',
     },
   ];
 }

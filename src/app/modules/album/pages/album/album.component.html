@@ -1,1 +1,94 @@
-<p>album works!</p>
+<ng-container *ngIf="(photos$ | async).length > 0">
+  <ng-container
+    *ngTemplateOutlet="(isVertical$ | async) ? smallAlbum : fullAlbum"
+  ></ng-container>
+</ng-container>
+
+<ng-template #smallAlbum>
+  <div class="small-page-container">
+    <div class="small-gallary-wrapper">
+      <img
+        (load)="loading = false"
+        class="photo"
+        [hidden]="loading"
+        [src]="currentPhoto.source.url"
+      />
+      <div class="loading-spin" *ngIf="loading">
+        <app-loading-spin></app-loading-spin>
+      </div>
+      >
+    </div>
+    <div class="small-list-wrapper">
+      <ng-container *ngTemplateOutlet="photoList"></ng-container>
+    </div>
+    <div class="metadatas">
+      <div class="time">
+        {{ currentPhoto.created_at | date }}
+      </div>
+    </div>
+    <div class="description-wrapper">
+      <pre>{{ currentPhoto.description }}</pre>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #fullAlbum>
+  <div class="album-page-container">
+    <div class="gallary-wrapper">
+      <img
+        (load)="loading = false"
+        class="photo"
+        [hidden]="loading"
+        [src]="currentPhoto.source.url"
+      />
+      <div class="loading-spin" *ngIf="loading">
+        <app-loading-spin></app-loading-spin>
+      </div>
+      <div
+        class="description-wrapper"
+        *ngIf="currentPhoto.description !== null"
+      >
+        <div class="metadatas">
+          <div class="time">
+            {{ currentPhoto.created_at | date }}
+          </div>
+        </div>
+        <pre class="description">
+          {{ currentPhoto.description }}
+        </pre>
+      </div>
+    </div>
+
+    <div class="album-wrapper">
+      <ng-container *ngTemplateOutlet="photoList"></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #photoList>
+  <div class="photo-list">
+    <div
+      class="arrow prev-arrow"
+      [class.disabled]="(currentPage$ | async) === 0"
+      (click)="prevPage()"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="list-container">
+      <div
+        class="photo-list-item"
+        (click)="selectPhoto(photo)"
+        *ngFor="let photo of photos$ | async"
+      >
+        <img [src]="photo.source.url" />
+      </div>
+    </div>
+    <div
+      class="arrow next-arrow"
+      [class.disabled]="!(hasMore$ | async)"
+      (click)="nextPage()"
+    >
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </div>
+  </div>
+</ng-template>

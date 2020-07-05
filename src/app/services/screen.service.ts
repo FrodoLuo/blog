@@ -11,6 +11,7 @@ export class ScreenService {
     @Inject(DOCUMENT) private document: Document
   ) {
     window.addEventListener('resize', () => {this.onResize()})
+    this.onResize();
   }
 
   public isVerticalScreen$ = new BehaviorSubject<boolean>(false);

@@ -35,9 +35,11 @@ body {
   }
   .main-content {
     max-width: 786px;
-    left: 0;
+    display: flex;
+    flex-direction: column;
     padding: 32px 4rem;
     background: white;
+    box-sizing: border-box;
   }
 
   .small-screen .main-content {

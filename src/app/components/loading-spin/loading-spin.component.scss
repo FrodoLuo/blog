@@ -1,0 +1,54 @@
+@import "~@angular/material/theming";
+@import "~src/theme-define.scss";
+
+@mixin loading-spin($theme) {
+  $primary: mat-color(map-get($theme, primary));
+  .wrapper {
+    position: relative;
+    height: 8px;
+    width: 128px;
+    filter: contrast(15);
+    .fixed {
+      height: 100%;
+      width: 32px;
+      background: white;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      margin: auto;
+      border-radius: 4px;
+      filter: blur(1px);
+    }
+    .slider {
+      filter: blur(1px);
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      position: absolute;
+      animation: sliding cubic-bezier(0.3, 0.6, 0.6, 0.3) 4s infinite;
+      height: 12px;
+      width: 12px;
+      background: white;
+      border-radius: 50%;
+    }
+    @keyframes sliding {
+      0% {
+        transform: translateX(-6px);
+        opacity: 0;
+      }
+      12% {
+        opacity: 1;
+      }
+      88% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(112px);
+        opacity: 0;
+      }
+    }
+  }
+}
+
+@include loading-spin($ink-app-theme)
