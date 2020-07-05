@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -45,14 +45,14 @@ export class ConfigService {
 
   public promote$ = new BehaviorSubject<Promote>(null);
 
-  public fetchConfig() {
+  public fetchConfig(): void {
     this.fetchBackground();
     this.fetchCareer();
     this.fetchFLink();
     this.fetchPromote();
   }
 
-  public fetchBackground() {
+  public fetchBackground(): void {
     this.http.get<IMedia[]>('/api/media?tag=banner')
       .pipe(
         map(addApi),
@@ -66,7 +66,7 @@ export class ConfigService {
         });
       });
   }
-  public fetchCareer() {
+  public fetchCareer(): void {
     this.http.get<IMedia[]>('/api/media?tag=rail')
       .pipe(
         map(addApi),
@@ -77,7 +77,7 @@ export class ConfigService {
         this.career$.next(res);
       });
   }
-  public fetchFLink() {
+  public fetchFLink(): void {
     this.http.get<Array<{ title: string; data: FriendLink[] }>>('/api/configs?title=flink')
       .pipe(
         map(res => res[0])
@@ -86,7 +86,7 @@ export class ConfigService {
         this.friendLink$.next(res.data);
       });
   }
-  public fetchPromote() {
+  public fetchPromote(): void {
     this.http.get<Array<ConfigRes<Promote>>>('/api/configs?title=promote')
       .pipe(
         map(res => res[0] || null)

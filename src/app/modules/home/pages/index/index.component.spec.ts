@@ -10,7 +10,7 @@ describe('IndexComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ IndexComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

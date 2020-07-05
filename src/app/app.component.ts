@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit, HostListener } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
-import { Router } from "@angular/router";
+import { Component, Inject, HostListener } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import {
   trigger,
   transition,
@@ -8,40 +7,40 @@ import {
   query,
   group,
   animate,
-} from "@angular/animations";
+} from '@angular/animations';
 import { ScreenService } from './services/screen.service';
 
-const globalRoutingAnimation = trigger("globalRoutingAnimation", [
-  transition("* <=> *", [
+const globalRoutingAnimation = trigger('globalRoutingAnimation', [
+  transition('* <=> *', [
     style({
-      position: "relative",
+      position: 'relative',
     }),
     query(
-      ":enter, :leave",
+      ':enter, :leave',
       [
         style({
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
-          width: "100%",
+          width: '100%',
         }),
       ],
       { optional: true }
     ),
     group([
       query(
-        ":leave",
+        ':leave',
         [
-          style({ opacity: 1, display: "block" }),
-          animate("200ms ease", style({ opacity: 0, display: "none" })),
+          style({ opacity: 1, display: 'block' }),
+          animate('200ms ease', style({ opacity: 0, display: 'none' })),
         ],
         { optional: true }
       ),
       query(
-        ":enter",
+        ':enter',
         [
-          style({ opacity: 0, display: "block" }),
-          animate("400ms 600ms ease", style({ opacity: 1 })),
+          style({ opacity: 0, display: 'block' }),
+          animate('400ms 600ms ease', style({ opacity: 1 })),
         ],
         { optional: true }
       ),
@@ -50,9 +49,9 @@ const globalRoutingAnimation = trigger("globalRoutingAnimation", [
 ]);
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   animations: [globalRoutingAnimation],
 })
 export class AppComponent {
@@ -65,16 +64,16 @@ export class AppComponent {
 
   public isVertical = this.screenService.isVerticalScreen$;
 
-  public scrollTop() {
+  public scrollTop(): void {
     this.document.documentElement.scrollTo({
       top: 0,
     });
   }
 
   @HostListener('document:scroll')
-  public onScroll() {
+  public onScroll(): void {
 
-      this.showTopBtn =
+    this.showTopBtn =
         this.document.documentElement.scrollTop >=
         this.document.documentElement.clientHeight;
   }

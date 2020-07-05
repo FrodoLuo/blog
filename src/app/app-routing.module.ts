@@ -1,30 +1,30 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { MainLayoutComponent } from "./layout/main-layout/main-layout.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { AlbumLayoutComponent } from './layout/album-layout/album-layout.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: MainLayoutComponent,
     children: [
       {
-        path: "",
+        path: '',
         loadChildren: () =>
-          import("./modules/home/home.module").then((mod) => mod.HomeModule),
+          import('./modules/home/home.module').then((mod) => mod.HomeModule),
       },
       {
-        path: "blog",
+        path: 'blog',
         loadChildren: () =>
-          import("./modules/blog/blog.module").then((mod) => mod.BlogModule),
+          import('./modules/blog/blog.module').then((mod) => mod.BlogModule),
       },
     ],
   },
   {
-    path: "album",
+    path: 'album',
     component: AlbumLayoutComponent,
     loadChildren: () =>
-      import("./modules/album/album.module").then((mod) => mod.AlbumModule),
+      import('./modules/album/album.module').then((mod) => mod.AlbumModule),
     data: {
       animtaion: 'album'
     }
@@ -34,8 +34,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      anchorScrolling: "enabled",
-      scrollPositionRestoration: "disabled",
+      anchorScrolling: 'enabled',
+      scrollPositionRestoration: 'disabled',
     }),
   ],
   exports: [RouterModule],

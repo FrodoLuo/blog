@@ -1,14 +1,15 @@
 import {Injectable, Inject, Optional} from '@angular/core';
-import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
+import {HttpInterceptor, HttpHandler, HttpRequest, HttpEvent} from '@angular/common/http';
 import {Request} from 'express';
 import {REQUEST} from '@nguniversal/express-engine/tokens';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UniversalInterceptor implements HttpInterceptor {
 
   constructor(@Optional() @Inject(REQUEST) protected request: Request) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let serverReq: HttpRequest<any> = req;
     console.log('reach intercept', req.url);
     if (this.request) {

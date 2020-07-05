@@ -10,7 +10,7 @@ describe('AlbumComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AlbumComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

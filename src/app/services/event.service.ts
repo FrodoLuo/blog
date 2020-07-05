@@ -1,15 +1,11 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subscription, Subject } from 'rxjs';
-import { filter, map } from "rxjs/operators";
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-
-  constructor() {
-  }
-
   private eventEmitter = new Subject<{event: EVENTS, payload: any}>();
 
   public subscribe(key: EVENTS, handler: (payload: any) => any): Subscription {
@@ -19,7 +15,7 @@ export class EventService {
     ).subscribe(handler);
   }
 
-  public emit(event: EVENTS, payload: any) {
+  public emit(event: EVENTS, payload: any): void {
     this.eventEmitter.next({
       event, payload
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ArticlesService } from '../../../../services/articles.service';
@@ -28,19 +28,19 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public article: IArticle = null;
   public publishing = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions = this.route.data.subscribe(data => {
       this.article = data.article;
       this.titleService.setTitle(this.article.title);
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.titleService.removeSubTitle();
     this.subscriptions.unsubscribe();
   }
 
-  leaveComment(content: string, nick: string) {
+  leaveComment(content: string, nick: string): void {
     if (content.length == 0) {
       this.commentRejected = true;
       return;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener } from "@angular/core";
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   trigger,
   transition,
@@ -6,26 +6,25 @@ import {
   style,
   animate,
   query,
-} from "@angular/animations";
-import { ConfigService } from "../../services/config.service";
-import { Router, RouterEvent, NavigationEnd } from "@angular/router";
-import { DOCUMENT } from "@angular/common";
-import { ArticlesService } from "../../services/articles.service";
+} from '@angular/animations';
+import { ConfigService } from '../../services/config.service';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { ScreenService } from 'src/app/services/screen.service';
 
-const routerAnimation = trigger("routerAnimation", [
-  transition("* <=> *", [
+const routerAnimation = trigger('routerAnimation', [
+  transition('* <=> *', [
     style({
-      position: "relative",
+      position: 'relative',
     }),
     query(
-      ":enter, :leave",
+      ':enter, :leave',
       [
         style({
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           left: 0,
-          width: "100%",
+          width: '100%',
         }),
       ],
       {
@@ -34,20 +33,20 @@ const routerAnimation = trigger("routerAnimation", [
     ),
     group([
       query(
-        ":leave",
+        ':leave',
         [
-          style({ opacity: 1, display: "block" }),
-          animate("200ms ease", style({ opacity: 0, display: "none" })),
+          style({ opacity: 1, display: 'block' }),
+          animate('200ms ease', style({ opacity: 0, display: 'none' })),
         ],
         {
           optional: true,
         }
       ),
       query(
-        ":enter",
+        ':enter',
         [
-          style({ opacity: 0, display: "block" }),
-          animate("400ms 600ms ease", style({ opacity: 1 })),
+          style({ opacity: 0, display: 'block' }),
+          animate('400ms 600ms ease', style({ opacity: 1 })),
         ],
         {
           optional: true,
@@ -58,9 +57,9 @@ const routerAnimation = trigger("routerAnimation", [
 ]);
 
 @Component({
-  selector: "app-main-layout",
-  templateUrl: "./main-layout.component.html",
-  styleUrls: ["./main-layout.component.scss"],
+  selector: 'app-main-layout',
+  templateUrl: './main-layout.component.html',
+  styleUrls: ['./main-layout.component.scss'],
   animations: [routerAnimation],
 })
 export class MainLayoutComponent implements OnInit {
@@ -72,7 +71,7 @@ export class MainLayoutComponent implements OnInit {
   ) {
     router.events.subscribe((e: RouterEvent) => {
       if (e instanceof NavigationEnd) {
-        if (typeof this.document.documentElement.scrollTo === "function") {
+        if (typeof this.document.documentElement.scrollTo === 'function') {
           setTimeout(() => {
             this.document.documentElement.scrollTo(0, 0);
           }, 400);
@@ -83,7 +82,7 @@ export class MainLayoutComponent implements OnInit {
 
   public background = this.configService.indexBackground$;
 
-  public toggle = this.router.url !== "/";
+  public toggle = this.router.url !== '/';
 
   public sideOpen = false;
 
@@ -91,10 +90,10 @@ export class MainLayoutComponent implements OnInit {
 
   public verticalScreen = this.screenService.isVerticalScreen$;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.router.events.subscribe((e: RouterEvent) => {
       if (e instanceof NavigationEnd) {
-        this.toggle = e.url !== "/";
+        this.toggle = e.url !== '/';
       }
     });
     this.screenService.onResize();

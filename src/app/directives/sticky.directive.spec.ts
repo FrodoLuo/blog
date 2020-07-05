@@ -1,4 +1,3 @@
-import { StickyDirective } from './sticky.directive';
 
 describe('StickyDirective', () => {
   it('should create an instance', () => {

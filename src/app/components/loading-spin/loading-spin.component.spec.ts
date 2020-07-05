@@ -10,7 +10,7 @@ describe('LoadingSpinComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoadingSpinComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
