@@ -12,11 +12,11 @@ export class TitleService {
 
   private static title = 'FrodoLuo的笔记';
 
-  public setTitle(t: string) {
+  public setTitle(t: string): void {
     this.document.title = `${t} - ${TitleService.title}`;
   }
 
-  public removeSubTitle() {
+  public removeSubTitle(): void {
     this.document.title = TitleService.title;
   }
 }

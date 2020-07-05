@@ -10,7 +10,7 @@ describe('MotionBackgroundComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MotionBackgroundComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

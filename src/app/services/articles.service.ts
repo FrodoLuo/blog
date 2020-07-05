@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { IArticle, IArticleRes, IComment } from './models/articles.model';
 
 const PAGE_SIZE = 10;
@@ -20,13 +20,13 @@ export class ArticlesService {
 
   private useTag = false;
 
-  public getRecentArticles() {
+  public getRecentArticles(): Observable<IArticle[]> {
     return this.http.get<IArticle[]>(
-      `/api/articles?_sort=updated_at:DESC&_limit=5`
+      '/api/articles?_sort=updated_at:DESC&_limit=5'
     );
   }
 
-  public setKeyword(keyword: string, useTag: boolean) {
+  public setKeyword(keyword: string, useTag: boolean): void {
     this.useTag = useTag;
     this.setSearch(keyword);
   }
@@ -37,13 +37,13 @@ export class ArticlesService {
     this.fetchArticles();
   }
 
-  public getArticleDetail(id: number | string) {
+  public getArticleDetail(id: number | string): Observable<IArticle> {
     return this.http.get<IArticleRes>(`/api/articles/${id}`).pipe(
       map(this.transformArticleRes),
     );
   }
 
-  public leaveComment(articleId: number, content: string, nick: string) {
+  public leaveComment(articleId: number, content: string, nick: string): Observable<IComment> {
     return this.http.post<IComment>('/api/comments', {
       nickname: nick || '无名氏',
       content,
@@ -52,7 +52,7 @@ export class ArticlesService {
     });
   }
 
-  public refreshPage(pageIndex: number) {
+  public refreshPage(pageIndex: number): void {
     this.fetchArticles(pageIndex);
   }
 
@@ -67,7 +67,7 @@ export class ArticlesService {
     return a;
   }
 
-  private fetchArticles(page: number = 0) {
+  private fetchArticles(page = 0) {
     this.articleList$.next([]);
     this.http
       .get<IArticleRes[]>(
@@ -94,8 +94,8 @@ export class ArticlesService {
         {
           params: {
             ...this.useTag
-            ? { tags_contains: [this.currentKeyword$.getValue()] }
-            : { title_contains: [this.currentKeyword$.getValue()] },
+              ? { tags_contains: [this.currentKeyword$.getValue()] }
+              : { title_contains: [this.currentKeyword$.getValue()] },
           }
         }
       )

@@ -27,7 +27,7 @@ export class OnScrollShowDirective implements OnDestroy, OnInit {
 
   private lastScrollTop = 0;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscription = fromEvent(this.document, 'scroll')
       .pipe(
         debounceTime(200)
@@ -47,7 +47,7 @@ export class OnScrollShowDirective implements OnDestroy, OnInit {
         this.lastScrollTop = scroll;
       });
   }
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.subscription) { this.subscription.unsubscribe(); }
   }
 }

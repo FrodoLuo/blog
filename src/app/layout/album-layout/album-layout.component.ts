@@ -6,15 +6,12 @@ import { ScreenService } from 'src/app/services/screen.service';
   templateUrl: './album-layout.component.html',
   styleUrls: ['./album-layout.component.scss']
 })
-export class AlbumLayoutComponent implements OnInit {
+export class AlbumLayoutComponent {
 
   constructor(
     private screenService: ScreenService
   ) { }
 
   public isVerticalScreen$ = this.screenService.isVerticalScreen$;
-
-  ngOnInit() {
-  }
 
 }

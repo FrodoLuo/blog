@@ -10,7 +10,7 @@ describe('AlbumLayoutComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AlbumLayoutComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

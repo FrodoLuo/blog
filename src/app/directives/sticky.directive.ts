@@ -50,7 +50,7 @@ export class StickyDirective implements OnInit, OnDestroy {
       : element.offsetLeft;
   }
 
-  public checkStatus() {
+  public checkStatus(): void {
     const offset = this.element.nativeElement.offsetTop;
     const scroll = this.document.documentElement.scrollTop;
     if (this.isFixed) {
@@ -65,13 +65,13 @@ export class StickyDirective implements OnInit, OnDestroy {
 
   }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.savedTop = this.element.nativeElement.offsetTop - this.top;
     this.subscription = fromEvent(this.document, 'scroll').subscribe(this.checkStatus.bind(this))
       .add(fromEvent(this.document, 'resize').subscribe(this.checkStatus.bind(this)));
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
