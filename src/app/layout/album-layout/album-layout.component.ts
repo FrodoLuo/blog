@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScreenService } from 'src/app/services/screen.service';
 
 @Component({
   selector: 'app-album-layout',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlbumLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private screenService: ScreenService
+  ) { }
+
+  public isVerticalScreen$ = this.screenService.isVerticalScreen$;
 
   ngOnInit() {
   }

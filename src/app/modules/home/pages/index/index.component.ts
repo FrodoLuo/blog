@@ -3,7 +3,7 @@ import { ArticlesService } from '../../../../services/articles.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../../../../services/config.service';
-import { IArticle } from 'src/app/services/articles.model';
+import { IArticle } from 'src/app/services/models/articles.model';
 
 @Component({
   selector: 'app-index',

@@ -11,23 +11,20 @@ import { CommonDeclarationModule } from '../common-declaration/common-declaratio
 import { RemoveMarkdownPipe } from '../../pipes/remove-markdown.pipe';
 import { CutBriefPipe } from '../../pipes/cut-brief.pipe';
 
-
 @NgModule({
   declarations: [
     ArticleComponent,
     BlogComponent,
     RemoveMarkdownPipe,
-    CutBriefPipe
+    CutBriefPipe,
   ],
   imports: [
     CommonModule,
     BlogRoutingModule,
     MarkdownModule.forRoot(),
     MaterialModule,
-    CommonDeclarationModule
+    CommonDeclarationModule,
   ],
-  providers: [
-    ArticlePageResolver
-  ]
+  providers: [ArticlePageResolver],
 })
-export class BlogModule { }
+export class BlogModule {}

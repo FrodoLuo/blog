@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { IArticle, IArticleRes, IComment } from './articles.model';
+import { IArticle, IArticleRes, IComment } from './models/articles.model';
 
 const PAGE_SIZE = 10;
 
@@ -34,7 +34,7 @@ export class ArticlesService {
   private setSearch(keyword: string) {
     this.articleList$.next([]);
     this.currentKeyword$.next(keyword);
-    this.getArticles();
+    this.fetchArticles();
   }
 
   public getArticleDetail(id: number | string) {
@@ -53,7 +53,7 @@ export class ArticlesService {
   }
 
   public refreshPage(pageIndex: number) {
-    this.getArticles(pageIndex);
+    this.fetchArticles(pageIndex);
   }
 
   private transformArticleRes(articleRes: IArticleRes): IArticle {
@@ -67,7 +67,7 @@ export class ArticlesService {
     return a;
   }
 
-  private getArticles(page: number = 0) {
+  private fetchArticles(page: number = 0) {
     this.articleList$.next([]);
     this.http
       .get<IArticleRes[]>(
