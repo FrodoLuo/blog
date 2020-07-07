@@ -1,5 +1,6 @@
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+/* eslint-disable @typescript-eslint/ban-types */
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,10 +9,13 @@ import { BehaviorSubject } from 'rxjs';
 export class ScreenService {
 
   constructor(
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) platformId: Object
   ) {
-    window.addEventListener('resize', () => {this.onResize();});
-    this.onResize();
+    if (isPlatformBrowser(platformId)) {
+      window.addEventListener('resize', () => {this.onResize();});
+      this.onResize();
+    }
   }
 
   public isVerticalScreen$ = new BehaviorSubject<boolean>(false);

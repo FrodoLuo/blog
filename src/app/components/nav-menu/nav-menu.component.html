@@ -7,7 +7,7 @@
   >
     <mat-icon [style.color]="color" size="large">menu</mat-icon>
   </button>
-  <mat-menu #menu="matMenu" xPosition="before" (closed)="sideOpen = false">
+  <mat-menu #menu="matMenu" xPosition="before">
     <a
       mat-menu-item
       [routerLink]="route.path"
