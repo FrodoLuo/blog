@@ -10,7 +10,7 @@
       <div class="title-item">
         <a [routerLink]="'/blog/' + item.id" class="title">{{item.title}}</a>
         <div class="info">
-          <span class="date">{{item.updated_at | date}}</span>
+          <span class="date">{{item.updatedAt | date}}</span>
           <span class="user">{{item.author.username}}</span>
         </div>
         <div class="description-container">

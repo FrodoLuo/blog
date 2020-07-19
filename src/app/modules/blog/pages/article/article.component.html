@@ -4,7 +4,7 @@
       {{ article.title }}
     </h1>
     <div class="article-metadata">
-      {{ article.updated_at | date }}, {{ article.author.username }}
+      {{ article.updatedAt | date }}, {{ article.author.username }}
     </div>
     <article>
       <markdown
@@ -47,7 +47,7 @@
           {{ comment.nickname }}
         </div>
         <div class="time">
-          {{ comment.created_at | date: "medium" }}
+          {{ comment.createdAt | date: "medium" }}
         </div>
       </div>
       <div class="comment-content-wrap">

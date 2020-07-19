@@ -22,7 +22,7 @@ export class ArticlesService {
 
   public getRecentArticles(): Observable<IArticle[]> {
     return this.http.get<IArticle[]>(
-      '/api/articles?_sort=updated_at:DESC&_limit=5'
+      '/api/articles?pageSize=5'
     );
   }
 
@@ -38,7 +38,7 @@ export class ArticlesService {
   }
 
   public getArticleDetail(id: number | string): Observable<IArticle> {
-    return this.http.get<IArticleRes>(`/api/articles/${id}`).pipe(
+    return this.http.get<IArticleRes>(`/api/articles/detail/${id}`).pipe(
       map(this.transformArticleRes),
     );
   }
@@ -47,7 +47,7 @@ export class ArticlesService {
     return this.http.post<IComment>('/api/comments', {
       nickname: nick || '无名氏',
       content,
-      article: articleId,
+      articleId: articleId,
       permitted: false
     });
   }
@@ -75,12 +75,9 @@ export class ArticlesService {
         '/api/articles',
         {
           params: {
-            _sort: 'updated_at:DESC',
-            _start: `${page * PAGE_SIZE}`,
-            _limit: `${PAGE_SIZE}`,
-            ...this.useTag
-              ? { tags_contains: [this.currentKeyword$.getValue()] }
-              : { title_contains: [this.currentKeyword$.getValue()] },
+            page: `${page}`,
+            pageSize: `${PAGE_SIZE}`,
+            keyword: this.currentKeyword$.getValue()
           }
         }
       )
@@ -93,9 +90,7 @@ export class ArticlesService {
         '/api/articles/count',
         {
           params: {
-            ...this.useTag
-              ? { tags_contains: [this.currentKeyword$.getValue()] }
-              : { title_contains: [this.currentKeyword$.getValue()] },
+            keyword: this.currentKeyword$.getValue()
           }
         }
       )
