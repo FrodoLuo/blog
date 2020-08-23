@@ -6,14 +6,6 @@ import { map } from 'rxjs/operators';
 import { IMedia } from './models/media.model';
 
 
-const addApi = (res: IMedia[]) => {
-  return res.map(media => {
-    const r = { ...media };
-    r.source.url = '/api' + r.source.url;
-    return r;
-  });
-};
-
 const sortRes = (res: IMedia[]) => {
   res.sort((a, b) => (a.orderReference - b.orderReference));
   return res;
@@ -21,7 +13,7 @@ const sortRes = (res: IMedia[]) => {
 
 const mapMediaToCareer = (res: IMedia[]) => {
   return res.map(media => ({
-    source: media.source.url,
+    source: media.source,
     year: media.description
   }));
 };
@@ -48,20 +40,19 @@ export class ConfigService {
   public fetchConfig(): void {
     this.fetchBackground();
     this.fetchCareer();
-    this.fetchFLink();
-    this.fetchPromote();
+    // this.fetchFLink();
+    // this.fetchPromote();
   }
 
   public fetchBackground(): void {
     this.http.get<IMedia[]>('/api/media?tag=banner')
       .pipe(
-        map(addApi),
         map(sortRes)
       )
       .subscribe(res => {
         const randomedBackground = res[Math.floor(Math.random() * res.length)];
         this.indexBackground$.next({
-          src: randomedBackground.source.url,
+          src: randomedBackground.source,
           description: randomedBackground.description
         });
       });
@@ -69,7 +60,6 @@ export class ConfigService {
   public fetchCareer(): void {
     this.http.get<IMedia[]>('/api/media?tag=rail')
       .pipe(
-        map(addApi),
         map(sortRes),
         map(mapMediaToCareer)
       )
@@ -78,21 +68,17 @@ export class ConfigService {
       });
   }
   public fetchFLink(): void {
-    this.http.get<Array<{ title: string; data: FriendLink[] }>>('/api/configs?title=flink')
-      .pipe(
-        map(res => res[0])
-      )
+    this.http.get<{ title: string; data: FriendLink[] }>('/api/configs/detail/flink')
       .subscribe(res => {
         this.friendLink$.next(res.data);
       });
   }
   public fetchPromote(): void {
-    this.http.get<Array<ConfigRes<Promote>>>('/api/configs?title=promote')
-      .pipe(
-        map(res => res[0] || null)
-      )
+    this.http.get<ConfigRes<Promote>>('/api/configs/detail/promote')
       .subscribe(res => {
-        if (res === null) { this.promote$.next(null); } else {
+        if (res === null) { 
+          this.promote$.next(null);
+        } else {
           this.promote$.next(res.data);
         }
       });

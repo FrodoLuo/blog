@@ -43,12 +43,13 @@ export class ArticlesService {
     );
   }
 
-  public leaveComment(articleId: number, content: string, nick: string): Observable<IComment> {
+  public leaveComment(articleId: number, content: string, nick: string, email: string): Observable<IComment> {
     return this.http.post<IComment>('/api/comments', {
       nickname: nick || '无名氏',
       content,
       articleId: articleId,
-      permitted: false
+      permitted: false,
+      email
     });
   }
 
