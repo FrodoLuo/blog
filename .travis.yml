@@ -13,7 +13,8 @@ script:
 
 after_success:
   - tar -cvf dist.tar dist/*
+  - echo "${SFTP_KEY}" | base64 --decode >/tmp/sftp_rsa
   - curl --ftp-create-dirs
       -u ${SFTP_USER}:${SFTP_PASSWORD}
       -T dist.tar
-      ftp://frodoluo.ink/blog-dist
+      sftp://frodoluo.ink/var/ftp/pub/blog-dist/
