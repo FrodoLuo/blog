@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - 12
 
+cache:
+  - yarn
+
 before_install:
   - yarn install
 
@@ -11,6 +14,6 @@ script:
 after_success:
   - tar -cvf dist.tar dist/*
   - curl --ftp-create-dirs
+      -u ${SFTP_USER}:${SFTP_PASSWORD}
       -T dist.tar
-      --key /tmp/sftp_rsa
-      sftp://${SFTP_USER}:${SFTP_PASSWORD}@frodoluo.ink/blog-dist
+      ftp://frodoluo.ink/blog-dist
