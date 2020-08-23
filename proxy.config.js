@@ -1,13 +1,27 @@
 var HttpsProxyAgent = require('https-proxy-agent');
-var proxyConfig = [{
-  context: '/api',
-  target: 'https://www.frodoluo.ink/',
-  // pathRewrite: {
-  //   "^/api": ""
-  // },
-  changeOrigin: true,
-  secure: true
-}];
+var proxyConfig = [
+  {
+    context: '/api/comments',
+    target: 'http://127.0.0.1:3100/',
+    changeOrigin: true,
+    secure: false
+  },
+  {
+    context: '/api/articles',
+    target: 'http://127.0.0.1:3100/',
+    changeOrigin: true,
+    secure: false
+  },
+  {
+    context: '/api',
+    target: 'https://www.frodoluo.ink/',
+    // pathRewrite: {
+    //   "^/api": ""
+    // },
+    changeOrigin: true,
+    secure: true
+  },
+];
  
 function setupForCorporateProxy(proxyConfig) {
   var proxyServer = process.env.http_proxy || process.env.HTTP_PROXY;

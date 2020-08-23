@@ -4,7 +4,7 @@
       {{ article.title }}
     </h1>
     <div class="article-metadata">
-      {{ article.updated_at | date }}, {{ article.author.username }}
+      {{ article.updatedAt | date }}, {{ article.author.username }}
     </div>
     <article>
       <markdown
@@ -31,11 +31,14 @@
     <mat-form-field class="nickname-field">
       <input matInput placeholder="Nick Name" #nickname />
     </mat-form-field>
+    <mat-form-field class="nickname-field">
+      <input matInput placeholder="Email(So I can reply you)" #email />
+    </mat-form-field>
     <button
       mat-button
       color="primary"
       [disabled]="publishing"
-      (click)="leaveComment(comment.value, nickname.value)"
+      (click)="leaveComment(comment.value, nickname.value, email.value)"
     >
       Publish
     </button>
@@ -47,7 +50,7 @@
           {{ comment.nickname }}
         </div>
         <div class="time">
-          {{ comment.created_at | date: "medium" }}
+          {{ comment.createdAt | date: "medium" }}
         </div>
       </div>
       <div class="comment-content-wrap">

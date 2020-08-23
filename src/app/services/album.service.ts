@@ -51,17 +51,9 @@ export class AlbumService {
           _limit: `${this.PAGE_SIZE}`,
         },
       })
-      .pipe(map(this.addApi))
       .subscribe((res) => {
         this.photos$.next(res);
         this.locking = false;
       });
-  }
-  private addApi(res: IMedia[]) {
-    return res.map((media) => {
-      const r = { ...media };
-      r.source.url = '/api' + r.source.url;
-      return r;
-    });
   }
 }

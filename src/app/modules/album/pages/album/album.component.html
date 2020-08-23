@@ -11,7 +11,7 @@
         (load)="loading = false"
         class="photo"
         [hidden]="loading"
-        [src]="currentPhoto.source.url"
+        [src]="currentPhoto.source"
       />
       <div class="loading-spin" *ngIf="loading">
         <app-loading-spin></app-loading-spin>
@@ -39,7 +39,7 @@
         (load)="loading = false"
         class="photo"
         [hidden]="loading"
-        [src]="currentPhoto.source.url"
+        [src]="currentPhoto.source"
       />
       <div class="loading-spin" *ngIf="loading">
         <app-loading-spin></app-loading-spin>
@@ -80,7 +80,7 @@
         (click)="selectPhoto(photo)"
         *ngFor="let photo of photos$ | async"
       >
-        <img [src]="photo.source.url" />
+        <img [src]="photo.source" />
       </div>
     </div>
     <div

@@ -2,7 +2,7 @@ export interface IComment {
   id: number;
   content: string;
   nickname: string;
-  created_at: number;
+  createdAt: number;
 }
 export interface IArticleRes {
   id: number;
@@ -14,7 +14,7 @@ export interface IArticleRes {
     username: string;
   };
   created_at: string;
-  updated_at: string;
+  updatedAt: string;
   tags: string;
   comments: IComment[];
   cover: string;
@@ -29,7 +29,7 @@ export interface IArticle {
     username: string;
   };
   created_at: string;
-  updated_at: string;
+  updatedAt: string;
   splitedTags: string[];
   comments: IComment[];
   cover: string;

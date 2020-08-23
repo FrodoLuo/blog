@@ -40,13 +40,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  leaveComment(content: string, nick: string): void {
+  leaveComment(content: string, nick: string, email: string): void {
     if (content.length == 0) {
       this.commentRejected = true;
       return;
     }
     this.publishing = true;
-    this.articlesService.leaveComment(this.article.id, content, nick)
+    this.articlesService.leaveComment(this.article.id, content, nick, email)
       .subscribe(res => {
         console.log(res);
         this.commentRejected = false;
