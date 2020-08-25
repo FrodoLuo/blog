@@ -28,19 +28,19 @@ export class ArticleComponent implements OnInit, OnDestroy {
   public article: IArticle = null;
   public publishing = false;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.subscriptions = this.route.data.subscribe(data => {
       this.article = data.article;
       this.titleService.setTitle(this.article.title);
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.titleService.removeSubTitle();
     this.subscriptions.unsubscribe();
   }
 
-  leaveComment(content: string, nick: string, email: string): void {
+  public leaveComment(content: string, nick: string, email: string): void {
     if (content.length == 0) {
       this.commentRejected = true;
       return;
@@ -59,6 +59,16 @@ export class ArticleComponent implements OnInit, OnDestroy {
           });
       });
 
+  }
+
+  public onMarkdownLoad(): void {
+    const images = document.documentElement.querySelectorAll('.article img');
+    console.log(images);
+    images.forEach((image: HTMLImageElement) => {
+      image.addEventListener('click', () => {
+        console.log(image.src);
+      });
+    });
   }
 
 }

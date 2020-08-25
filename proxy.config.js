@@ -1,17 +1,17 @@
 var HttpsProxyAgent = require('https-proxy-agent');
 var proxyConfig = [
-  {
-    context: '/api/comments',
-    target: 'http://127.0.0.1:3100/',
-    changeOrigin: true,
-    secure: false
-  },
-  {
-    context: '/api/articles',
-    target: 'http://127.0.0.1:3100/',
-    changeOrigin: true,
-    secure: false
-  },
+  // {
+  //   context: '/api/comments',
+  //   target: 'http://127.0.0.1:3100/',
+  //   changeOrigin: true,
+  //   secure: false
+  // },
+  // {
+  //   context: '/api/articles',
+  //   target: 'http://127.0.0.1:3100/',
+  //   changeOrigin: true,
+  //   secure: false
+  // },
   {
     context: '/api',
     target: 'https://www.frodoluo.ink/',

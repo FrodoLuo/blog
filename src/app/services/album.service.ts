@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IMedia } from './models/media.model';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { AlbumModule } from '../modules/album/album.module';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: AlbumModule,
 })
 export class AlbumService {
   constructor(private http: HttpClient) {}
