@@ -20,9 +20,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription;
 
-  @ViewChild('comment', {
-    static: false
-  }) private commentField: ElementRef<HTMLTextAreaElement>;
+  @ViewChild('comment') private commentField: ElementRef<HTMLTextAreaElement>;
 
   public commentRejected = false;
   public article: IArticle = null;
