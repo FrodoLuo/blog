@@ -15,7 +15,10 @@ export class FullscreenImageComponent {
   ) {
     this.fullscreenImageService.showImage$
       .pipe(
-        tap(() => { this.isDisplay = true; })
+        tap(() => {
+          this.isDisplay = true;
+          document.body.style.overflow = 'hidden';
+        })
       )
       .subscribe(this.currentImageSrc$);
   }
@@ -24,4 +27,8 @@ export class FullscreenImageComponent {
 
   public currentImageSrc$ = new BehaviorSubject<string>(null);
 
+  public close(): void {
+    this.isDisplay = false;
+    document.body.style.overflow = null;
+  }
 }

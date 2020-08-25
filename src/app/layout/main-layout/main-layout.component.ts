@@ -13,7 +13,7 @@ import { DOCUMENT } from '@angular/common';
 import { ScreenService } from 'src/app/services/screen.service';
 
 const routerAnimation = trigger('routerAnimation', [
-  transition('* <=> *', [
+  transition('* => *', [
     style({
       position: 'relative',
     }),

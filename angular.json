@@ -184,5 +184,8 @@
       }
     }
   },
-  "defaultProject": "ink-blog"
+  "defaultProject": "ink-blog",
+  "cli": {
+    "analytics": "e73e0532-5ef5-4169-bf29-b5448f3866cc"
+  }
 }

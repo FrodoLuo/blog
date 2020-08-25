@@ -4,6 +4,7 @@ import { AlbumRoutingModule } from './album-routing.module';
 import { AlbumComponent } from './pages/album/album.component';
 import { MaterialModule } from '../material/material.module';
 import { CommonDeclarationModule } from '../common-declaration/common-declaration.module';
+import { AlbumService } from 'src/app/services/album.service';
 
 
 
@@ -15,5 +16,8 @@ import { CommonDeclarationModule } from '../common-declaration/common-declaratio
     CommonDeclarationModule,
     MaterialModule
   ],
+  providers: [
+    AlbumService
+  ]
 })
 export class AlbumModule { }

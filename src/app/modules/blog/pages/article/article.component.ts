@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ArticlesService } from '../../../../services/articles.service';
 import { TitleService } from '../../../../services/title.service';
 import { IArticle } from 'src/app/services/models/articles.model';
+import { FullscreenImageService } from 'src/app/services/fullscreen-image.service';
 
 @Component({
   selector: 'app-article',
@@ -16,6 +17,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private titleService: TitleService,
     private articlesService: ArticlesService,
+    private fullImageService: FullscreenImageService
   ) { }
 
   private subscriptions: Subscription;
@@ -64,7 +66,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     console.log(images);
     images.forEach((image: HTMLImageElement) => {
       image.addEventListener('click', () => {
-        console.log(image.src);
+        this.fullImageService.showImage$.next(image.src);
       });
     });
   }

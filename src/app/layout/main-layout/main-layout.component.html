@@ -38,7 +38,7 @@
     </div>
 
     <main
-      [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"
+      [@routerAnimation]="outlet && outlet.activatedRouteData"
       [class.toggle]="toggle"
       class="main-container"
     >

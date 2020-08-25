@@ -219,13 +219,6 @@
   dependencies:
     tslib "^2.0.0"
 
-"@angular/http@^7.2.16":
-  version "7.2.16"
-  resolved "https://registry.npm.taobao.org/@angular/http/download/@angular/http-7.2.16.tgz#f05337dd56faa86ce05b0dc378218a00fb337040"
-  integrity sha1-8FM33Vb6qGzgWw3DeCGKAPszcEA=
-  dependencies:
-    tslib "^1.9.0"
-
 "@angular/language-service@~10.0.12":
   version "10.0.12"
   resolved "https://registry.npm.taobao.org/@angular/language-service/download/@angular/language-service-10.0.12.tgz#21042464df8acea73535de9df651e663a9dc456d"
@@ -10313,10 +10306,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.npm.taobao.org/typescript/download/typescript-4.0.2.tgz?cache=0&sync_timestamp=1598338192779&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-4.0.2.tgz#7ea7c88777c723c681e33bf7988be5d008d05ac2"
-  integrity sha1-fqfIh3fHI8aB4zv3mIvl0AjQWsI=
+typescript@^3.9.0:
+  version "3.9.7"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.9.7.tgz?cache=0&sync_timestamp=1598338192779&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  integrity sha1-mNYApevcOPQMsndSLxLcgA6eJfo=
 
 ua-parser-js@0.7.21, ua-parser-js@^0.7.18:
   version "0.7.21"

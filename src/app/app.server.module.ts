@@ -10,7 +10,7 @@ import { UniversalInterceptor } from './interceptors/universal.interceptor';
   imports: [
     AppModule,
     ServerModule,
-    ModuleMapLoaderModule,
+    // ModuleMapLoaderModule,
   ],
   bootstrap: [AppComponent],
   providers: [

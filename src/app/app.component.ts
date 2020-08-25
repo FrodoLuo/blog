@@ -31,7 +31,7 @@ const globalRoutingAnimation = trigger('globalRoutingAnimation', [
       query(
         ':leave',
         [
-          style({ opacity: 1, display: 'block' }),
+          style({ opacity: 1, display: 'block', overflow: 'hidden', maxHeight: '100vh' }),
           animate('200ms ease', style({ opacity: 0, display: 'none' })),
         ],
         { optional: true }
