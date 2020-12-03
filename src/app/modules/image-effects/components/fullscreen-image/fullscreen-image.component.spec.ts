@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FullscreenImageComponent } from './fullscreen-image.component';
 
@@ -6,7 +6,7 @@ describe('FullscreenImageComponent', () => {
   let component: FullscreenImageComponent;
   let fixture: ComponentFixture<FullscreenImageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FullscreenImageComponent ]
     })
