@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IMedia } from './models/media.model';
+import { IMedia } from '../models/media.model';
 
 
 const sortRes = (res: IMedia[]) => {
@@ -73,21 +73,6 @@ export class ConfigService {
         this.friendLink$.next(res.data);
       });
   }
-  public fetchPromote(): void {
-    this.http.get<ConfigRes<Promote>>('/api/configs/detail/promote')
-      .subscribe(res => {
-        if (res === null) { 
-          this.promote$.next(null);
-        } else {
-          this.promote$.next(res.data);
-        }
-      });
-  }
-}
-
-interface ConfigRes<T> {
-  title: string;
-  data: T;
 }
 
 export interface CareerDescription {

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ArticlesService } from '../../../../services/articles.service';
+import { ArticlesService } from '../../services/articles.service';
 import { TitleService } from '../../../../services/title.service';
-import { IArticle } from 'src/app/services/models/articles.model';
+import { IArticle } from 'src/app/models/articles.model';
 import { FullscreenImageService } from 'src/app/services/fullscreen-image.service';
 
 @Component({

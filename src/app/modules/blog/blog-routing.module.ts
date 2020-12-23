@@ -11,7 +11,7 @@ const routes: Routes = [
     component: BlogComponent
   },
   {
-    path: ':id',
+    path: 'blog/:id',
     component: ArticleComponent,
     resolve: {
       article: ArticlePageResolver

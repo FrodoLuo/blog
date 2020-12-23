@@ -5,205 +5,81 @@
   $primary: mat-color(map-get($theme, primary));
   $accent: mat-color(map-get($theme, accent));
 
-  .full-main-layout {
+  .main-layout {
+    min-height: 100vh;
     display: flex;
-    position: relative;
+    flex-direction: column;
+  }
 
-    .side-static-container {
-      position: fixed;
+  header {
+    background: $primary;
+    height: 56px;
+    .nav-wrapper {
+      max-width: 884px;
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin: auto;
       left: 0;
-      top: 0;
-      height: 100vh;
-      width: 50vw;
-      transition: width 400ms 200ms ease;
-
-      img.background {
-        opacity: 1;
-        z-index: -1;
-        transition: all 800ms ease;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-      .content {
-        background: rgba(255, 255, 255, 0.3);
-        height: 100%;
-        width: 100%;
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-
-        .small-screen-nav {
-          display: none;
-        }
-
-        header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          height: 128px;
-          padding: 0 32px;
-
-          background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.3),
-            transparent
-          );
-          transition: all 0.4s ease;
-
-          .menu-container {
-            display: flex;
-            width: 100%;
-            flex-direction: row-reverse;
-          }
-        }
-
-        content {
-          flex: 1;
-
-          padding: 0 32px;
-
-          .background-info {
-            text-align: right;
-
-            .background-story {
-              align-self: flex-end;
-              color: white;
-              font-size: 24px;
-              height: 64px;
-              width: 32px;
-            }
-          }
-        }
-
-        footer {
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-          padding: 0 32px 32px 32px;
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-      
-          min-height: 128px;
-        }
-      }
-
-      &.toggle {
-        width: 30vw;
-
-        .content {
-          background: transparent;
-
-          header {
-            background: linear-gradient(to bottom, transparent, transparent);
-          }
-
-          footer {
-            background: linear-gradient(to bottom, transparent, transparent);
-
-            .contact-container {
-              color: black;
-            }
-
-            .beian-container {
-              color: black;
-
-              a {
-                color: mat-color(map-get($theme, primary), 600);
-              }
-            }
-          }
-        }
-
-        img.background {
-          opacity: 0;
-        }
-      }
-    }
-
-    .main-container {
-      margin-left: 50vw;
-      flex: 1;
-      transition: all 500ms 200ms ease;
-
-      &.toggle {
-        margin-left: 30vw;
-      }
+      right: 0;
     }
   }
 
-  .small-main-layout {
-    header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 10000;
-      background: white;
-      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
-    }
+  .main-container {
+    flex: 1;
+    transition: all 500ms 200ms ease;
+    max-width: 884px;
+    min-height: calc(100vh - 56px);
+    margin: auto;
+    left: 0;
+    right: 0;
     main {
-      margin-top: 64px;
-      min-height: 100vh;
+      max-width: 568px;
+      position: relative;
     }
-    footer {
+  }
 
-      padding: 10px;
+  footer {
+    transition: all 0.4s ease;
+    background: #4a4a4a;
+    padding: 24px;
+
+    .footer-content {
+      max-width: 884px;
+      margin: auto;
+      left: 0;
+      right: 0;
+
       display: flex;
-      flex-direction: column-reverse;
-      .contact-container {
-        display: flex;
-        flex-direction: row;
-        color: black;
-      }
-
+      align-items: flex-start;
+      justify-content: flex-start;
       .beian-container {
-        color: black;
-        align-self: flex-start;
-        padding-left: 15px;
+        align-self: flex-end;
+        color: white;
+        transition: color 0.4s ease;
+
+        margin-right: 48px;
 
         a {
-          color: mat-color(map-get($theme, primary), 600);
+          color: mat-color(map-get($theme, primary), 100);
         }
       }
-    }
-  }
-  footer {
+      .contact-container {
+        color: white;
 
-    transition: all 0.4s ease;
+        .contact-icon-wrapper {
+          display: flex;
+          margin-left: -16px;
+          a {
+            height: 64px;
+            width: 64px;
+            line-height: 64px;
 
-    .beian-container {
-      flex: 1;
-      align-self: flex-end;
-      color: white;
-      transition: color 0.4s ease;
-      margin-bottom: 16px;
-
-      .copy {
-        margin-bottom: 20px;
-      }
-
-      a {
-        color: mat-color(map-get($theme, primary), 100);
-      }
-    }
-
-    .contact-container {
-      color: white;
-      display: flex;
-      flex-direction: column;
-
-      a {
-        height: 64px;
-        width: 64px;
-        line-height: 64px;
-
-        i {
-          font-size: 24px;
+            i {
+              font-size: 24px;
+            }
+          }
         }
       }
     }

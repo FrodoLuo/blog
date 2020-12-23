@@ -1,25 +1,35 @@
-.menu-wrapper {
-  position: relative;
+@import "~@angular/material/theming";
+@import "~src/theme-define.scss";
 
-  button {
-    color: white;
-    height: 64px;
-    width: 32px;
+@mixin nav-menu($theme) {
+  $primary: mat-color(map-get($theme, primary));
+  $accent: mat-color(map-get($theme, accent));
 
-    mat-icon {
-      font-size: 24px;
+  .menu-wrapper {
+    position: relative;
+
+    button {
+      color: white;
+      height: 64px;
+      width: 32px;
+
+      mat-icon {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .menu-wrapper-expand {
+    .menu-item-content {
+      color: white;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      .icon {
+        margin-left: 8px;
+      }
     }
   }
 }
 
-.menu-wrapper-expand {
-  .menu-item-content {
-    color: white;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    .icon {
-      margin-left: 8px;
-    }
-  }
-}
+@include nav-menu($ink-app-theme);

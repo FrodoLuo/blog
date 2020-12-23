@@ -1,39 +1,64 @@
-<div class="main-content">
+<div class="blog-content">
   <mat-form-field>
-    <input #searchbox matInput placeholder="搜索"  [value]="keyword$.getValue().value" (input)="keyword$.next({ value: searchbox.value, isTag: false})">
-    <button mat-button *ngIf="searchbox.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchbox.value=''; keyword$.next({value: '', isTag: false})">
+    <input
+      #searchbox
+      matInput
+      placeholder="搜索"
+      [value]="keyword$.getValue().value"
+      (input)="keyword$.next({ value: searchbox.value, isTag: false })"
+    />
+    <button
+      mat-button
+      *ngIf="searchbox.value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="searchbox.value = ''; keyword$.next({ value: '', isTag: false })"
+    >
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
   <div class="article-container">
-    <div *ngFor="let item of (articleList | async)">
+    <div *ngFor="let item of articleList | async">
       <div class="title-item">
-        <a [routerLink]="'/blog/' + item.id" class="title">{{item.title}}</a>
-        <div class="info">
-          <span class="date">{{item.updatedAt | date}}</span>
-          <span class="user">{{item.author.username}}</span>
+        <div class="cover" *ngIf="item.cover">
+          <img [src]="item.cover" />
         </div>
-        <div class="description-container">
-          <div class="cover" *ngIf="item.cover">
-            <img [src]="item.cover" />
+
+        <div class="text-container">
+          <a [routerLink]="'/blog/' + item.id" class="title">
+            {{ item.title }}
+          </a>
+          <div class="info">
+            <span class="date">{{ item.updatedAt | date }}</span>
+            <span class="user">{{ item.author.username }}</span>
           </div>
           <div class="brief">
-            {{item.content | cutBrief | removeMarkdown}}
+            {{ item.content | cutBrief | removeMarkdown }}
+          </div>
+          <a [routerLink]="'/blog/' + item.id">More</a>
+          <div class="tag-container" *ngIf="item.splitedTags.length > 0">
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let tag of item.splitedTags"
+                (click)="setTag(tag)"
+                selected
+                color="primary"
+              >
+                {{ tag }}
+              </mat-chip>
+            </mat-chip-list>
           </div>
         </div>
-        <a [routerLink]="'/blog/' + item.id">More</a>
-        <div class="tag-container" *ngIf="item.splitedTags.length > 0">
-          <mat-chip-list>
-            <mat-chip *ngFor="let tag of item.splitedTags" (click)="setTag(tag)" selected>{{tag}}</mat-chip>
-          </mat-chip-list>
-        </div>
       </div>
-      <hr />
     </div>
-    <div *ngIf="(articleList | async).length == 0" className="empty-hint">
-
-    </div>
+    <div *ngIf="(articleList | async).length == 0" className="empty-hint"></div>
   </div>
-  <mat-paginator [pageSize]="10" [length]="countOfArticles | async" (page)="setPage($event.pageIndex)" #paginator></mat-paginator>
-
+  <mat-paginator
+    [pageSize]="10"
+    [length]="countOfArticles | async"
+    (page)="setPage($event.pageIndex)"
+    #paginator
+    class="paginator"
+  ></mat-paginator>
 </div>

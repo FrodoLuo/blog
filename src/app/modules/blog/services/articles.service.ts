@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IArticle, IArticleRes, IComment } from './models/articles.model';
+import { IArticle, IArticleRes, IComment } from '../../../models/articles.model';
 
 const PAGE_SIZE = 10;
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ArticlesService {
   constructor(private http: HttpClient) { }
 

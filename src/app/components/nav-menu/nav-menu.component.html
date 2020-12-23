@@ -1,11 +1,6 @@
 <div class="menu-wrapper" *ngIf="!expand">
-  <button
-    class="big-screen"
-    mat-button
-    [matMenuTriggerFor]="menu"
-    [color]="color"
-  >
-    <mat-icon [style.color]="color" size="large">menu</mat-icon>
+  <button class="big-screen" mat-button [matMenuTriggerFor]="menu">
+    <mat-icon size="large">menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
     <a
@@ -21,8 +16,8 @@
 
 <div class="menu-wrapper-expand" *ngIf="expand">
   <a mat-button [routerLink]="route.path" *ngFor="let route of menuConfigs">
-    <div class="menu-item-content" [style.color]="color">
-      <mat-icon class="icon" [style.color]="color">{{ route.icon }}</mat-icon>
+    <div class="menu-item-content">
+      <mat-icon class="icon">{{ route.icon }}</mat-icon>
       {{ route.name }}
     </div>
   </a>

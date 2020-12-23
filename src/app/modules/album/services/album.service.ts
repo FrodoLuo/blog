@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IMedia } from './models/media.model';
+import { IMedia } from '../../../models/media.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()

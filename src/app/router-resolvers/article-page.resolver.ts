@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { ArticlesService } from '../services/articles.service';
+import { ArticlesService } from '../modules/blog/services/articles.service';
 import { Observable } from 'rxjs';
-import { IArticle } from '../services/models/articles.model';
+import { IArticle } from '../models/articles.model';
 
 @Injectable()
 export class ArticlePageResolver implements Resolve<IArticle> {

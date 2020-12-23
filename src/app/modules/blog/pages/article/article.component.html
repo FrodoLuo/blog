@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="article-page">
   <div class="article" *ngIf="article">
     <h1 class="article-title">
       {{ article.title }}
@@ -14,51 +14,55 @@
         (ready)="onMarkdownLoad()"
       ></markdown>
     </article>
+    <div class="tags-container">
+      <mat-chip-list>
+        <mat-chip *ngFor="let tag of article.splitedTags">{{ tag }}</mat-chip>
+      </mat-chip-list>
+    </div>
   </div>
-  <div class="tags-container">
-    <mat-chip-list>
-      <mat-chip *ngFor="let tag of article.splitedTags">{{ tag }}</mat-chip>
-    </mat-chip-list>
-  </div>
-  <div class="comment-field-container">
-    <mat-form-field appearance="outline" class="comment-field">
-      <textarea matInput placeholder="Leave Some Comments" #comment></textarea>
-      <mat-hint>
-        <mat-error *ngIf="commentRejected"
-          >At lease leave something. :)</mat-error
-        >
-      </mat-hint>
-    </mat-form-field>
-    <mat-form-field class="nickname-field">
-      <input matInput placeholder="Nick Name" #nickname />
-    </mat-form-field>
-    <mat-form-field class="nickname-field">
-      <input matInput placeholder="Email(So I can reply you)" #email />
-    </mat-form-field>
-    <button
-      mat-button
-      color="primary"
-      [disabled]="publishing"
-      (click)="leaveComment(comment.value, nickname.value, email.value)"
-    >
-      Publish
-    </button>
-  </div>
-  <div class="comments-container">
-    <div class="comment-item" *ngFor="let comment of article.comments">
-      <div class="comment-info-wrap">
-        <div class="nickname">
-          {{ comment.nickname }}
+  <div class="comments">
+    <div class="comment-field-container">
+      <mat-form-field appearance="outline" class="comment-field">
+        <textarea
+          matInput
+          placeholder="Leave Some Comments"
+          #comment
+        ></textarea>
+        <mat-hint>
+          <mat-error *ngIf="commentRejected"
+            >At lease leave something. :)</mat-error
+          >
+        </mat-hint>
+      </mat-form-field>
+      <mat-form-field class="nickname-field">
+        <input matInput placeholder="Nick Name" #nickname />
+      </mat-form-field>
+      <mat-form-field class="nickname-field">
+        <input matInput placeholder="Email(So I can reply you)" #email />
+      </mat-form-field>
+      <button
+        mat-button
+        color="primary"
+        [disabled]="publishing"
+        (click)="leaveComment(comment.value, nickname.value, email.value)"
+      >
+        Publish
+      </button>
+    </div>
+    <div class="comments-container">
+      <div class="comment-item" *ngFor="let comment of article.comments">
+        <div class="comment-info-wrap">
+          <div class="nickname">
+            {{ comment.nickname }}
+          </div>
+          <div class="time">
+            {{ comment.createdAt | date: "medium" }}
+          </div>
         </div>
-        <div class="time">
-          {{ comment.createdAt | date: "medium" }}
+        <div class="comment-content-wrap">
+          {{ comment.content }}
         </div>
-      </div>
-      <div class="comment-content-wrap">
-        {{ comment.content }}
       </div>
     </div>
   </div>
 </div>
-
-<app-fullscreen-image></app-fullscreen-image>

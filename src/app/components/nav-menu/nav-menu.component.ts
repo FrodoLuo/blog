@@ -11,18 +11,13 @@ export class NavMenuComponent {
   public color = 'black';
 
   @Input('expand')
-  public expand = false;
+  public expand = true;
 
   public menuConfigs: IMenuConfig = [
     {
       path: '/',
       name: 'Home',
       icon: 'home',
-    },
-    {
-      path: '/blog',
-      name: 'Blog',
-      icon: 'collections_bookmark',
     },
     {
       path: '/album',

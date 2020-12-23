@@ -1,9 +1,15 @@
 @import "~@angular/material/theming";
 
-$ink-app-primary: mat-palette($mat-deep-purple, 300, 500, 900);
+$ink-app-primary: mat-palette($mat-teal, 200);
 
-$ink-app-accent: mat-palette($mat-amber);
+$ink-app-accent: mat-palette($mat-red, 300);
 
 $ink-app-warn: mat-palette($mat-red);
 
-$ink-app-theme: mat-light-theme($ink-app-primary, $ink-app-accent, $ink-app-warn);
+$ink-app-theme: mat-light-theme(
+  $ink-app-primary,
+  $ink-app-accent,
+  $ink-app-warn
+);
+
+$border-radius: 0;

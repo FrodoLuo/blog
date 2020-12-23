@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AlbumService } from 'src/app/services/album.service';
+import { AlbumService } from 'src/app/modules/album/services/album.service';
 import { ScreenService } from 'src/app/services/screen.service';
-import { IMedia } from 'src/app/services/models/media.model';
+import { IMedia } from 'src/app/models/media.model';
 import { Subscription } from 'rxjs';
 
 @Component({

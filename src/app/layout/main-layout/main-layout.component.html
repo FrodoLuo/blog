@@ -1,71 +1,21 @@
-<ng-container *ngTemplateOutlet="(verticalScreen | async) ? smallMain : fullMain"></ng-container>
-
-
-<ng-template #fullMain>
-  <div class="full-main-layout">
-    <div class="side-static-container" [class.toggle]="toggle">
-      <img class="background" [src]="(background | async).src" />
-      <div class="content">
-        <header>
-          <div class="menu-container">
-            <app-nav-menu [color]="toggle ? 'black' : 'white'" [expand]="true"></app-nav-menu>
-          </div>
-        </header>
-
-        <content>
-          <div class="small-screen-nav">
-            <a mat-menu-item routerLink="/" (click)="sideOpen = false">
-              <mat-icon>home</mat-icon>Home
-            </a>
-            <a mat-menu-item routerLink="/blog" (click)="sideOpen = false">
-              <mat-icon>collections_bookmark</mat-icon>Blog
-            </a>
-          </div>
-
-          <div [hidden]="toggle" class="background-info">
-            <button
-              class="background-story"
-              mat-button
-              [matTooltip]="(background | async).description"
-            >
-              <mat-icon>info_outline</mat-icon>
-            </button>
-          </div>
-        </content>
-
-        <ng-container *ngTemplateOutlet="footer"></ng-container>
-      </div>
-    </div>
-
-    <main
-      [@routerAnimation]="outlet && outlet.activatedRouteData"
-      [class.toggle]="toggle"
-      class="main-container"
-    >
-      <router-outlet #outlet="outlet"></router-outlet>
-    </main>
+<header>
+  <div class="nav-wrapper">
+    <app-nav-menu></app-nav-menu>
   </div>
-</ng-template>
+</header>
+<div
+  [@routerAnimation]="outlet && outlet.activatedRouteData"
+  class="main-container"
+>
+  <main>
+    <router-outlet #outlet="outlet"></router-outlet>
+  </main>
+</div>
 
-<ng-template #smallMain>
-  <div class="small-main-layout">
-    <header>
-      <app-nav-menu></app-nav-menu>
-    </header>
-    <main
-      [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"
-      [class.toggle]="toggle"
-      class="main-container"
-    >
-      <router-outlet #outlet="outlet"></router-outlet>
-    </main>
-    <ng-container *ngTemplateOutlet="footer" [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"></ng-container>
-  </div>
-</ng-template>
-
-<ng-template #footer>
-  <footer>
+<footer>
+  <div class="footer-content">
     <div class="beian-container">
+      <h3>Certification</h3>
       <div class="copy">
         Content from
         <a href="mailto:frodoluo@outlook.com">FrodoLuo</a>
@@ -81,16 +31,22 @@
         >
       </div>
     </div>
+
     <div class="contact-container">
-      <a mat-button target="_blank" href="https://github.com/FrodoLuo"
-        ><i class="iconfont icon-github"></i
-      ></a>
-      <a mat-button target="_blank" href="https://twitter.com/luo_yuzhou"
-        ><i class="iconfont icon-twitter"></i
-      ></a>
-      <a mat-button href="mailto:frodoluo@outlook.com">
-        <mat-icon>mail</mat-icon>
-      </a>
+      <h3>Contact Me</h3>
+      <div class="contact-icon-wrapper">
+        <a mat-button target="_blank" href="https://github.com/FrodoLuo"
+          ><i class="iconfont icon-github"></i
+        ></a>
+        <a mat-button target="_blank" href="https://twitter.com/luo_yuzhou"
+          ><i class="iconfont icon-twitter"></i
+        ></a>
+        <a mat-button href="mailto:frodoluo@outlook.com">
+          <mat-icon>mail</mat-icon>
+        </a>
+      </div>
     </div>
-  </footer>
-</ng-template>
+  </div>
+</footer>
+
+<ng-template #contact> </ng-template>

@@ -8,7 +8,7 @@ This file defines the global styles. All this class will implit all elements mat
 @import "./assets/styles/article.scss";
 
 html {
-  background: #f4f4f4;
+  background: #efefef;
 }
 
 body {
@@ -20,9 +20,6 @@ body {
 @mixin common-entity($theme) {
   $primary: mat-color(map-get($theme, primary));
 
-  .page {
-    background: transparent;
-  }
   a {
     cursor: pointer;
     color: $primary;
@@ -32,18 +29,6 @@ body {
     &:hover {
       opacity: 0.6;
     }
-  }
-  .main-content {
-    max-width: 786px;
-    display: flex;
-    flex-direction: column;
-    padding: 32px 4rem;
-    background: white;
-    box-sizing: border-box;
-  }
-
-  .small-screen .main-content {
-    padding: 1.5rem;
   }
 }
 
