@@ -1,31 +1,13 @@
+<div class="blog-banner"></div>
 <div class="blog-content">
-  <mat-form-field>
-    <input
-      #searchbox
-      matInput
-      placeholder="搜索"
-      [value]="keyword$.getValue().value"
-      (input)="keyword$.next({ value: searchbox.value, isTag: false })"
-    />
-    <button
-      mat-button
-      *ngIf="searchbox.value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="searchbox.value = ''; keyword$.next({ value: '', isTag: false })"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
   <div class="article-container">
     <div *ngFor="let item of articleList | async">
-      <div class="title-item">
+      <div class="article-item">
         <div class="cover" *ngIf="item.cover">
           <img [src]="item.cover" />
         </div>
-
-        <div class="text-container">
+        <div class="item-content">
+          <div class="article-item--decorate-block"></div>
           <a [routerLink]="'/blog/' + item.id" class="title">
             {{ item.title }}
           </a>

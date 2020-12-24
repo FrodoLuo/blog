@@ -25,7 +25,7 @@ import { SidePanelComponent } from './components/side-panel/side-panel.component
     MainLayoutComponent,
     NavMenuComponent,
     FullscreenImageComponent,
-    SidePanelComponent
+    SidePanelComponent,
   ],
   imports: [
     AppRoutingModule,
