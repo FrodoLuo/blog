@@ -5,24 +5,20 @@ import { map } from 'rxjs/operators';
 
 import { IMedia } from '../models/media.model';
 
-
 const sortRes = (res: IMedia[]) => {
-  res.sort((a, b) => (a.orderReference - b.orderReference));
+  res.sort((a, b) => a.orderReference - b.orderReference);
   return res;
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigService {
-
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     this.fetchConfig();
   }
 
-  public indexBackground$ = new BehaviorSubject<BackgroundInfo>({ src: '', description: '' });
+  public indexBackground$ = new BehaviorSubject<string>('');
 
   public friendLink$ = new BehaviorSubject<FriendLink[]>([]);
 
@@ -35,41 +31,46 @@ export class ConfigService {
   }
 
   public fetchBackground(): void {
-    this.http.get<IMedia[]>('/api/media?tag=banner')
+    this.http
+      .get<IConfig>('/api/configs/detail/banner')
       .pipe(
-        map(sortRes)
+        map((res) => {
+          return JSON.parse(res.data) as { sources: string };
+        })
       )
-      .subscribe(res => {
-        const randomedBackground = res[Math.floor(Math.random() * res.length)];
-        this.indexBackground$.next({
-          src: randomedBackground.source,
-          description: randomedBackground.description
-        });
+      .subscribe((res) => {
+        this.indexBackground$.next(res.sources);
       });
   }
   public fetchFLink(): void {
-    this.http.get<{ title: string; data: string }>('/api/configs/detail/flinks')
+    this.http
+      .get<{ title: string; data: string }>('/api/configs/detail/flinks')
       .pipe(
-        map(res => {
+        map((res) => {
           return JSON.parse(res.data) as FriendLink[];
         })
       )
-      .subscribe(res => {
+      .subscribe((res) => {
         this.friendLink$.next(res);
       });
   }
   public fetchTags(): void {
-    this.http.get<{ title: string; data: string }>('/api/configs/detail/tags')
+    this.http
+      .get<{ title: string; data: string }>('/api/configs/detail/tags')
       .pipe(
-        map(res => {
+        map((res) => {
           return JSON.parse(res.data) as string[];
         })
       )
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log(res);
         this.hotTags$.next(res);
       });
   }
+}
+export interface IConfig {
+  title: string;
+  data: string;
 }
 
 export interface FriendLink {

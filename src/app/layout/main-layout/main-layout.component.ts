@@ -90,7 +90,7 @@ export class MainLayoutComponent implements OnInit {
     });
   }
 
-  public background = this.configService.indexBackground$;
+  public background$ = this.configService.indexBackground$;
   public screenSize$ = this.screenService.currentScreenSize$;
 
   ngOnInit(): void {

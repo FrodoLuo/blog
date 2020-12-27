@@ -1,15 +1,21 @@
-import { Directive, ElementRef, Inject, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Inject,
+  OnInit,
+  OnDestroy,
+  Input,
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Subscription, fromEvent } from 'rxjs';
 
 @Directive({
-  selector: '[appSticky]'
+  selector: '[appSticky]',
 })
 export class StickyDirective implements OnInit, OnDestroy {
-
   constructor(
     el: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) document: Document,
+    @Inject(DOCUMENT) document: Document
   ) {
     this.element = el;
     this.document = document;
@@ -22,58 +28,63 @@ export class StickyDirective implements OnInit, OnDestroy {
 
   private element: ElementRef<HTMLElement>;
   private document: Document;
-  private savedTop: number | null = 0;
   private subscription: Subscription;
 
+  private cloned: HTMLElement = null;
+
   private recover() {
-    this.element.nativeElement.style.left = '';
-    this.element.nativeElement.style.top = '';
-    this.element.nativeElement.style.position = '';
-    this.element.nativeElement.style.marginLeft = '';
-    this.element.nativeElement.style.marginTop = '';
+    const origin = this.element.nativeElement;
+    document.body.removeChild(this.cloned);
+    origin.style.opacity = '';
+    origin.style.pointerEvents = '';
     this.isFixed = false;
   }
 
   private stick() {
-    this.savedTop = this.element.nativeElement.offsetTop;
-    this.element.nativeElement.style.left = `${this.searchOffset(this.element.nativeElement)}px`;
-    this.element.nativeElement.style.top = `${this.top}px`;
-    this.element.nativeElement.style.position = 'fixed';
-    this.element.nativeElement.style.marginLeft = '0';
-    this.element.nativeElement.style.marginTop = '0';
-    this.isFixed = true;
-  }
+    const origin = this.element.nativeElement;
+    const originBound = origin.getBoundingClientRect();
+    const cloned = origin.cloneNode(true) as HTMLElement;
+    cloned.style.left = `${originBound.x}px`;
+    cloned.style.top = `${this.top}px`;
+    cloned.style.position = 'fixed';
+    cloned.style.marginLeft = '0';
+    cloned.style.marginTop = '0';
+    cloned.style.width = `${originBound.width}px`;
+    cloned.style.height = `${originBound.height}px`;
 
-  private searchOffset(element: HTMLElement): number {
-    return element.offsetParent
-      ? element.offsetLeft + this.searchOffset(element.offsetParent as HTMLElement)
-      : element.offsetLeft;
+    this.cloned = document.body.appendChild(cloned);
+    origin.style.opacity = '0';
+    origin.style.pointerEvents = 'none';
+    this.isFixed = true;
   }
 
   public checkStatus(): void {
     const offset = this.element.nativeElement.offsetTop;
     const scroll = this.document.documentElement.scrollTop;
     if (this.isFixed) {
-      if (scroll + this.top <= this.savedTop) {
+      if (scroll + this.top <= offset) {
         this.recover();
+      } else if (this.cloned) {
+        const bound = this.element.nativeElement.getBoundingClientRect();
+        this.cloned.style.left = `${bound.x}px`;
+        this.cloned.style.width = `${bound.width}px`;
+        this.cloned.style.height = `${bound.height}px`;
       }
     } else {
       if (offset <= scroll + this.top) {
         this.stick();
       }
     }
-
   }
 
   public ngOnInit(): void {
-    this.savedTop = this.element.nativeElement.offsetTop - this.top;
-    this.subscription = fromEvent(this.document, 'scroll').subscribe(this.checkStatus.bind(this))
-      .add(fromEvent(this.document, 'resize').subscribe(this.checkStatus.bind(this)));
+    this.subscription = fromEvent(this.document, 'scroll')
+      .subscribe(this.checkStatus.bind(this))
+      .add(fromEvent(window, 'resize').subscribe(this.checkStatus.bind(this)));
   }
 
   public ngOnDestroy(): void {
+    document.body.removeChild(this.cloned);
     this.subscription.unsubscribe();
   }
-
-
 }

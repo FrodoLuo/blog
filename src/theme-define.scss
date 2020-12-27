@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@import '~@angular/material/theming';
 
 $ink-app-primary: mat-palette($mat-teal, 200);
 
@@ -12,7 +12,7 @@ $ink-app-theme: mat-light-theme(
   $ink-app-warn
 );
 
-$border-radius: 0px;
+$border-radius: 8px;
 $card-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 
 $main-width: 1044px;

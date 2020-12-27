@@ -14,15 +14,45 @@
   header {
     background: $primary;
     height: 56px;
+    z-index: 100;
+    position: relative;
     .nav-wrapper {
       max-width: $main-width;
       height: 100%;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       margin: auto;
       left: 0;
       right: 0;
+      .logo-title {
+        color: white;
+        font-family: fangsong;
+        font-size: 22px;
+        i.iconfont {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+
+  .banner {
+    height: 244px;
+    width: 100%;
+    z-index: 50;
+    position: relative;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .banner-mask {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      background: rgba(255, 255, 255, 0.3);
     }
   }
 
@@ -34,6 +64,7 @@
     max-width: $main-width;
     min-height: calc(100vh - 56px);
     margin: auto;
+    margin-top: 64px;
     left: 0;
     right: 0;
     main {
@@ -52,6 +83,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: unset;
       .side-panel-wrapper {
         flex: 1;
         margin: 0 24px;

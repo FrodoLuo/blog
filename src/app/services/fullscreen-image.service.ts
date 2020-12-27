@@ -5,6 +5,5 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class FullscreenImageService {
-
   public showImage$ = new Subject<string>();
 }

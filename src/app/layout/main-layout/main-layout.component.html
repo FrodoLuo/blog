@@ -1,5 +1,15 @@
+<ng-container *ngIf="background$ | async">
+  <div class="banner">
+    <img [src]="background$ | async" />
+    <div class="banner-mask"></div>
+  </div>
+</ng-container>
 <header>
   <div class="nav-wrapper">
+    <div class="logo-title">
+      <i class="iconfont icon-feather"></i>
+      FrodoLuo的笔记
+    </div>
     <app-nav-menu></app-nav-menu>
   </div>
 </header>
@@ -33,7 +43,7 @@
     <main [@routerAnimation]="outlet && outlet.activatedRouteData">
       <router-outlet #outlet="outlet"></router-outlet>
     </main>
-    <div class="side-panel-wrapper">
+    <div class="side-panel-wrapper" [appSticky]="32">
       <app-side-panel></app-side-panel>
     </div>
   </div>

@@ -1,5 +1,5 @@
-@import "~@angular/material/theming";
-@import "/src/theme-define.scss";
+@import '~@angular/material/theming';
+@import '/src/theme-define.scss';
 
 @mixin blog-page($theme) {
   $primary: mat-color(map-get($theme, primary));
@@ -31,7 +31,7 @@
             background: white;
             border-radius: $border-radius;
             overflow: hidden;
-            font-family: "ming";
+            font-family: 'ming';
             position: relative;
             box-shadow: $card-shadow;
             .cover {
@@ -125,8 +125,7 @@
       }
       .paginator {
         box-shadow: $card-shadow;
-        border-top-left-radius: $border-radius;
-        border-top-right-radius: $border-radius;
+        border-radius: $border-radius;
       }
     }
   }
