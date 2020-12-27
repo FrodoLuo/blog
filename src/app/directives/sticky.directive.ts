@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import {
   Directive,
   ElementRef,
@@ -5,8 +6,9 @@ import {
   OnInit,
   OnDestroy,
   Input,
+  PLATFORM_ID,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Subscription, fromEvent } from 'rxjs';
 
 @Directive({
@@ -15,10 +17,12 @@ import { Subscription, fromEvent } from 'rxjs';
 export class StickyDirective implements OnInit, OnDestroy {
   constructor(
     el: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) document: Document
+    @Inject(DOCUMENT) document: Document,
+    @Inject(PLATFORM_ID) platformId: Object
   ) {
     this.element = el;
     this.document = document;
+    this.platformId = platformId;
   }
 
   @Input('appSticky')
@@ -28,13 +32,14 @@ export class StickyDirective implements OnInit, OnDestroy {
 
   private element: ElementRef<HTMLElement>;
   private document: Document;
-  private subscription: Subscription;
+  private platformId: Object;
+  private subscription: Subscription = new Subscription();
 
   private cloned: HTMLElement = null;
 
   private recover() {
     const origin = this.element.nativeElement;
-    document.body.removeChild(this.cloned);
+    this.document.body.removeChild(this.cloned);
     origin.style.opacity = '';
     origin.style.pointerEvents = '';
     this.isFixed = false;
@@ -52,7 +57,7 @@ export class StickyDirective implements OnInit, OnDestroy {
     cloned.style.width = `${originBound.width}px`;
     cloned.style.height = `${originBound.height}px`;
 
-    this.cloned = document.body.appendChild(cloned);
+    this.cloned = this.document.body.appendChild(cloned);
     origin.style.opacity = '0';
     origin.style.pointerEvents = 'none';
     this.isFixed = true;
@@ -78,13 +83,19 @@ export class StickyDirective implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    this.subscription = fromEvent(this.document, 'scroll')
-      .subscribe(this.checkStatus.bind(this))
-      .add(fromEvent(window, 'resize').subscribe(this.checkStatus.bind(this)));
+    if (isPlatformBrowser(this.platformId)) {
+      this.subscription.add(
+        fromEvent(this.document, 'scroll')
+          .subscribe(this.checkStatus.bind(this))
+          .add(
+            fromEvent(window, 'resize').subscribe(this.checkStatus.bind(this))
+          )
+      );
+    }
   }
 
   public ngOnDestroy(): void {
-    document.body.removeChild(this.cloned);
+    this.document.body.removeChild(this.cloned);
     this.subscription.unsubscribe();
   }
 }
