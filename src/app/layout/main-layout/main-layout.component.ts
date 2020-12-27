@@ -35,7 +35,12 @@ const routerAnimation = trigger('routerAnimation', [
       query(
         ':leave',
         [
-          style({ opacity: 1, display: 'block', width: '100%' }),
+          style({
+            opacity: 1,
+            display: 'block',
+            width: '100%',
+            position: 'absolute',
+          }),
           animate('200ms ease', style({ opacity: 0, display: 'none' })),
         ],
         {
@@ -45,7 +50,12 @@ const routerAnimation = trigger('routerAnimation', [
       query(
         ':enter',
         [
-          style({ opacity: 0, display: 'block', position: 'absolute', top: 0, width: '100%' }),
+          style({
+            opacity: 0,
+            display: 'block',
+            top: 0,
+            width: '100%',
+          }),
           animate('400ms 600ms ease', style({ opacity: 1 })),
         ],
         {
@@ -81,22 +91,9 @@ export class MainLayoutComponent implements OnInit {
   }
 
   public background = this.configService.indexBackground$;
-
-  public toggle = this.router.url !== '/';
-
-  public sideOpen = false;
-
-  public hasHistory = false;
-
-  public verticalScreen = this.screenService.isVerticalScreen$;
+  public screenSize$ = this.screenService.currentScreenSize$;
 
   ngOnInit(): void {
-    this.router.events.subscribe((e: RouterEvent) => {
-      if (e instanceof NavigationEnd) {
-        this.toggle = e.url !== '/';
-      }
-    });
     this.screenService.onResize();
   }
-
 }

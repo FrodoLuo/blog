@@ -1,25 +1,13 @@
 <div class="blog-page">
   <div class="blog-banner"></div>
   <div class="blog-content">
-    <div class="article-container">
-      <div class="article-rail">
-        <ng-container *ngFor="let item of articleListGroup$[0] | async">
-          <ng-container
-            [ngTemplateOutlet]="articleItem"
-            [ngTemplateOutletContext]="{ item: item }"
-          ></ng-container>
-        </ng-container>
-      </div>
-      <div class="article-rail">
-        <ng-container [ngTemplateOutlet]="articleSearch"></ng-container>
-        <ng-container *ngFor="let item of articleListGroup$[1] | async">
-          <ng-container
-            [ngTemplateOutlet]="articleItem"
-            [ngTemplateOutletContext]="{ item: item }"
-          ></ng-container>
-        </ng-container>
-      </div>
-    </div>
+    <ng-container
+      [ngTemplateOutlet]="
+        (screenSize$ | async) === 0 || (screenSize$ | async) === 2
+          ? smallSizeRail
+          : fullSizeRail
+      "
+    ></ng-container>
     <div *ngIf="(articleList$ | async).length == 0" class="empty-hint">
       <i class="iconfont icon-empty"></i>
       Opps, Nothing Found...
@@ -89,6 +77,42 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #smallSizeRail>
+  <div class="article-container">
+    <div class="article-rail">
+      <ng-container [ngTemplateOutlet]="articleSearch"></ng-container>
+      <ng-container *ngFor="let item of articleList$ | async">
+        <ng-container
+          [ngTemplateOutlet]="articleItem"
+          [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #fullSizeRail>
+  <div class="article-container">
+    <div class="article-rail">
+      <ng-container *ngFor="let item of articleListGroup$[0] | async">
+        <ng-container
+          [ngTemplateOutlet]="articleItem"
+          [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </ng-container>
+    </div>
+    <div class="article-rail">
+      <ng-container [ngTemplateOutlet]="articleSearch"></ng-container>
+      <ng-container *ngFor="let item of articleListGroup$[1] | async">
+        <ng-container
+          [ngTemplateOutlet]="articleItem"
+          [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </ng-container>
     </div>
   </div>
 </ng-template>

@@ -1,5 +1,5 @@
-@import "~@angular/material/theming";
-@import "~src/theme-define.scss";
+@import '~@angular/material/theming';
+@import '~src/theme-define.scss';
 
 @mixin main-layout($theme) {
   $primary: mat-color(map-get($theme, primary));
@@ -40,13 +40,33 @@
       flex: 1;
       position: relative;
       margin: 0 24px;
-      max-width: $main-width - 316px - 32px;
+      max-width: $main-width - 316px - 48px;
     }
     .side-panel-wrapper {
       flex-shrink: 0;
       width: 316px;
       padding-top: 24px;
       box-sizing: border-box;
+    }
+    &.middle-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .side-panel-wrapper {
+        flex: 1;
+        margin: 0 24px;
+        width: calc(100% - 48px);
+      }
+    }
+    &.small-main {
+      main {
+        margin: 0;
+      }
+      .side-panel-wrapper {
+        flex: 1;
+        margin: 0;
+        width: 100%;
+      }
     }
   }
 

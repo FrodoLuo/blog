@@ -3,15 +3,10 @@
     <app-nav-menu></app-nav-menu>
   </div>
 </header>
-<div class="main-container">
-  <main [@routerAnimation]="outlet && outlet.activatedRouteData">
-    <router-outlet #outlet="outlet"></router-outlet>
-  </main>
 
-  <div class="side-panel-wrapper">
-    <app-side-panel></app-side-panel>
-  </div>
-</div>
+<ng-container
+  [ngTemplateOutlet]="(screenSize$ | async) >= 2 ? fullMain : middleMain"
+></ng-container>
 
 <footer>
   <div class="footer-content">
@@ -33,4 +28,27 @@
   </div>
 </footer>
 
-<ng-template #contact> </ng-template>
+<ng-template #fullMain>
+  <div class="main-container">
+    <main [@routerAnimation]="outlet && outlet.activatedRouteData">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+    <div class="side-panel-wrapper">
+      <app-side-panel></app-side-panel>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #middleMain>
+  <div
+    class="main-container middle-main"
+    [class.small-main]="(screenSize$ | async) < 1"
+  >
+    <main [@routerAnimation]="outlet && outlet.activatedRouteData">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+    <div class="side-panel-wrapper">
+      <app-side-panel></app-side-panel>
+    </div>
+  </div>
+</ng-template>
