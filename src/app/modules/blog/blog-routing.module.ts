@@ -8,7 +8,7 @@ import { ArticlePageResolver } from 'src/app/router-resolvers/article-page.resol
 const routes: Routes = [
   {
     path: '',
-    component: BlogComponent
+    component: BlogComponent,
   },
   {
     path: 'blog/:id',

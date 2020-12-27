@@ -12,4 +12,25 @@
       </a>
     </div>
   </div>
+
+  <div
+    class="tags-container"
+    *ngIf="(hotTags$ | async).length && shouldShowTag"
+  >
+    <h3 class="side-part-title">Tags</h3>
+    <ul>
+      <li *ngFor="let tag of hotTags$ | async">
+        <a (click)="setKeyword(tag)">{{ tag }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flink-container" *ngIf="(flinks$ | async).length">
+    <h3 class="side-part-title">Friends</h3>
+    <ul>
+      <li *ngFor="let link of flinks$ | async">
+        <a [href]="link.href" target="_blank">{{ link.title }}</a>
+      </li>
+    </ul>
+  </div>
 </div>

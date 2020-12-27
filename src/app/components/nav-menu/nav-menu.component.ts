@@ -15,7 +15,7 @@ export class NavMenuComponent {
 
   public menuConfigs: IMenuConfig = [
     {
-      path: '/',
+      path: '/blog',
       name: 'Home',
       icon: 'home',
     },

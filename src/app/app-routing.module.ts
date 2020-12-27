@@ -9,6 +9,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        redirectTo: 'blog',
+        pathMatch: 'prefix',
+      },
+      {
+        path: 'blog',
         loadChildren: () => import('./modules/blog/blog.module').then((mod) => mod.BlogModule),
       },
       {

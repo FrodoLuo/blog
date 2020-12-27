@@ -23,7 +23,7 @@
         .article-rail {
           flex: 1;
           &:not(:last-child) {
-            margin-right: 16px;
+            margin-right: 24px;
           }
           .article-item {
             margin-bottom: 24px;
@@ -53,7 +53,9 @@
               padding: 18px;
               position: relative;
               &.input {
-                padding-bottom: 0;
+                display: flex;
+                padding: 0px;
+                align-items: center;
                 mat-form-field {
                   width: 100%;
                 }

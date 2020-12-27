@@ -3,11 +3,8 @@
     <app-nav-menu></app-nav-menu>
   </div>
 </header>
-<div
-  [@routerAnimation]="outlet && outlet.activatedRouteData"
-  class="main-container"
->
-  <main>
+<div class="main-container">
+  <main [@routerAnimation]="outlet && outlet.activatedRouteData">
     <router-outlet #outlet="outlet"></router-outlet>
   </main>
 

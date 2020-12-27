@@ -6,7 +6,9 @@ import { IArticle, IArticleRes, IComment } from '../../../models/articles.model'
 
 const PAGE_SIZE = 10;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ArticlesService {
   constructor(private http: HttpClient) { }
 
@@ -14,7 +16,7 @@ export class ArticlesService {
 
   public currentKeyword$ = new BehaviorSubject<string>('');
 
-  public countOfArticles = new BehaviorSubject<number>(0);
+  public countOfArticles$ = new BehaviorSubject<number>(0);
 
   public getRecentArticles(): Observable<IArticle[]> {
     return this.http.get<IArticle[]>(
@@ -90,7 +92,7 @@ export class ArticlesService {
           }
         }
       )
-      .subscribe(res => this.countOfArticles.next(res));
+      .subscribe(res => this.countOfArticles$.next(res));
   }
 }
 

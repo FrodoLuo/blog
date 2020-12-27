@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticlesService } from '../../services/articles.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
@@ -21,23 +21,19 @@ export class BlogComponent implements OnInit {
     this.articleService.articleList$.pipe(map(v => v.filter((_, i) => i % 2 === 0))),
     this.articleService.articleList$.pipe(map(v => v.filter((_, i) => i % 2 === 1))),
   ];
+  public keyword$ = this.articleService.currentKeyword$
+  public inputChange$ = new Subject<string>();
 
-  public countOfArticles = this.articleService.countOfArticles;
+  public countOfArticles$ = this.articleService.countOfArticles$;
 
-  public keyword$ = new BehaviorSubject<{ value: string, isTag: boolean }>({value: '', isTag: false});
+
 
   public ngOnInit(): void {
-    this.keyword$.pipe(
+    this.articleService.refreshPage(0);
+    this.inputChange$.pipe(
       debounceTime(500)
     ).subscribe(input => {
-      this.articleService.setKeyword(input.value);
-    });
-  }
-
-  public setTag(tag: string): void {
-    this.keyword$.next({
-      value: tag,
-      isTag: true
+      this.articleService.setKeyword(input);
     });
   }
 

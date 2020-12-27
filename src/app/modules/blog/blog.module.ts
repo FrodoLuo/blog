@@ -26,6 +26,6 @@ import { ArticlesService } from './services/articles.service';
     MarkdownModule.forRoot(),
     MaterialModule,
   ],
-  providers: [ArticlePageResolver, ArticlesService],
+  providers: [ArticlePageResolver],
 })
 export class BlogModule {}

@@ -11,13 +11,6 @@ const sortRes = (res: IMedia[]) => {
   return res;
 };
 
-const mapMediaToCareer = (res: IMedia[]) => {
-  return res.map(media => ({
-    source: media.source,
-    year: media.description
-  }));
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -31,17 +24,14 @@ export class ConfigService {
 
   public indexBackground$ = new BehaviorSubject<BackgroundInfo>({ src: '', description: '' });
 
-  public career$ = new BehaviorSubject<CareerDescription[]>([]);
-
   public friendLink$ = new BehaviorSubject<FriendLink[]>([]);
 
-  public promote$ = new BehaviorSubject<Promote>(null);
+  public hotTags$ = new BehaviorSubject<string[]>([]);
 
   public fetchConfig(): void {
     this.fetchBackground();
-    this.fetchCareer();
-    // this.fetchFLink();
-    // this.fetchPromote();
+    this.fetchTags();
+    this.fetchFLink();
   }
 
   public fetchBackground(): void {
@@ -57,37 +47,34 @@ export class ConfigService {
         });
       });
   }
-  public fetchCareer(): void {
-    this.http.get<IMedia[]>('/api/media?tag=rail')
+  public fetchFLink(): void {
+    this.http.get<{ title: string; data: string }>('/api/configs/detail/flinks')
       .pipe(
-        map(sortRes),
-        map(mapMediaToCareer)
+        map(res => {
+          return JSON.parse(res.data) as FriendLink[];
+        })
       )
       .subscribe(res => {
-        this.career$.next(res);
+        this.friendLink$.next(res);
       });
   }
-  public fetchFLink(): void {
-    this.http.get<{ title: string; data: FriendLink[] }>('/api/configs/detail/flink')
+  public fetchTags(): void {
+    this.http.get<{ title: string; data: string }>('/api/configs/detail/tags')
+      .pipe(
+        map(res => {
+          return JSON.parse(res.data) as string[];
+        })
+      )
       .subscribe(res => {
-        this.friendLink$.next(res.data);
+        console.log(res);
+        this.hotTags$.next(res);
       });
   }
-}
-
-export interface CareerDescription {
-  source: string;
-  year: string;
 }
 
 export interface FriendLink {
-  name: string;
+  title: string;
   href: string;
-}
-
-export interface Promote {
-  href: string;
-  source: string;
 }
 
 export interface BackgroundInfo {
