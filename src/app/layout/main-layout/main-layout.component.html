@@ -10,7 +10,7 @@
       <i class="iconfont icon-feather"></i>
       FrodoLuo的笔记
     </div>
-    <app-nav-menu></app-nav-menu>
+    <app-nav-menu [expand]="(screenSize$ | async) >= 1"></app-nav-menu>
   </div>
 </header>
 

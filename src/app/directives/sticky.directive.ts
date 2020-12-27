@@ -39,7 +39,10 @@ export class StickyDirective implements OnInit, OnDestroy {
 
   private recover() {
     const origin = this.element.nativeElement;
-    this.document.body.removeChild(this.cloned);
+    if (this.cloned) {
+      this.document.body.removeChild(this.cloned);
+      this.cloned = null;
+    }
     origin.style.opacity = '';
     origin.style.pointerEvents = '';
     this.isFixed = false;
@@ -57,6 +60,9 @@ export class StickyDirective implements OnInit, OnDestroy {
     cloned.style.width = `${originBound.width}px`;
     cloned.style.height = `${originBound.height}px`;
 
+    if (this.cloned) {
+      this.document.body.removeChild(cloned);
+    }
     this.cloned = this.document.body.appendChild(cloned);
     origin.style.opacity = '0';
     origin.style.pointerEvents = 'none';
@@ -95,7 +101,7 @@ export class StickyDirective implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.document.body.removeChild(this.cloned);
+    this.cloned && this.document.body.removeChild(this.cloned);
     this.subscription.unsubscribe();
   }
 }
