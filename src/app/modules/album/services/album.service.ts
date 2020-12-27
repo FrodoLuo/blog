@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IMedia } from './models/media.model';
+import { IMedia } from '../../../models/media.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -8,10 +8,8 @@ export class AlbumService {
   constructor(private http: HttpClient) {}
 
   public photos$ = new BehaviorSubject<IMedia[]>([]);
-
   public currentPage$ = new BehaviorSubject<number>(0);
-
-  public hasMore$ = new BehaviorSubject<boolean>(false);
+  public countOfPhotos$ = new BehaviorSubject<number>(0);
 
   private PAGE_SIZE = 5;
 
@@ -26,23 +24,19 @@ export class AlbumService {
     this.http
       .get<number>('/api/media/count', {
         params: {
-          tag: ['banner', 'standard'],
+          tag: ['banner'],
           _sort: 'created_at:DESC',
           _start: `${page * this.PAGE_SIZE}`,
           _limit: `${this.PAGE_SIZE}`,
         },
       })
       .subscribe((res) => {
-        if (Math.floor(res / this.PAGE_SIZE) > this.currentPage$.getValue()) {
-          this.hasMore$.next(true);
-        } else {
-          this.hasMore$.next(false);
-        }
+        this.countOfPhotos$.next(res);
       });
     this.http
       .get<IMedia[]>('/api/media', {
         params: {
-          tag: ['banner', 'standard'],
+          tag: ['banner'],
           _sort: 'created_at:DESC',
           _start: `${page * this.PAGE_SIZE}`,
           _limit: `${this.PAGE_SIZE}`,

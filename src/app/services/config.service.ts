@@ -3,106 +3,79 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IMedia } from './models/media.model';
-
+import { IMedia } from '../models/media.model';
 
 const sortRes = (res: IMedia[]) => {
-  res.sort((a, b) => (a.orderReference - b.orderReference));
+  res.sort((a, b) => a.orderReference - b.orderReference);
   return res;
 };
 
-const mapMediaToCareer = (res: IMedia[]) => {
-  return res.map(media => ({
-    source: media.source,
-    year: media.description
-  }));
-};
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigService {
-
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     this.fetchConfig();
   }
 
-  public indexBackground$ = new BehaviorSubject<BackgroundInfo>({ src: '', description: '' });
-
-  public career$ = new BehaviorSubject<CareerDescription[]>([]);
+  public indexBackground$ = new BehaviorSubject<string>('');
 
   public friendLink$ = new BehaviorSubject<FriendLink[]>([]);
 
-  public promote$ = new BehaviorSubject<Promote>(null);
+  public hotTags$ = new BehaviorSubject<string[]>([]);
 
   public fetchConfig(): void {
     this.fetchBackground();
-    this.fetchCareer();
-    // this.fetchFLink();
-    // this.fetchPromote();
+    this.fetchTags();
+    this.fetchFLink();
   }
 
   public fetchBackground(): void {
-    this.http.get<IMedia[]>('/api/media?tag=banner')
+    this.http
+      .get<IConfig>('/api/configs/detail/banner')
       .pipe(
-        map(sortRes)
+        map((res) => {
+          return JSON.parse(res.data) as { sources: string };
+        })
       )
-      .subscribe(res => {
-        const randomedBackground = res[Math.floor(Math.random() * res.length)];
-        this.indexBackground$.next({
-          src: randomedBackground.source,
-          description: randomedBackground.description
-        });
-      });
-  }
-  public fetchCareer(): void {
-    this.http.get<IMedia[]>('/api/media?tag=rail')
-      .pipe(
-        map(sortRes),
-        map(mapMediaToCareer)
-      )
-      .subscribe(res => {
-        this.career$.next(res);
+      .subscribe((res) => {
+        this.indexBackground$.next(res.sources);
       });
   }
   public fetchFLink(): void {
-    this.http.get<{ title: string; data: FriendLink[] }>('/api/configs/detail/flink')
-      .subscribe(res => {
-        this.friendLink$.next(res.data);
+    this.http
+      .get<{ title: string; data: string }>('/api/configs/detail/flinks')
+      .pipe(
+        map((res) => {
+          return JSON.parse(res.data) as FriendLink[];
+        })
+      )
+      .subscribe((res) => {
+        this.friendLink$.next(res);
       });
   }
-  public fetchPromote(): void {
-    this.http.get<ConfigRes<Promote>>('/api/configs/detail/promote')
-      .subscribe(res => {
-        if (res === null) { 
-          this.promote$.next(null);
-        } else {
-          this.promote$.next(res.data);
-        }
+  public fetchTags(): void {
+    this.http
+      .get<{ title: string; data: string }>('/api/configs/detail/tags')
+      .pipe(
+        map((res) => {
+          return JSON.parse(res.data) as string[];
+        })
+      )
+      .subscribe((res) => {
+        console.log(res);
+        this.hotTags$.next(res);
       });
   }
 }
-
-interface ConfigRes<T> {
+export interface IConfig {
   title: string;
-  data: T;
-}
-
-export interface CareerDescription {
-  source: string;
-  year: string;
+  data: string;
 }
 
 export interface FriendLink {
-  name: string;
+  title: string;
   href: string;
-}
-
-export interface Promote {
-  href: string;
-  source: string;
 }
 
 export interface BackgroundInfo {

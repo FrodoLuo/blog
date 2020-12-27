@@ -1,96 +1,64 @@
-<ng-container *ngTemplateOutlet="(verticalScreen | async) ? smallMain : fullMain"></ng-container>
-
-
-<ng-template #fullMain>
-  <div class="full-main-layout">
-    <div class="side-static-container" [class.toggle]="toggle">
-      <img class="background" [src]="(background | async).src" />
-      <div class="content">
-        <header>
-          <div class="menu-container">
-            <app-nav-menu [color]="toggle ? 'black' : 'white'" [expand]="true"></app-nav-menu>
-          </div>
-        </header>
-
-        <content>
-          <div class="small-screen-nav">
-            <a mat-menu-item routerLink="/" (click)="sideOpen = false">
-              <mat-icon>home</mat-icon>Home
-            </a>
-            <a mat-menu-item routerLink="/blog" (click)="sideOpen = false">
-              <mat-icon>collections_bookmark</mat-icon>Blog
-            </a>
-          </div>
-
-          <div [hidden]="toggle" class="background-info">
-            <button
-              class="background-story"
-              mat-button
-              [matTooltip]="(background | async).description"
-            >
-              <mat-icon>info_outline</mat-icon>
-            </button>
-          </div>
-        </content>
-
-        <ng-container *ngTemplateOutlet="footer"></ng-container>
-      </div>
+<ng-container *ngIf="background$ | async">
+  <div class="banner">
+    <img [src]="background$ | async" />
+    <div class="banner-mask"></div>
+  </div>
+</ng-container>
+<header>
+  <div class="nav-wrapper">
+    <div class="logo-title">
+      <i class="iconfont icon-feather"></i>
+      FrodoLuo的笔记
     </div>
-
-    <main
-      [@routerAnimation]="outlet && outlet.activatedRouteData"
-      [class.toggle]="toggle"
-      class="main-container"
-    >
-      <router-outlet #outlet="outlet"></router-outlet>
-    </main>
+    <app-nav-menu></app-nav-menu>
   </div>
-</ng-template>
+</header>
 
-<ng-template #smallMain>
-  <div class="small-main-layout">
-    <header>
-      <app-nav-menu></app-nav-menu>
-    </header>
-    <main
-      [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"
-      [class.toggle]="toggle"
-      class="main-container"
-    >
-      <router-outlet #outlet="outlet"></router-outlet>
-    </main>
-    <ng-container *ngTemplateOutlet="footer" [@routerAnimation]="outlet.isActivated && outlet.activatedRoute"></ng-container>
-  </div>
-</ng-template>
+<ng-container
+  [ngTemplateOutlet]="(screenSize$ | async) >= 2 ? fullMain : middleMain"
+></ng-container>
 
-<ng-template #footer>
-  <footer>
+<footer>
+  <div class="footer-content">
+    <div class="copy">
+      Content from
+      <a href="mailto:frodoluo@outlook.com">FrodoLuo</a>
+      Based on
+      <a href="https://angular.io" target="_blank">Angular Universal</a>
+      and
+      <a href="https://material.angular.io" target="_blank">Material Design</a>
+    </div>
     <div class="beian-container">
-      <div class="copy">
-        Content from
-        <a href="mailto:frodoluo@outlook.com">FrodoLuo</a>
-        <br />
-        Based on
-        <a href="https://angular.io" target="_blank">Angular Universal</a>
-        and
-        <a href="https://strapi.io/" target="_blank">Strapi</a>
-      </div>
       <div class="beian">
         <a href="http://www.beian.miit.gov.cn/" target="_blank"
           >粤ICP备19145545号</a
         >
       </div>
     </div>
-    <div class="contact-container">
-      <a mat-button target="_blank" href="https://github.com/FrodoLuo"
-        ><i class="iconfont icon-github"></i
-      ></a>
-      <a mat-button target="_blank" href="https://twitter.com/luo_yuzhou"
-        ><i class="iconfont icon-twitter"></i
-      ></a>
-      <a mat-button href="mailto:frodoluo@outlook.com">
-        <mat-icon>mail</mat-icon>
-      </a>
+  </div>
+</footer>
+
+<ng-template #fullMain>
+  <div class="main-container">
+    <main [@routerAnimation]="outlet && outlet.activatedRouteData">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+    <div class="side-panel-wrapper" [appSticky]="32">
+      <app-side-panel></app-side-panel>
     </div>
-  </footer>
+  </div>
+</ng-template>
+
+<ng-template #middleMain>
+  <div
+    class="main-container middle-main"
+    [class.small-main]="(screenSize$ | async) < 1"
+  >
+    <main [@routerAnimation]="outlet && outlet.activatedRouteData">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+    <div class="side-panel-wrapper">
+      <app-side-panel></app-side-panel>
+    </div>
+  </div>
 </ng-template>

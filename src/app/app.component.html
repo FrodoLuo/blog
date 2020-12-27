@@ -1,4 +1,7 @@
-<div [@globalRoutingAnimation]="globalOutlet && globalOutlet.activatedRouteData" [class.small-screen]="isVertical | async">
+<div
+  [@globalRoutingAnimation]="globalOutlet && globalOutlet.activatedRouteData"
+  class="page"
+>
   <router-outlet #globalOutlet="outlet"></router-outlet>
 </div>
 <button
@@ -10,3 +13,4 @@
 >
   <mat-icon>vertical_align_top</mat-icon>
 </button>
+<app-fullscreen-image></app-fullscreen-image>

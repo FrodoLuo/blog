@@ -1,0 +1,81 @@
+@import "~@angular/material/theming";
+@import "/src/theme-define.scss";
+
+@mixin sidepanel($theme) {
+  $primary: mat-color(map-get($theme, primary));
+  $primary-dark: mat-color(map-get($theme, primary), 700);
+
+  .side-panel {
+    border-radius: $border-radius;
+    width: 100%;
+    background: white;
+    box-shadow: $card-shadow;
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    box-sizing: border-box;
+    .contact-container {
+      color: $primary;
+
+      .contact-icon-wrapper {
+        display: flex;
+        justify-content: center;
+        a {
+          height: 32px;
+          width: 32px;
+          line-height: 32px;
+
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .tags-container,
+    .flink-container {
+      ul {
+        margin: 0;
+        list-style: none;
+        padding-left: 8px;
+        li {
+          margin-bottom: 4px;
+        }
+      }
+    }
+    .flink-container {
+      ul li {
+        text-align: center;
+      }
+    }
+
+    .side-part-title {
+      font-size: 18px;
+      color: $primary-dark;
+      margin-top: 24px;
+      margin-bottom: 8px;
+      text-align: center;
+      position: relative;
+      &::after,
+      &::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: 6px;
+        width: 24px;
+        background: $primary-dark;
+        content: " ";
+        display: block;
+      }
+      &::after {
+        right: 4px;
+      }
+      &::before {
+        left: 4px;
+      }
+    }
+  }
+}
+
+@include sidepanel($ink-app-theme);

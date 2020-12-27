@@ -1,79 +1,132 @@
-@import "~@angular/material/theming";
-@import "~src/theme-define.scss";
+@import '~@angular/material/theming';
+@import '/src/theme-define.scss';
 
 @mixin blog-page($theme) {
   $primary: mat-color(map-get($theme, primary));
+  $accent: mat-color(map-get($theme, accent));
+  $light-primary: lighten($primary, 20%);
 
-  .article-container {
+  .blog-page {
+    height: 100%;
+    padding-top: 24px;
+    box-sizing: border-box;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .title-item {
-      &:not(:last-child) {
-        margin: 12px 0;
-      }
-      font-family: "ming";
-      .title {
-        font-family: "ming";
-        font-size: 18px;
-        font-weight: 900;
-        color: $primary;
-        text-decoration: none;
-        transition: all ease 0.3s;
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-
-      .info {
-        color: gray;
-        font-size: 10px;
-        margin-top: 5px;
-
-        span {
-          display: inline-block;
-        }
-
-        .user {
-          width: 80px;
-          text-overflow: ellipsis;
-          text-align: right;
-          white-space: nowrap;
-        }
-      }
-
-      .description-container {
+    flex-direction: column;
+    .blog-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      .article-container {
         display: flex;
-        align-items: flex-start;
-        height: 100%;
-
-        .cover {
-          width: 25%;
-
-          img {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .article-rail {
+          flex: 1;
+          &:not(:last-child) {
+            margin-right: 24px;
+          }
+          .article-item {
+            margin-bottom: 24px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            background: white;
+            border-radius: $border-radius;
+            overflow: hidden;
+            font-family: 'ming';
+            position: relative;
+            box-shadow: $card-shadow;
+            .cover {
+              width: 100%;
+              img {
+                width: 100%;
+                object-fit: cover;
+              }
+            }
+            .article-item--decorate-block {
+              height: 36px;
+              width: 4px;
+              background: $light-primary;
+              position: absolute;
+              left: -18px;
+              top: 0px;
+            }
+            .item-content {
+              padding: 18px;
+              position: relative;
+              &.input {
+                display: flex;
+                padding: 0px;
+                align-items: center;
+                mat-form-field {
+                  width: 100%;
+                }
+              }
+              .title {
+                font-size: 18px;
+                font-weight: 900;
+                color: $primary;
+                text-decoration: none;
+                transition: all ease 0.3s;
+                &:hover {
+                  opacity: 0.7;
+                }
+              }
+
+              .info {
+                color: gray;
+                font-size: 10px;
+                text-align: right;
+                span {
+                  display: inline-block;
+                }
+
+                .user {
+                  width: 80px;
+                  text-overflow: ellipsis;
+                  text-align: right;
+                  white-space: nowrap;
+                }
+              }
+
+              .brief {
+                height: 100%;
+                color: gray;
+                margin: 12px 0;
+                text-overflow: ellipsis;
+                font-size: 14px;
+                line-height: 28px;
+                word-break: break-all;
+                text-align: justify;
+                position: relative;
+                a {
+                  color: gray;
+                  text-decoration: none;
+                }
+              }
+            }
           }
         }
-
-        .brief {
-          height: 100%;
-          overflow: auto;
-          color: gray;
-          margin: 12px 0;
-          line-height: 32px;
-          word-break: break-all;
-          text-align: justify;
-          a {
-            color: gray;
-            text-decoration: none;
-          }
+        .tag-container {
+          margin-top: 10px;
+          display: flex;
+          justify-content: flex-end;
         }
       }
-    }
-    .tag-container {
-      margin-top: 10px;
+      .empty-hint {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: $accent;
+        .iconfont {
+          font-size: 48px !important;
+        }
+      }
+      .paginator {
+        box-shadow: $card-shadow;
+        border-radius: $border-radius;
+      }
     }
   }
 }

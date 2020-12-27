@@ -8,10 +8,10 @@ import { ArticlePageResolver } from 'src/app/router-resolvers/article-page.resol
 const routes: Routes = [
   {
     path: '',
-    component: BlogComponent
+    component: BlogComponent,
   },
   {
-    path: ':id',
+    path: 'blog/:id',
     component: ArticleComponent,
     resolve: {
       article: ArticlePageResolver

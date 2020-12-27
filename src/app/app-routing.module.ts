@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import { AlbumLayoutComponent } from './layout/album-layout/album-layout.component';
 
 const routes: Routes = [
   {
@@ -10,35 +9,31 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () =>
-          import('./modules/home/home.module').then((mod) => mod.HomeModule),
+        redirectTo: 'blog',
+        pathMatch: 'prefix',
       },
       {
         path: 'blog',
-        loadChildren: () =>
-          import('./modules/blog/blog.module').then((mod) => mod.BlogModule),
+        loadChildren: () => import('./modules/blog/blog.module').then((mod) => mod.BlogModule),
+      },
+      {
+        path: 'album',
+        loadChildren: () => import('./modules/album/album.module').then((mod) => mod.AlbumModule),
+        data: {
+          animtaion: 'album'
+        }
       },
     ],
-  },
-  {
-    path: 'album',
-    component: AlbumLayoutComponent,
-    loadChildren: () =>
-      import('./modules/album/album.module').then((mod) => mod.AlbumModule),
-    data: {
-      animtaion: 'album'
-    }
   },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    anchorScrolling: 'enabled',
-    scrollPositionRestoration: 'disabled',
-    initialNavigation: 'enabled',
-    relativeLinkResolution: 'legacy'
-}),
+      anchorScrolling: 'enabled',
+      scrollPositionRestoration: 'disabled',
+      initialNavigation: 'enabled'
+    }),
   ],
   exports: [RouterModule],
 })

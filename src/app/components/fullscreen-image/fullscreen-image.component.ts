@@ -6,13 +6,10 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-fullscreen-image',
   templateUrl: './fullscreen-image.component.html',
-  styleUrls: ['./fullscreen-image.component.scss']
+  styleUrls: ['./fullscreen-image.component.scss'],
 })
 export class FullscreenImageComponent {
-
-  constructor(
-    private fullscreenImageService: FullscreenImageService
-  ) {
+  constructor(private fullscreenImageService: FullscreenImageService) {
     this.fullscreenImageService.showImage$
       .pipe(
         tap(() => {

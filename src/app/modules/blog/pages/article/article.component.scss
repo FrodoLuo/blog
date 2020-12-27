@@ -1,77 +1,100 @@
-.article {
+@import '~@angular/material/theming';
+@import '/src/theme-define.scss';
 
-  .article-title {
-    margin-top: 0;
-    min-height: 64px;
-    line-height: 64px;
-    display: flex;
-    align-items: center;
-  }
+$page-padding: 18px;
 
-  padding-bottom: 64px;
-  border-bottom: 1px lightgray dashed;
-}
+@mixin articlePage($theme) {
+  .article-page {
+    margin-top: 24px;
+    .article-body {
+      padding: $page-padding;
+      background: white;
+      border-radius: $border-radius;
+      box-shadow: $card-shadow;
+      max-width: 100%;
 
-.article-metadata {
-  color: gray;
-  font-size: 12px;
-}
+      display: flex;
+      flex-direction: column;
 
-.tags-container {
-  margin-top: 16px;
-}
-
-.comment-field-container {
-  margin-top: 48px;
-  width: 100%;
-  box-sizing: border-box;
-
-  .nickname-field {
-    padding: 0 .75rem;
-    font-size: 14px;
-  }
-
-  .comment-field {
-    width: 100%;
-  }
-
-  button {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-
-  border-bottom: 1px lightgray dashed;
-  padding-bottom: 12px;
-}
-
-.comments-container {
-  margin-top: 24px;
-
-  .comment-item {
-    margin: 12px 0;
-    padding-bottom: 24px;
-
-    .comment-info-wrap {
-      margin-bottom: 12px;
-
-      .nickname {
-        font-size: 14px;
-        font-weight: bold;
+      .article-title {
+        font-size: 22px;
+        margin-top: 0;
+        min-height: 64px;
+        line-height: 64px;
+        display: flex;
+        align-items: center;
       }
-
-      .time {
-        color: lightgray;
-        margin-top: 6px;
-        padding-left: 6px;
-        font-size: 10px;
+      .tags-container {
       }
     }
 
-    .comment-content-wrap {
-      padding: 0 12px;
-      font-size: 13px;
+    .article-metadata {
       color: gray;
+      font-size: 12px;
+    }
+
+    .comments {
+      background: white;
+      margin-top: 24px;
+      padding: $page-padding;
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      box-shadow: $card-shadow;
+      .comment-field-container {
+        margin-top: 48px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .nickname-field {
+          padding: 0 0.75rem;
+          font-size: 14px;
+        }
+
+        .comment-field {
+          width: 100%;
+        }
+
+        button {
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+        }
+
+        border-bottom: 1px lightgray dashed;
+        padding-bottom: 12px;
+      }
+
+      .comments-container {
+        margin-top: 24px;
+
+        .comment-item {
+          margin: 12px 0;
+          padding-bottom: 24px;
+
+          .comment-info-wrap {
+            margin-bottom: 12px;
+
+            .nickname {
+              font-size: 14px;
+              font-weight: bold;
+            }
+
+            .time {
+              color: lightgray;
+              margin-top: 6px;
+              padding-left: 6px;
+              font-size: 10px;
+            }
+          }
+
+          .comment-content-wrap {
+            padding: 0 12px;
+            font-size: 13px;
+            color: gray;
+          }
+        }
+      }
     }
   }
 }
 
+@include articlePage($ink-app-theme);

@@ -1,3 +1,4 @@
 <div class="full-screen-wrapper" *ngIf="isDisplay" (click)="close()">
   <img [src]="currentImageSrc$ | async" (click)="$event.stopPropagation()" />
+  <button mat-button class="close-button"><mat-icon>close</mat-icon></button>
 </div>

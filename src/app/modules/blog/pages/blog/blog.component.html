@@ -1,39 +1,118 @@
-<div class="main-content">
-  <mat-form-field>
-    <input #searchbox matInput placeholder="搜索"  [value]="keyword$.getValue().value" (input)="keyword$.next({ value: searchbox.value, isTag: false})">
-    <button mat-button *ngIf="searchbox.value" matSuffix mat-icon-button aria-label="Clear" (click)="searchbox.value=''; keyword$.next({value: '', isTag: false})">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-  <div class="article-container">
-    <div *ngFor="let item of (articleList | async)">
-      <div class="title-item">
-        <a [routerLink]="'/blog/' + item.id" class="title">{{item.title}}</a>
-        <div class="info">
-          <span class="date">{{item.updatedAt | date}}</span>
-          <span class="user">{{item.author.username}}</span>
-        </div>
-        <div class="description-container">
-          <div class="cover" *ngIf="item.cover">
-            <img [src]="item.cover" />
-          </div>
-          <div class="brief">
-            {{item.content | cutBrief | removeMarkdown}}
-          </div>
-        </div>
-        <a [routerLink]="'/blog/' + item.id">More</a>
-        <div class="tag-container" *ngIf="item.splitedTags.length > 0">
-          <mat-chip-list>
-            <mat-chip *ngFor="let tag of item.splitedTags" (click)="setTag(tag)" selected>{{tag}}</mat-chip>
-          </mat-chip-list>
-        </div>
-      </div>
-      <hr />
+<div class="blog-page">
+  <div class="blog-banner"></div>
+  <div class="blog-content">
+    <ng-container
+      [ngTemplateOutlet]="
+        (screenSize$ | async) === 0 || (screenSize$ | async) === 2
+          ? smallSizeRail
+          : fullSizeRail
+      "
+    ></ng-container>
+    <div *ngIf="(articleList$ | async).length == 0" class="empty-hint">
+      <i class="iconfont icon-empty"></i>
+      Opps, Nothing Found...
     </div>
-    <div *ngIf="(articleList | async).length == 0" className="empty-hint">
+    <mat-paginator
+      [pageSize]="10"
+      [length]="countOfArticles$ | async"
+      (page)="setPage($event.pageIndex)"
+      #paginator
+      class="paginator"
+    ></mat-paginator>
+  </div>
+</div>
 
+<ng-template let-item="item" #articleItem>
+  <div class="article-item">
+    <div class="cover" *ngIf="item.cover">
+      <img [src]="item.cover" />
+    </div>
+    <div class="item-content">
+      <a [routerLink]="'/blog/' + item.id" class="title">
+        {{ item.title }}
+      </a>
+      <div class="brief">
+        {{ item.brief || (item.content | removeMarkdown | cutBrief) }}
+        <div class="article-item--decorate-block"></div>
+      </div>
+      <div class="info">
+        <span class="date">{{ item.updatedAt | date }}</span>
+        <span class="user">{{ item.author.username }}</span>
+      </div>
+      <div class="tag-container" *ngIf="item.splitedTags.length > 0">
+        <mat-chip-list>
+          <mat-chip
+            *ngFor="let tag of item.splitedTags"
+            (click)="inputChange$.next(tag)"
+            selected
+            color="primary"
+          >
+            {{ tag }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
     </div>
   </div>
-  <mat-paginator [pageSize]="10" [length]="countOfArticles | async" (page)="setPage($event.pageIndex)" #paginator></mat-paginator>
+</ng-template>
 
-</div>
+<ng-template #articleSearch>
+  <div class="article-item">
+    <div class="item-content input">
+      <mat-form-field appearance="fill">
+        <input
+          #searchbox
+          matInput
+          placeholder="搜索"
+          [value]="keyword$ | async"
+          (input)="inputChange$.next(searchbox.value)"
+        />
+        <button
+          mat-button
+          *ngIf="searchbox.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="inputChange$.next('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #smallSizeRail>
+  <div class="article-container">
+    <div class="article-rail">
+      <ng-container [ngTemplateOutlet]="articleSearch"></ng-container>
+      <ng-container *ngFor="let item of articleList$ | async">
+        <ng-container
+          [ngTemplateOutlet]="articleItem"
+          [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #fullSizeRail>
+  <div class="article-container">
+    <div class="article-rail">
+      <ng-container *ngFor="let item of articleListGroup$[0] | async">
+        <ng-container
+          [ngTemplateOutlet]="articleItem"
+          [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </ng-container>
+    </div>
+    <div class="article-rail">
+      <ng-container [ngTemplateOutlet]="articleSearch"></ng-container>
+      <ng-container *ngFor="let item of articleListGroup$[1] | async">
+        <ng-container
+          [ngTemplateOutlet]="articleItem"
+          [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>

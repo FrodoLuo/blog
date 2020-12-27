@@ -4,21 +4,9 @@ import { OnScrollShowDirective } from 'src/app/directives/on-scroll-show.directi
 import { StickyDirective } from '../../directives/sticky.directive';
 import { LoadingSpinComponent } from 'src/app/components/loading-spin/loading-spin.component';
 
-
-
 @NgModule({
-  declarations: [
-    LoadingSpinComponent,
-    OnScrollShowDirective,
-    StickyDirective
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    LoadingSpinComponent,
-    OnScrollShowDirective,
-    StickyDirective
-  ]
+  declarations: [LoadingSpinComponent, OnScrollShowDirective, StickyDirective],
+  imports: [CommonModule],
+  exports: [LoadingSpinComponent, OnScrollShowDirective, StickyDirective],
 })
-export class CommonDeclarationModule { }
+export class CommonDeclarationModule {}

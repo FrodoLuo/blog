@@ -10,7 +10,7 @@ import { MaterialModule } from '../material/material.module';
 import { CommonDeclarationModule } from '../common-declaration/common-declaration.module';
 import { RemoveMarkdownPipe } from '../../pipes/remove-markdown.pipe';
 import { CutBriefPipe } from '../../pipes/cut-brief.pipe';
-import { ImageEffectsModule } from '../image-effects/image-effects.module';
+import { ArticlesService } from './services/articles.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,6 @@ import { ImageEffectsModule } from '../image-effects/image-effects.module';
     BlogRoutingModule,
     CommonDeclarationModule,
     CommonModule,
-    ImageEffectsModule,
     MarkdownModule.forRoot(),
     MaterialModule,
   ],

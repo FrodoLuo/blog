@@ -1,210 +1,131 @@
-@import "~@angular/material/theming";
-@import "~src/theme-define.scss";
+@import '~@angular/material/theming';
+@import '~src/theme-define.scss';
 
 @mixin main-layout($theme) {
   $primary: mat-color(map-get($theme, primary));
   $accent: mat-color(map-get($theme, accent));
 
-  .full-main-layout {
+  .main-layout {
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: $primary;
+    height: 56px;
+    z-index: 100;
     position: relative;
-
-    .side-static-container {
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: 50vw;
-      transition: width 400ms 200ms ease;
-
-      img.background {
-        opacity: 1;
-        z-index: -1;
-        transition: all 800ms ease;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-      .content {
-        background: rgba(255, 255, 255, 0.3);
-        height: 100%;
-        width: 100%;
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-
-        .small-screen-nav {
-          display: none;
-        }
-
-        header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          height: 128px;
-          padding: 0 32px;
-
-          background: linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.3),
-            transparent
-          );
-          transition: all 0.4s ease;
-
-          .menu-container {
-            display: flex;
-            width: 100%;
-            flex-direction: row-reverse;
-          }
-        }
-
-        content {
-          flex: 1;
-
-          padding: 0 32px;
-
-          .background-info {
-            text-align: right;
-
-            .background-story {
-              align-self: flex-end;
-              color: white;
-              font-size: 24px;
-              height: 64px;
-              width: 32px;
-            }
-          }
-        }
-
-        footer {
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-          padding: 0 32px 32px 32px;
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-      
-          min-height: 128px;
-        }
-      }
-
-      &.toggle {
-        width: 30vw;
-
-        .content {
-          background: transparent;
-
-          header {
-            background: linear-gradient(to bottom, transparent, transparent);
-          }
-
-          footer {
-            background: linear-gradient(to bottom, transparent, transparent);
-
-            .contact-container {
-              color: black;
-            }
-
-            .beian-container {
-              color: black;
-
-              a {
-                color: mat-color(map-get($theme, primary), 600);
-              }
-            }
-          }
-        }
-
-        img.background {
-          opacity: 0;
-        }
-      }
-    }
-
-    .main-container {
-      margin-left: 50vw;
-      flex: 1;
-      transition: all 500ms 200ms ease;
-
-      &.toggle {
-        margin-left: 30vw;
-      }
-    }
-  }
-
-  .small-main-layout {
-    header {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 10000;
-      background: white;
-      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
-    }
-    main {
-      margin-top: 64px;
-      min-height: 100vh;
-    }
-    footer {
-
-      padding: 10px;
+    .nav-wrapper {
+      max-width: $main-width;
+      height: 100%;
       display: flex;
-      flex-direction: column-reverse;
-      .contact-container {
-        display: flex;
-        flex-direction: row;
-        color: black;
-      }
-
-      .beian-container {
-        color: black;
-        align-self: flex-start;
-        padding-left: 15px;
-
-        a {
-          color: mat-color(map-get($theme, primary), 600);
+      justify-content: space-between;
+      align-items: center;
+      margin: auto;
+      left: 0;
+      right: 0;
+      .logo-title {
+        color: white;
+        font-family: fangsong;
+        font-size: 22px;
+        i.iconfont {
+          font-size: 24px;
         }
       }
     }
   }
-  footer {
 
-    transition: all 0.4s ease;
+  .banner {
+    height: 244px;
+    width: 100%;
+    z-index: 50;
+    position: relative;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .banner-mask {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
 
-    .beian-container {
+  .main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    transition: all 500ms 200ms ease;
+    max-width: $main-width;
+    min-height: calc(100vh - 56px);
+    margin: auto;
+    margin-top: 64px;
+    left: 0;
+    right: 0;
+    main {
       flex: 1;
-      align-self: flex-end;
-      color: white;
-      transition: color 0.4s ease;
-      margin-bottom: 16px;
-
-      .copy {
-        margin-bottom: 20px;
+      position: relative;
+      margin: 0 24px;
+      max-width: $main-width - 316px - 48px;
+    }
+    .side-panel-wrapper {
+      flex-shrink: 0;
+      width: 316px;
+      padding-top: 24px;
+      box-sizing: border-box;
+    }
+    &.middle-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: unset;
+      .side-panel-wrapper {
+        flex: 1;
+        margin: 0 24px;
+        width: calc(100% - 48px);
       }
+    }
+    &.small-main {
+      main {
+        margin: 0;
+      }
+      .side-panel-wrapper {
+        flex: 1;
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
 
+  footer {
+    transition: all 0.4s ease;
+    background: #4a4a4a;
+    padding: 12px;
+
+    .footer-content {
+      max-width: $main-width;
+      margin: auto;
+      left: 0;
+      right: 0;
+      font-size: 12px;
+
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      color: white;
       a {
         color: mat-color(map-get($theme, primary), 100);
       }
-    }
-
-    .contact-container {
-      color: white;
-      display: flex;
-      flex-direction: column;
-
-      a {
-        height: 64px;
-        width: 64px;
-        line-height: 64px;
-
-        i {
-          font-size: 24px;
-        }
+      .beian-container {
+        margin-left: 8px;
+        align-self: flex-end;
+        transition: color 0.4s ease;
+        margin-right: 48px;
       }
     }
   }

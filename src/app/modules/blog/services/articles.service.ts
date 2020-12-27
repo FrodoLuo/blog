@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IArticle, IArticleRes, IComment } from './models/articles.model';
+import { IArticle, IArticleRes, IComment } from '../../../models/articles.model';
 
 const PAGE_SIZE = 10;
 
@@ -16,9 +16,7 @@ export class ArticlesService {
 
   public currentKeyword$ = new BehaviorSubject<string>('');
 
-  public countOfArticles = new BehaviorSubject<number>(0);
-
-  private useTag = false;
+  public countOfArticles$ = new BehaviorSubject<number>(0);
 
   public getRecentArticles(): Observable<IArticle[]> {
     return this.http.get<IArticle[]>(
@@ -26,8 +24,7 @@ export class ArticlesService {
     );
   }
 
-  public setKeyword(keyword: string, useTag: boolean): void {
-    this.useTag = useTag;
+  public setKeyword(keyword: string): void {
     this.setSearch(keyword);
   }
 
@@ -95,7 +92,7 @@ export class ArticlesService {
           }
         }
       )
-      .subscribe(res => this.countOfArticles.next(res));
+      .subscribe(res => this.countOfArticles$.next(res));
   }
 }
 
