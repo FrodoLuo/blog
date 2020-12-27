@@ -40,6 +40,7 @@
       flex: 1;
       position: relative;
       margin: 0 16px;
+      max-width: $main-width - 316px - 32px;
     }
     .side-panel-wrapper {
       flex-shrink: 0;
@@ -52,44 +53,27 @@
   footer {
     transition: all 0.4s ease;
     background: #4a4a4a;
-    padding: 24px;
+    padding: 12px;
 
     .footer-content {
       max-width: $main-width;
       margin: auto;
       left: 0;
       right: 0;
+      font-size: 12px;
 
       display: flex;
       align-items: flex-start;
-      justify-content: flex-start;
-      .beian-container {
-        align-self: flex-end;
-        color: white;
-        transition: color 0.4s ease;
-
-        margin-right: 48px;
-
-        a {
-          color: mat-color(map-get($theme, primary), 100);
-        }
+      justify-content: center;
+      color: white;
+      a {
+        color: mat-color(map-get($theme, primary), 100);
       }
-      .contact-container {
-        color: white;
-
-        .contact-icon-wrapper {
-          display: flex;
-          margin-left: -16px;
-          a {
-            height: 64px;
-            width: 64px;
-            line-height: 64px;
-
-            i {
-              font-size: 24px;
-            }
-          }
-        }
+      .beian-container {
+        margin-left: 8px;
+        align-self: flex-end;
+        transition: color 0.4s ease;
+        margin-right: 48px;
       }
     }
   }

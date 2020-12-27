@@ -18,7 +18,6 @@
       flex-direction: column;
       .article-container {
         display: flex;
-        flex: 1;
         flex-wrap: wrap;
         justify-content: space-between;
         .article-rail {
@@ -43,16 +42,22 @@
               }
             }
             .article-item--decorate-block {
-              height: 24px;
+              height: 36px;
               width: 4px;
               background: $light-primary;
               position: absolute;
-              left: 0px;
-              top: 64px;
+              left: -18px;
+              top: 0px;
             }
             .item-content {
               padding: 18px;
               position: relative;
+              &.input {
+                padding-bottom: 0;
+                mat-form-field {
+                  width: 100%;
+                }
+              }
               .title {
                 font-size: 18px;
                 font-weight: 900;
@@ -82,15 +87,14 @@
 
               .brief {
                 height: 100%;
-                overflow: auto;
                 color: gray;
                 margin: 12px 0;
-                overflow: hidden;
                 text-overflow: ellipsis;
                 font-size: 14px;
                 line-height: 28px;
                 word-break: break-all;
                 text-align: justify;
+                position: relative;
                 a {
                   color: gray;
                   text-decoration: none;
@@ -103,6 +107,18 @@
           margin-top: 10px;
           display: flex;
           justify-content: flex-end;
+        }
+      }
+      .empty-hint {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: $accent;
+        .iconfont {
+          font-size: 48px !important;
         }
       }
       .paginator {

@@ -11,6 +11,7 @@
         </ng-container>
       </div>
       <div class="article-rail">
+        <ng-container [ngTemplateOutlet]="articleSearch"></ng-container>
         <ng-container *ngFor="let item of articleListGroup$[1] | async">
           <ng-container
             [ngTemplateOutlet]="articleItem"
@@ -18,10 +19,10 @@
           ></ng-container>
         </ng-container>
       </div>
-      <div
-        *ngIf="(articleList$ | async).length == 0"
-        className="empty-hint"
-      ></div>
+    </div>
+    <div *ngIf="(articleList$ | async).length == 0" class="empty-hint">
+      <i class="iconfont icon-empty"></i>
+      Opps, Nothing Found...
     </div>
     <mat-paginator
       [pageSize]="10"
@@ -39,12 +40,12 @@
       <img [src]="item.cover" />
     </div>
     <div class="item-content">
-      <div class="article-item--decorate-block"></div>
       <a [routerLink]="'/blog/' + item.id" class="title">
         {{ item.title }}
       </a>
       <div class="brief">
         {{ item.brief || (item.content | removeMarkdown | cutBrief) }}
+        <div class="article-item--decorate-block"></div>
       </div>
       <div class="info">
         <span class="date">{{ item.updatedAt | date }}</span>
@@ -62,6 +63,34 @@
           </mat-chip>
         </mat-chip-list>
       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #articleSearch>
+  <div class="article-item">
+    <div class="item-content input">
+      <mat-form-field>
+        <input
+          #searchbox
+          matInput
+          placeholder="搜索"
+          [value]="keyword$.getValue().value"
+          (input)="keyword$.next({ value: searchbox.value, isTag: false })"
+        />
+        <button
+          mat-button
+          *ngIf="searchbox.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="
+            searchbox.value = ''; keyword$.next({ value: '', isTag: false })
+          "
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
     </div>
   </div>
 </ng-template>
