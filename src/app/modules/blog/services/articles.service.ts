@@ -16,16 +16,13 @@ export class ArticlesService {
 
   public countOfArticles = new BehaviorSubject<number>(0);
 
-  private useTag = false;
-
   public getRecentArticles(): Observable<IArticle[]> {
     return this.http.get<IArticle[]>(
       '/api/articles?pageSize=5'
     );
   }
 
-  public setKeyword(keyword: string, useTag: boolean): void {
-    this.useTag = useTag;
+  public setKeyword(keyword: string): void {
     this.setSearch(keyword);
   }
 

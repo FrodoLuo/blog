@@ -1,5 +1,14 @@
-.side-panel {
-  width: 100%;
-  min-height: 300px;
-  background: white;
+@import "~@angular/material/theming";
+@import "/src/theme-define.scss";
+
+@mixin sidepanel($theme) {
+  .side-panel {
+    border-radius: $border-radius;
+    width: 100%;
+    min-height: 300px;
+    background: white;
+    box-shadow: $card-shadow;
+  }
 }
+
+@include sidepanel($ink-app-theme);

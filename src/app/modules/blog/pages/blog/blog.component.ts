@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticlesService } from '../../services/articles.service';
 import { BehaviorSubject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blog',
@@ -16,7 +16,11 @@ export class BlogComponent implements OnInit {
 
   public currentPage = 0;
 
-  public articleList = this.articleService.articleList$;
+  public articleList$ = this.articleService.articleList$;
+  public articleListGroup$ = [
+    this.articleService.articleList$.pipe(map(v => v.filter((_, i) => i % 2 === 0))),
+    this.articleService.articleList$.pipe(map(v => v.filter((_, i) => i % 2 === 1))),
+  ];
 
   public countOfArticles = this.articleService.countOfArticles;
 
@@ -26,7 +30,7 @@ export class BlogComponent implements OnInit {
     this.keyword$.pipe(
       debounceTime(500)
     ).subscribe(input => {
-      this.articleService.setKeyword(input.value, input.isTag);
+      this.articleService.setKeyword(input.value);
     });
   }
 

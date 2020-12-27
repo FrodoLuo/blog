@@ -1,89 +1,115 @@
 @import "~@angular/material/theming";
-@import "src/theme-define.scss";
+@import "/src/theme-define.scss";
 
 @mixin blog-page($theme) {
   $primary: mat-color(map-get($theme, primary));
+  $accent: mat-color(map-get($theme, accent));
+  $light-primary: lighten($primary, 20%);
 
-  .blog-content {
-    padding-top: 8px;
-    .article-container {
+  .blog-page {
+    height: 100%;
+    padding-top: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    .blog-content {
+      flex: 1;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      .article-item {
-        margin-bottom: 24px;
-        background: white;
-        border-radius: $border-radius;
-        font-family: "ming";
-        position: relative;
-        .cover {
-          width: 100%;
-          height: 248px;
-          img {
+      flex-direction: column;
+      .article-container {
+        display: flex;
+        flex: 1;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .article-rail {
+          flex: 1;
+          &:not(:last-child) {
+            margin-right: 16px;
+          }
+          .article-item {
+            margin-bottom: 24px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            background: white;
+            border-radius: $border-radius;
+            overflow: hidden;
+            font-family: "ming";
+            position: relative;
+            box-shadow: $card-shadow;
+            .cover {
+              width: 100%;
+              img {
+                width: 100%;
+                object-fit: cover;
+              }
+            }
+            .article-item--decorate-block {
+              height: 24px;
+              width: 4px;
+              background: $light-primary;
+              position: absolute;
+              left: 0px;
+              top: 64px;
+            }
+            .item-content {
+              padding: 18px;
+              position: relative;
+              .title {
+                font-size: 18px;
+                font-weight: 900;
+                color: $primary;
+                text-decoration: none;
+                transition: all ease 0.3s;
+                &:hover {
+                  opacity: 0.7;
+                }
+              }
+
+              .info {
+                color: gray;
+                font-size: 10px;
+                text-align: right;
+                span {
+                  display: inline-block;
+                }
+
+                .user {
+                  width: 80px;
+                  text-overflow: ellipsis;
+                  text-align: right;
+                  white-space: nowrap;
+                }
+              }
+
+              .brief {
+                height: 100%;
+                overflow: auto;
+                color: gray;
+                margin: 12px 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 14px;
+                line-height: 28px;
+                word-break: break-all;
+                text-align: justify;
+                a {
+                  color: gray;
+                  text-decoration: none;
+                }
+              }
+            }
           }
         }
-        .item-content {
-          padding: 18px;
-          position: relative;
-          .article-item--decorate-block {
-            height: 24px;
-            width: 12px;
-            background: $primary;
-            position: absolute;
-            left: -6px;
-            top: 36px;
-          }
-          .title {
-            font-size: 18px;
-            font-weight: 900;
-            color: $primary;
-            text-decoration: none;
-            transition: all ease 0.3s;
-            &:hover {
-              opacity: 0.7;
-            }
-          }
-
-          .info {
-            color: gray;
-            font-size: 10px;
-            margin-top: 5px;
-
-            span {
-              display: inline-block;
-            }
-
-            .user {
-              width: 80px;
-              text-overflow: ellipsis;
-              text-align: right;
-              white-space: nowrap;
-            }
-          }
-
-          .brief {
-            height: 100%;
-            overflow: auto;
-            color: gray;
-            margin: 12px 0;
-            line-height: 32px;
-            word-break: break-all;
-            text-align: justify;
-            a {
-              color: gray;
-              text-decoration: none;
-            }
-          }
+        .tag-container {
+          margin-top: 10px;
+          display: flex;
+          justify-content: flex-end;
         }
       }
-      .tag-container {
-        margin-top: 10px;
+      .paginator {
+        box-shadow: $card-shadow;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
       }
-    }
-    .paginator {
     }
   }
 }
