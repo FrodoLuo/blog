@@ -32,7 +32,7 @@
         {{ item.title }}
       </a>
       <div class="brief">
-        {{ item.brief || (item.content | cutBrief) }}
+        {{ item.brief || (item.content | removeMarkdown | cutBrief) }}
         <div class="article-item--decorate-block"></div>
       </div>
       <div class="info">

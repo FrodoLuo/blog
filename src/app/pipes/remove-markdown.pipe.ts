@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import removemarkdown from 'remove-markdown';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const removemarkdown = require('remove-markdown');
 
 @Pipe({
   name: 'removeMarkdown'
