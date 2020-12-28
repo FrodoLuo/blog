@@ -11,6 +11,7 @@ import { ArticlesService } from '../../services/articles.service';
 import { TitleService } from '../../../../services/title.service';
 import { IArticle } from 'src/app/models/articles.model';
 import { FullscreenImageService } from 'src/app/services/fullscreen-image.service';
+import { ScreenService } from 'src/app/services/screen.service';
 
 @Component({
   selector: 'app-article',
@@ -22,13 +23,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private titleService: TitleService,
     private articlesService: ArticlesService,
-    private fullImageService: FullscreenImageService
+    private fullImageService: FullscreenImageService,
+    private screenService: ScreenService,
   ) {}
 
   private subscriptions: Subscription;
-
   @ViewChild('comment') private commentField: ElementRef<HTMLTextAreaElement>;
 
+  public screenSize$ = this.screenService.currentScreenSize$;
   public commentRejected = false;
   public article: IArticle = null;
   public publishing = false;

@@ -1,4 +1,4 @@
-<div class="article-page">
+<div class="article-page" [class.small-page]="(screenSize$ | async) <= 1">
   <div class="article-body" *ngIf="article">
     <h1 class="article-title">
       {{ article.title }}

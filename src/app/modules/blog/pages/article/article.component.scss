@@ -3,9 +3,14 @@
 
 $page-padding: 18px;
 
+
 @mixin articlePage($theme) {
   .article-page {
     margin-top: 24px;
+    max-width: calc(100vw - #{$side-width} - #{$side-margin * 2});
+    &.small-page {
+      max-width: 100vw;
+    }
     .article-body {
       padding: $page-padding;
       background: white;
