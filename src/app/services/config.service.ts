@@ -63,7 +63,6 @@ export class ConfigService {
         })
       )
       .subscribe((res) => {
-        console.log(res);
         this.hotTags$.next(res);
       });
   }

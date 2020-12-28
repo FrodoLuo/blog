@@ -89,7 +89,6 @@ export class StickyDirective implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    console.log(3213123123);
     if (isPlatformBrowser(this.platformId)) {
       this.subscription.add(
         fromEvent(this.document, 'scroll')
@@ -102,7 +101,6 @@ export class StickyDirective implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    console.log(12123123);
     this.cloned && this.document.body.removeChild(this.cloned);
     this.subscription.unsubscribe();
   }

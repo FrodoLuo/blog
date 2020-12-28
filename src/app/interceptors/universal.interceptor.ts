@@ -11,14 +11,12 @@ export class UniversalInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let serverReq: HttpRequest<any> = req;
-    console.log('reach intercept', req.url);
     if (this.request) {
       let newUrl = `${this.request.protocol}://frodoluo.ink`;
       if (!req.url.startsWith('/')) {
         newUrl += '/';
       }
       newUrl += req.url;
-      console.log(newUrl);
       serverReq = req.clone({url: newUrl});
     }
     return next.handle(serverReq);

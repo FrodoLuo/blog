@@ -55,12 +55,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.publishing = true;
     this.articlesService
       .leaveComment(this.article.id, content, nick, email)
-      .subscribe((res) => {
-        console.log(res);
+      .subscribe(() => {
         this.commentRejected = false;
         this.publishing = false;
         this.commentField.nativeElement.value = '';
-        console.log(this.commentField);
         this.articlesService
           .getArticleDetail(this.article.id)
           .subscribe((res) => {
@@ -71,7 +69,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   public onMarkdownLoad(): void {
     const images = document.documentElement.querySelectorAll('.article img');
-    console.log(images);
     images.forEach((image: HTMLImageElement) => {
       image.addEventListener('click', () => {
         this.fullImageService.showImage$.next(image.src);

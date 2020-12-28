@@ -42,6 +42,5 @@ export class ScreenService {
     } else {
       this.currentScreenSize$.next(ScreenSize.extraSmall);
     }
-    console.log(this.currentScreenSize$.getValue());
   }
 }

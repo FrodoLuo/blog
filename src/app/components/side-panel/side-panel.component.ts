@@ -35,7 +35,6 @@ export class SidePanelComponent implements OnInit, OnDestroy {
   }
 
   public setKeyword(tag: string): void {
-    console.log(123);
     this.articleService.setKeyword(tag);
   }
 
