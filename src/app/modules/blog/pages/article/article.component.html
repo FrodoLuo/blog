@@ -1,4 +1,7 @@
-<div class="article-page" [class.small-page]="(screenSize$ | async) <= 1">
+<div
+  class="article-page"
+  [class.small-page]="(screenService.currentScreenSize$ | async) <= 1"
+>
   <div class="article-body" *ngIf="article">
     <h1 class="article-title">
       {{ article.title }}
@@ -56,7 +59,7 @@
             {{ comment.nickname }}
           </div>
           <div class="time">
-            {{ comment.createdAt | date: "medium" }}
+            {{ comment.createdAt | date: 'medium' }}
           </div>
         </div>
         <div class="comment-content-wrap">

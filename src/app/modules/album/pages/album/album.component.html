@@ -2,18 +2,19 @@
   <ng-container>
     <ng-container
       [ngTemplateOutlet]="
-        (screenSize$ | async) === 0 || (screenSize$ | async) === 2
+        (screenService.currentScreenSize$ | async) === 0 ||
+        (screenService.currentScreenSize$ | async) === 2
           ? smallAlbum
           : fullAlbum
       "
     ></ng-container>
-    <div *ngIf="(photos$ | async).length == 0" class="empty-hint">
+    <div *ngIf="(albumService.photos$ | async).length == 0" class="empty-hint">
       <i class="iconfont icon-empty"></i>
       Opps, Nothing Found...
     </div>
     <mat-paginator
       [pageSize]="10"
-      [length]="countOfPhotos$ | async"
+      [length]="albumService.countOfPhotos$ | async"
       (page)="setPage($event.pageIndex)"
       #paginator
       class="paginator"
@@ -25,7 +26,7 @@
   <div class="photo-container">
     <div class="photo-rail">
       <ng-container
-        *ngFor="let photo of photos$ | async"
+        *ngFor="let photo of albumService.photos$ | async"
         [ngTemplateOutlet]="photoItem"
         [ngTemplateOutletContext]="{ photo: photo }"
       >

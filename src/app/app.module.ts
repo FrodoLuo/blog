@@ -17,6 +17,7 @@ import { AlbumLayoutComponent } from './layout/album-layout/album-layout.compone
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { FullscreenImageComponent } from './components/fullscreen-image/fullscreen-image.component';
 import { SidePanelComponent } from './components/side-panel/side-panel.component';
+import { Live2dModule } from './modules/live2d/live2d.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SidePanelComponent } from './components/side-panel/side-panel.component
     HttpClientModule,
     MaterialModule,
     CommonDeclarationModule,
+    Live2dModule,
 
     AlbumModule,
     BlogModule,

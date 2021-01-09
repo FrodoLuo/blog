@@ -12,13 +12,15 @@
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "src/assets/lib"
     ],
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
   },
+  "exclude": ["src/assets/lib/*.js"],
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
