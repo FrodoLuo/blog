@@ -3,18 +3,22 @@
   <div class="blog-content">
     <ng-container
       [ngTemplateOutlet]="
-        (screenSize$ | async) === 0 || (screenSize$ | async) === 2
+        (screenService.currentScreenSize$ | async) === 0 ||
+        (screenService.currentScreenSize$ | async) === 2
           ? smallSizeRail
           : fullSizeRail
       "
     ></ng-container>
-    <div *ngIf="(articleList$ | async).length == 0" class="empty-hint">
+    <div
+      *ngIf="(articleService.articleList$ | async).length == 0"
+      class="empty-hint"
+    >
       <i class="iconfont icon-empty"></i>
       Opps, Nothing Found...
     </div>
     <mat-paginator
       [pageSize]="10"
-      [length]="countOfArticles$ | async"
+      [length]="articleService.countOfArticles$ | async"
       (page)="setPage($event.pageIndex)"
       #paginator
       class="paginator"
@@ -63,7 +67,7 @@
           #searchbox
           matInput
           placeholder="搜索"
-          [value]="keyword$ | async"
+          [value]="articleService.currentKeyword$ | async"
           (input)="inputChange$.next(searchbox.value)"
         />
         <button
@@ -85,7 +89,7 @@
   <div class="article-container">
     <div class="article-rail">
       <ng-container [ngTemplateOutlet]="articleSearch"></ng-container>
-      <ng-container *ngFor="let item of articleList$ | async">
+      <ng-container *ngFor="let item of articleService.articleList$ | async">
         <ng-container
           [ngTemplateOutlet]="articleItem"
           [ngTemplateOutletContext]="{ item: item }"

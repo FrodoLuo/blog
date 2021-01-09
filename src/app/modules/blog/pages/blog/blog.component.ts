@@ -11,13 +11,12 @@ import { ScreenService } from 'src/app/services/screen.service';
 })
 export class BlogComponent implements OnInit {
   constructor(
-    private articleService: ArticlesService,
-    private screenService: ScreenService
+    public articleService: ArticlesService,
+    public screenService: ScreenService
   ) {}
 
   public currentPage = 0;
 
-  public articleList$ = this.articleService.articleList$;
   public articleListGroup$ = [
     this.articleService.articleList$.pipe(
       map((v) => v.filter((_, i) => i % 2 === 0))
@@ -26,10 +25,7 @@ export class BlogComponent implements OnInit {
       map((v) => v.filter((_, i) => i % 2 === 1))
     ),
   ];
-  public keyword$ = this.articleService.currentKeyword$;
   public inputChange$ = new Subject<string>();
-  public screenSize$ = this.screenService.currentScreenSize$;
-  public countOfArticles$ = this.articleService.countOfArticles$;
 
   public ngOnInit(): void {
     this.articleService.refreshPage(0);
