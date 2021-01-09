@@ -1,0 +1,5 @@
+<canvas
+  class="live2d-container"
+  #container
+  [hidden]="(screenService.currentScreenSize$ | async) <= 2"
+></canvas>

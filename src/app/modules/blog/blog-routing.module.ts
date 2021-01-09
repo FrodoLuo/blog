@@ -4,23 +4,23 @@ import { ArticleComponent } from './pages/article/article.component';
 import { BlogComponent } from './pages/blog/blog.component';
 import { ArticlePageResolver } from 'src/app/router-resolvers/article-page.resolver';
 
-
 const routes: Routes = [
   {
     path: '',
     component: BlogComponent,
   },
   {
-    path: 'blog/:id',
+    path: 'detail/:id',
     component: ArticleComponent,
+    pathMatch: 'full',
     resolve: {
-      article: ArticlePageResolver
-    }
-  }
+      article: ArticlePageResolver,
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class BlogRoutingModule { }
+export class BlogRoutingModule {}
