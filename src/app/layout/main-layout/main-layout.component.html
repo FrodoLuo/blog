@@ -1,14 +1,3 @@
-<ng-container *ngIf="background$ | async">
-  <div class="banner">
-    <img [src]="background$ | async" />
-    <div class="banner-mask">
-      <div class="logo-title">
-        <i class="iconfont icon-feather"></i>
-        Life is short, just enjoy the moment.
-      </div>
-    </div>
-  </div>
-</ng-container>
 <header>
   <div class="nav-wrapper">
     <app-nav-menu [expand]="(screenSize$ | async) >= 1"></app-nav-menu>
