@@ -12,4 +12,4 @@ RUN npm i -g pm2
 
 EXPOSE 4000
 
-ENTRYPOINT ["pm2", "start", "./dist/server/main.js"]
+ENTRYPOINT ["pm2", "start", "./dist/server/main.js", "--no-daemon"]
