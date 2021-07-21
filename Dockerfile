@@ -1,5 +1,10 @@
 FROM node:12
 
+RUN mkdir -p /home/blog
+WORKDIR /home/blog
+
+COPY . /home/blog
+
 RUN yarn install
 RUN yarn build:ssr
 
