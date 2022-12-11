@@ -34,7 +34,7 @@
     "@angular/service-worker": "~11.0.3",
     "@nguniversal/express-engine": "^11.0.0",
     "angular-cli-ghpages": "^0.6.2",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "ngx-markdown": "^10.1.1",
     "remove-markdown": "^0.3.0",
     "rxjs": "~6.6.3",
